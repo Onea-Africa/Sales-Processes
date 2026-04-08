@@ -1,0 +1,2590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onea Africa — Sales Process Documentation</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --green: #8CC444;
+            --yellow: #F4D350;
+            --violet: #D6139F;
+            --dark: #111111;
+            --mid: #2a2a2a;
+            --soft: #f5f5f2;
+            --border: #e0e0d8;
+            --text: #1a1a1a;
+            --muted: #666;
+            --white: #ffffff;
+            --surface: #ffffff;
+            --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Readex Pro', 'Inter', sans-serif;
+            background: var(--soft);
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.72;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: #f6f7f8;
+            border-bottom: 1px solid #dde0e4;
+            padding: 22px 24px;
+            color: var(--text);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .header-logo {
+            display: block;
+            width: auto;
+            height: 60px;
+            border-radius: 14px;
+            flex-shrink: 0;
+        }
+
+        .header-logo svg {
+            display: block;
+            width: auto;
+            max-height: 100%;
+            height: 100%;
+            shape-rendering: geometricPrecision;
+            text-rendering: geometricPrecision;
+        }
+
+        .header-left {
+            min-width: 0;
+        }
+
+        .header-left h1 {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .header-left .tagline {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6f747b;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .header-meta {
+            text-align: left;
+            font-size: 12px;
+            color: #6f747b;
+            display: grid;
+            gap: 4px;
+            min-width: 240px;
+        }
+
+        .header-meta strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 820px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-meta {
+                width: 100%;
+            }
+        }
+
+        /* INTRO BAND */
+        .intro-band {
+            background: #fbfcfd;
+            border-bottom: 1px solid var(--border);
+            padding: 28px 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .intro-pill {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .pill-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .pill-icon.green {
+            background: #edf7d8;
+            color: var(--green);
+        }
+
+        .pill-icon.yellow {
+            background: #fdf8e1;
+            color: #c8a800;
+        }
+
+        .pill-icon.violet {
+            background: #fce8f6;
+            color: var(--violet);
+        }
+
+        .intro-pill h4 {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .intro-pill p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* DIVISION TABS */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 30px;
+            background: var(--white);
+            border-bottom: 2px solid var(--border);
+            overflow-x: auto;
+            flex-wrap: wrap;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .tab-btn {
+            min-width: 180px;
+            padding: 12px 22px;
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border: 1px solid #d9dde1;
+            background: #ffffff;
+            cursor: pointer;
+            color: #5f656d;
+            border-radius: 999px;
+            margin-bottom: 0;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+            background: #f2f4f6;
+        }
+
+        .tab-btn.active.conn {
+            color: var(--green);
+            background: rgba(140, 196, 68, 0.12);
+            border-color: rgba(140, 196, 68, 0.22);
+            box-shadow: inset 0 -3px 0 var(--green);
+        }
+
+        .tab-btn.active.agency {
+            color: var(--violet);
+            background: rgba(214, 19, 159, 0.08);
+            border-color: rgba(214, 19, 159, 0.18);
+            box-shadow: inset 0 -3px 0 var(--violet);
+        }
+
+        .tab-btn.active.it {
+            color: #c8a800;
+            background: rgba(244, 211, 80, 0.14);
+            border-color: rgba(244, 211, 80, 0.2);
+            box-shadow: inset 0 -3px 0 var(--yellow);
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 48px 30px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .division {
+            display: none;
+        }
+
+        .division.active {
+            display: block;
+        }
+
+        /* DIVISION HEADER */
+        .div-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 36px;
+            padding: 28px 32px;
+            border-radius: 14px;
+            border-left: 6px solid;
+        }
+
+        .div-header.conn {
+            background: #f0f9e6;
+            border-color: var(--green);
+        }
+
+        .div-header.agency {
+            background: #fce8f6;
+            border-color: var(--violet);
+        }
+
+        .div-header.it {
+            background: #fdf8e1;
+            border-color: var(--yellow);
+        }
+
+        .div-header-icon {
+            font-size: 36px;
+        }
+
+        .div-header h2 {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .div-header p {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* SECTION LABEL */
+        .section-label {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* FLOW DIAGRAM */
+        .flow-container {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+
+        .flow-title {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flow-title::before {
+            content: '';
+            display: block;
+            width: 18px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .flow-title.conn::before {
+            background: var(--green);
+        }
+
+        .flow-title.agency::before {
+            background: var(--violet);
+        }
+
+        .flow-title.it::before {
+            background: var(--yellow);
+        }
+
+        .flow {
+            display: grid;
+            gap: 28px;
+        }
+
+        .flow-row {
+            display: grid;
+            gap: 14px;
+            border-top: 1px solid #e5e7eb;
+            padding: 16px 18px 18px;
+            background: rgba(248, 250, 252, 0.86);
+            border-radius: 16px;
+        }
+
+        .flow-row:first-child {
+            border-top: none;
+            padding-top: 0;
+            background: transparent;
+            border-radius: 0;
+        }
+
+        .row-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #4f5660;
+            background: rgba(255, 255, 255, 0.88);
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(209, 214, 221, 0.7);
+            width: fit-content;
+        }
+
+        .row-label::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: #d9dde1;
+        }
+
+        .row-label-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            height: 24px;
+            border-radius: 999px;
+            background: rgba(95, 101, 109, 0.08);
+            color: #5f656d;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 0 10px;
+        }
+
+        .flow-row-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            position: relative;
+            width: 100%;
+            flex: 1 1 220px;
+            min-width: 220px;
+            max-width: none;
+        }
+
+        .flow-arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 32px;
+            color: #6f747b;
+            opacity: 0.72;
+            flex: 0 0 36px;
+        }
+
+        .flow-arrow svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .flow-arrow svg path {
+            stroke: currentColor !important;
+            stroke-width: 1.8 !important;
+        }
+
+        .flow-arrow.down {
+            padding: 4px 0;
+            margin-top: 0;
+            justify-content: center;
+            width: 100%;
+            grid-column: 1 / -1;
+        }
+
+        .flow-box {
+            border-radius: 10px;
+            padding: 14px 16px 16px;
+            width: 100%;
+            min-width: 0;
+            max-width: 260px;
+            text-align: left;
+            border: 2px solid;
+            position: relative;
+            cursor: default;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .flow-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 28px;
+            padding: 0 10px;
+            border-radius: 999px;
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(95, 101, 109, 0.12);
+        }
+
+        .flow-num.conn {
+            color: var(--green);
+            background: rgba(140, 196, 68, 0.12);
+            border-color: rgba(140, 196, 68, 0.2);
+        }
+
+        .flow-num.agency {
+            color: var(--violet);
+            background: rgba(214, 19, 159, 0.12);
+            border-color: rgba(214, 19, 159, 0.2);
+        }
+
+        .flow-num.it {
+            color: #b89400;
+            background: rgba(244, 211, 80, 0.14);
+            border-color: rgba(244, 211, 80, 0.2);
+        }
+
+        .flow-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.35;
+            margin-bottom: 6px;
+        }
+
+        .flow-sub {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 0;
+            line-height: 1.4;
+        }
+
+        .flow-box.conn {
+            background: #edf7d8;
+            border-color: var(--green);
+        }
+
+        .flow-box.agency {
+            background: #fce8f6;
+            border-color: var(--violet);
+        }
+
+        .flow-box.it {
+            background: #fffbe6;
+            border-color: var(--yellow);
+        }
+
+        .flow-box.decision {
+            background: #fff;
+            border-style: dashed;
+        }
+
+        .flow-box.decision.conn {
+            border-color: var(--green);
+        }
+
+        .flow-box.decision.agency {
+            border-color: var(--violet);
+        }
+
+        .flow-box.decision.it {
+            border-color: var(--yellow);
+        }
+
+        .flow-num {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .flow-num.conn {
+            color: var(--green);
+        }
+
+        .flow-num.agency {
+            color: var(--violet);
+        }
+
+        .flow-num.it {
+            color: #b89400;
+        }
+
+        .flow-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .flow-sub {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 3px;
+            line-height: 1.2;
+        }
+
+        /* RISK/BOTTLENECK RIBBON */
+        .info-ribbon {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .ribbon-card {
+            border-radius: 12px;
+            padding: 22px 24px;
+            border: 1px solid;
+        }
+
+        .ribbon-card.risk {
+            background: #fff5f5;
+            border-color: #ffcccc;
+        }
+
+        .ribbon-card.bottle {
+            background: #fff8e1;
+            border-color: #ffe082;
+        }
+
+        .ribbon-card.efficiency {
+            background: #f0f9e6;
+            border-color: #c5e1a5;
+        }
+
+        .ribbon-card.mindset {
+            background: #fce8f6;
+            border-color: #f48fb1;
+        }
+
+        .ribbon-card h4 {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ribbon-card.risk h4 {
+            color: #c62828;
+        }
+
+        .ribbon-card.bottle h4 {
+            color: #e65100;
+        }
+
+        .ribbon-card.efficiency h4 {
+            color: #33691e;
+        }
+
+        .ribbon-card.mindset h4 {
+            color: var(--violet);
+        }
+
+        .ribbon-card ul {
+            padding-left: 16px;
+        }
+
+        .ribbon-card li {
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .ribbon-card li strong {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 1px;
+        }
+
+        .ribbon-card li span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* PROCESS STEPS */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 22px 24px;
+            border-top: 4px solid;
+            transition: box-shadow 0.2s;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .step-card.conn {
+            border-top-color: var(--green);
+        }
+
+        .step-card.agency {
+            border-top-color: var(--violet);
+        }
+
+        .step-card.it {
+            border-top-color: var(--yellow);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .step-num-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-num-badge.conn {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .step-num-badge.agency {
+            background: var(--violet);
+            color: var(--white);
+        }
+
+        .step-num-badge.it {
+            background: var(--yellow);
+            color: var(--dark);
+        }
+
+        .step-title {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .step-who {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .step-who.conn {
+            background: #edf7d8;
+            color: #4a7c20;
+        }
+
+        .step-who.agency {
+            background: #fce8f6;
+            color: var(--violet);
+        }
+
+        .step-who.it {
+            background: #fffbe6;
+            color: #8a6f00;
+        }
+
+        .step-body {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .step-body ol {
+            padding-left: 16px;
+        }
+
+        .step-body li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .step-body p {
+            margin-bottom: 8px;
+        }
+
+        .step-output {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .step-output.conn {
+            background: #edf7d8;
+            color: #3a6010;
+        }
+
+        .step-output.agency {
+            background: #fce8f6;
+            color: #8a005a;
+        }
+
+        .step-output.it {
+            background: #fffbe6;
+            color: #7a5f00;
+        }
+
+        .step-output strong {
+            font-weight: 600;
+        }
+
+        .step-flag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-top: 10px;
+            margin-right: 6px;
+        }
+
+        .flag-risk {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .flag-bottle {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .flag-tip {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* EXPERIENCE CALLOUT */
+        .experience-callout {
+            background: #D6139F;
+            color: var(--white);
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .exp-item h4 {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .exp-item h4.conn {
+            color: var(--green);
+        }
+
+        .exp-item h4.agency {
+            color: var(--violet);
+        }
+
+        .exp-item h4.it {
+            color: var(--yellow);
+        }
+
+        .exp-item p {
+            font-size: 13px;
+            color: var(--white);
+            line-height: 1.5;
+        }
+
+        .exp-item .pain {
+            color: #ff8a80;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .exp-item .fix {
+            color: var(--green);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* CCC BANNER */
+        .ccc-banner {
+            background: linear-gradient(135deg, #F4D350 0%, #f9f9f9 100%);
+            border-radius: 14px;
+            padding: 24px 32px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .ccc-item {
+            flex: 1;
+            text-align: center;
+            padding: 16px;
+            border-radius: 10px;
+            min-width: 160px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(6px);
+        }
+
+        .ccc-item.c1 {
+            background: rgba(140, 196, 68, 0.14);
+        }
+
+        .ccc-item.c2 {
+            background: rgba(244, 211, 80, 0.15);
+        }
+
+        .ccc-item.c3 {
+            background: rgba(214, 19, 159, 0.14);
+        }
+
+        .ccc-word {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .ccc-item.c1 .ccc-word {
+            color: var(--green);
+        }
+
+        .ccc-item.c2 .ccc-word {
+            color: var(--yellow);
+        }
+
+        .ccc-item.c3 .ccc-word {
+            color: var(--violet);
+        }
+
+        .ccc-desc {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .ccc-divider {
+            color: var(--text);
+            font-size: 28px;
+            font-weight: 300;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #f4f6f8;
+            color: var(--text);
+            padding: 24px 30px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #dde0e4;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .footer strong {
+            color: var(--green);
+        }
+
+        @media (max-width: 900px) {
+
+            .header,
+            .intro-band,
+            .content,
+            .tabs,
+            .footer {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .intro-band,
+            .info-ribbon,
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-callout {
+                grid-template-columns: 1fr;
+            }
+
+            .header-left h1 {
+                font-size: 24px;
+            }
+
+            .tab-btn {
+                min-width: 140px;
+            }
+
+            .ccc-banner {
+                padding: 20px;
+            }
+
+            .footer {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .ccc-banner {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .flow {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-inner">
+            <div class="header-brand">
+                <div class="header-logo" aria-label="Onea Africa logo">
+                    <svg viewBox="0 0 320 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle"
+                        preserveAspectRatio="xMinYMid meet" shape-rendering="geometricPrecision"
+                        text-rendering="geometricPrecision">
+                        <title id="logoTitle">Onea Africa logo</title>
+                        <defs>
+                            <linearGradient id="logoGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#A8DA6B" />
+                                <stop offset="100%" stop-color="#7BB23D" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="M216 0C170 46 92 124 80 172C70 214 90 252 128 268C168 286 214 264 246 222C282 172 310 124 316 76C322 30 264 -10 216 0Z"
+                            fill="url(#logoGreen)" />
+                        <path
+                            d="M216 0C170 46 92 124 80 172C70 214 90 252 128 268C168 286 214 264 246 222C282 172 310 124 316 76C322 30 264 -10 216 0Z"
+                            fill="none" stroke="#111111" stroke-width="4" stroke-linejoin="round" opacity="0.24" />
+                        <text x="0" y="60" font-family="Readex Pro, sans-serif" font-size="56" font-weight="700"
+                            fill="#D6139F">Onea</text>
+                    </svg>
+                </div>
+                <div class="header-left">
+                    <h1>Onea Africa</h1>
+                    <div class="tagline">Connect · Communicate · Converse</div>
+                </div>
+            </div>
+            <div class="header-meta">
+                <div><strong>Version:</strong> 1.0 — April 2026</div>
+                <div><strong>Owner:</strong> CEO / MD</div>
+                <div><strong>Applies to:</strong> All Sales Roles</div>
+                <div>connect@onea.co.za · 081 718 3881</div>
+                <div>www.onea.africa</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTRO BAND -->
+    <div class="intro-band">
+        <div class="intro-pill">
+            <div class="pill-icon green">🎯</div>
+            <div>
+                <h4>Purpose</h4>
+                <p>Every person on this team should be able to run any part of the sales process independently — no
+                    chasing the
+                    CEO for answers.</p>
+            </div>
+        </div>
+        <div class="intro-pill">
+            <div class="pill-icon yellow">⚠️</div>
+            <div>
+                <h4>Bottlenecks & Risks</h4>
+                <p>Each process flags where things typically get stuck, where deals die, and what to do about it before
+                    it
+                    becomes a problem.</p>
+            </div>
+        </div>
+        <div class="intro-pill">
+            <div class="pill-icon violet">💬</div>
+            <div>
+                <h4>The Mindset</h4>
+                <p>We don't sell to people. We connect with them, communicate what's possible, and converse until they
+                    say yes
+                    on their own terms.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="tab-btn active conn" onclick="switchTab('conn', this)">🌐 Connectivity & Fibre</button>
+        <button class="tab-btn agency" onclick="switchTab('agency', this)">📣 Digital Marketing & Agency</button>
+        <button class="tab-btn it" onclick="switchTab('it', this)">🖥️ IT Services</button>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- ============================================================ -->
+        <!-- DIVISION 1: CONNECTIVITY -->
+        <!-- ============================================================ -->
+        <div class="division active" id="div-conn">
+
+            <div class="div-header conn">
+                <div class="div-header-icon">🌐</div>
+                <div>
+                    <h2>Connectivity & Fibre Reseller — Sales Process</h2>
+                    <p>Field agents, gazebo setups, township community engagement. Partners: Telkom, Supersonic, Home
+                        Connect, ND
+                        Connect via Openserve infrastructure.</p>
+                </div>
+            </div>
+
+            <!-- CCC ALIGNMENT -->
+            <div class="ccc-banner">
+                <div class="ccc-item c1">
+                    <div class="ccc-word">Connect</div>
+                    <div class="ccc-desc">Show up in the community. Be at the gazebo, hand out flyers, knock on doors.
+                        Fibre sells
+                        when people see a real human being from the neighbourhood explaining it.</div>
+                </div>
+                <div class="ccc-divider">·</div>
+                <div class="ccc-item c2">
+                    <div class="ccc-word">Communicate</div>
+                    <div class="ccc-desc">Speak their language. Compare ISP packages in plain rands per month. Answer
+                        "will it
+                        work in my area?" before they ask.</div>
+                </div>
+                <div class="ccc-divider">·</div>
+                <div class="ccc-item c3">
+                    <div class="ccc-word">Converse</div>
+                    <div class="ccc-desc">Handle objections like a neighbour, not a salesperson. Follow up until they're
+                        on fibre
+                        — that's the whole goal.</div>
+                </div>
+            </div>
+
+            <!-- FLOW DIAGRAM -->
+            <div class="section-label">Process Flow — End to End</div>
+            <div class="flow-container">
+                <div class="flow-title conn">Connectivity Sales Flow</div>
+                <div class="flow">
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 1</span> Demand capture</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">01</div>
+                                    <div class="flow-label">Lead Generation</div>
+                                    <div class="flow-sub">Gazebo · Flyers · Referrals</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">02</div>
+                                    <div class="flow-label">Coverage Check</div>
+                                    <div class="flow-sub">Openserve map verify</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box decision conn">
+                                    <div class="flow-num conn">⬦</div>
+                                    <div class="flow-label">Covered?</div>
+                                    <div class="flow-sub">Yes → continue<br />No → waitlist</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 2</span> Proposal & application</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">03</div>
+                                    <div class="flow-label">ISP Comparison</div>
+                                    <div class="flow-sub">Telkom · Supersonic · HC · NDC</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">04</div>
+                                    <div class="flow-label">Application</div>
+                                    <div class="flow-sub">RICA · ID · Proof of residence</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">05</div>
+                                    <div class="flow-label">Order Submission</div>
+                                    <div class="flow-sub">Submit to ISP portal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 3</span> Delivery & referral</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">06</div>
+                                    <div class="flow-label">Installation</div>
+                                    <div class="flow-sub">Openserve technician books</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">07</div>
+                                    <div class="flow-label">Activation</div>
+                                    <div class="flow-sub">Live test + sign-off</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box conn">
+                                    <div class="flow-num conn">08</div>
+                                    <div class="flow-label">Referral Ask</div>
+                                    <div class="flow-sub">"Who else in your street?"</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DETAILED STEPS -->
+            <div class="section-label">Step-by-Step Detail</div>
+            <div class="steps-grid">
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">01</div>
+                        <div class="step-title">Lead Generation — Go to the Community</div>
+                        <span class="step-who conn">Field Agent</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Set up branded gazebo in a high-foot-traffic area inside a confirmed Openserve coverage
+                                zone.</li>
+                            <li>Distribute flyers door-to-door in the surrounding 200m radius. Focus on flats,
+                                complexes, and informal
+                                rows first.</li>
+                            <li>Engage passers-by with a simple opener: <em>"Do you have Wi-Fi at home? Can I show you
+                                    what fibre
+                                    costs in your area?"</em></li>
+                            <li>Log every conversation in the tracking sheet — even the "not interested" ones (area,
+                                objection, date).
+                            </li>
+                            <li>Ask every existing customer for one referral before leaving their home after
+                                installation.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> Lead list with name, contact number, address,
+                        and
+                        initial interest level (Hot / Warm / Cold).</div>
+                    <span class="step-flag flag-bottle">⚠ Bottleneck: Team runs out of flyers mid-day — always pre-pack
+                        200+ per
+                        session.</span>
+                </div>
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">02</div>
+                        <div class="step-title">Coverage Verification — Check Before You Promise</div>
+                        <span class="step-who conn">Field Agent</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Open the Openserve coverage checker on your phone before engaging the lead further.</li>
+                            <li>Enter the client's exact street address. Screenshot the result.</li>
+                            <li>If covered: move forward immediately. Say — <em>"Good news, your street is already on
+                                    fibre."</em>
+                            </li>
+                            <li>If not covered: add to a waitlist with the client's number and tell them honestly —
+                                <em>"We'll call
+                                    you the moment fibre reaches your street."</em></li>
+                            <li>Never promise a date for coverage that doesn't exist yet. One broken promise kills
+                                word-of-mouth.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> Coverage status confirmed. Waitlist updated
+                        if not
+                        covered.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Promising coverage that doesn't exist. Resolution:
+                        Coverage check
+                        is non-negotiable — no check, no pitch.</span>
+                </div>
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">03</div>
+                        <div class="step-title">ISP Package Comparison — Help Them Choose</div>
+                        <span class="step-who conn">Field Agent</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Pull up the ISP comparison sheet (always keep the latest printed copy in your bag too).
+                            </li>
+                            <li>Ask: <em>"How many people use the internet at home? Do you stream? Work from home?"</em>
+                            </li>
+                            <li>Based on their answers, recommend 1–2 packages. Don't overwhelm with all options.</li>
+                            <li>Always mention the month-to-month option first — it reduces the fear of commitment.</li>
+                            <li>If they want Telkom — explain the SIB commission structure means you earn your first
+                                full month.
+                                Process it properly through the Telkom portal only.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> Client has selected an ISP and package.
+                        Verbal
+                        commitment confirmed.</div>
+                    <span class="step-flag flag-tip">✅ Efficiency: Keep a laminated one-page ISP comparison card — no
+                        scrolling,
+                        no fumbling.</span>
+                </div>
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">04</div>
+                        <div class="step-title">Application & Documentation — Get It Right First Time</div>
+                        <span class="step-who conn">Field Agent / Admin</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Collect: SA ID or passport, proof of address (utility bill, lease, bank statement — not
+                                older than 3
+                                months).</li>
+                            <li>Complete the ISP application form with the client present. Read it back to them.</li>
+                            <li>Take clear, well-lit photos of all documents — blurry scans are rejected and cause
+                                delays.</li>
+                            <li>Get the client's preferred installation time window (morning / afternoon / weekend).
+                            </li>
+                            <li>Confirm contact number twice — one digit wrong means the technician can't reach them.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> Complete application package ready for
+                        submission. All
+                        documents verified on the spot.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Incomplete docs = rejected application = client
+                        frustration.
+                        Resolution: Checklist on your phone before you leave the client.</span>
+                </div>
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">05</div>
+                        <div class="step-title">Order Submission — Into the System</div>
+                        <span class="step-who conn">Admin / Field Agent</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Log into the correct ISP partner portal within 2 hours of collecting the application.
+                            </li>
+                            <li>Submit all documents and fill in the application form exactly as the client's documents
+                                show — no
+                                shortcuts.</li>
+                            <li>Note the reference number immediately. Save it in the CRM against the client's record.
+                            </li>
+                            <li>Send the client a WhatsApp: <em>"Hi [Name], your application is in. Reference: [XXX].
+                                    We'll contact
+                                    you once your installation date is confirmed."</em></li>
+                            <li>Follow up on the portal every 48 hours if no confirmation has come through.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> Order live in ISP system. Reference number
+                        logged.
+                        Client notified.</div>
+                    <span class="step-flag flag-bottle">⚠ Bottleneck: Portal downtime. Resolution: Save the ISP contact
+                        number —
+                        call to submit verbally if the portal is down for more than 4 hours.</span>
+                </div>
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">06</div>
+                        <div class="step-title">Installation Coordination — Don't Let It Fall Through</div>
+                        <span class="step-who conn">Admin / Field Agent</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Once Openserve confirms the installation date, call the client immediately — don't rely
+                                on SMS alone.
+                            </li>
+                            <li>Remind the client 24 hours before: <em>"Your technician is coming tomorrow between
+                                    [time]. Please be
+                                    home."</em></li>
+                            <li>If the client misses the appointment, there's usually a rescheduling delay of 1–2 weeks.
+                                Make this
+                                clear upfront — it helps them take it seriously.</li>
+                            <li>If the technician doesn't show, escalate to the ISP within the same day. Do not wait for
+                                the client to
+                                chase.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> Installation confirmed and client ready to
+                        receive
+                        technician.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: No-shows (both sides). Resolution: Call the client the
+                        morning of,
+                        not just the night before.</span>
+                </div>
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">07</div>
+                        <div class="step-title">Activation & Handover — Make Sure It Works</div>
+                        <span class="step-who conn">Field Agent (if present) / Admin</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Call the client on the day of installation to confirm it happened and the line is live.
+                            </li>
+                            <li>If you're on-site: run a speed test. Make sure the speed matches the package they signed
+                                up for.</li>
+                            <li>Walk the client through connecting their first device. Many first-time fibre users don't
+                                know where
+                                the Wi-Fi password is.</li>
+                            <li>Send a WhatsApp 24 hours after activation: <em>"Hey [Name], just checking your fibre is
+                                    running well.
+                                    Any issues?"</em></li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> Client is live and satisfied. Service
+                        confirmed
+                        working. Record updated in CRM as "Active".</div>
+                    <span class="step-flag flag-tip">✅ Efficiency: Happy clients at activation = referrals. Ask
+                        immediately — the
+                        feeling is fresh.</span>
+                </div>
+
+                <div class="step-card conn">
+                    <div class="step-header">
+                        <div class="step-num-badge conn">08</div>
+                        <div class="step-title">Referral Ask — Grow From Within</div>
+                        <span class="step-who conn">Field Agent</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>At the moment the client is happiest (right after activation), ask: <em>"Do you have a
+                                    neighbour or
+                                    family member who'd also want fibre? I'll sort them out the same way."</em></li>
+                            <li>Offer a simple referral reward if applicable (data voucher, airtime) — keep it honest
+                                and consistent.
+                            </li>
+                            <li>Log the referred contact immediately. Don't trust memory.</li>
+                            <li>Treat every referral lead like a hot lead — they already trust you because someone they
+                                know does.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="step-output conn"><strong>Output:</strong> At least 1 referral contact per successful
+                        activation.
+                        Logged as a warm lead.</div>
+                    <span class="step-flag flag-tip">✅ Mindset: The best sales happen between neighbours. One satisfied
+                        customer
+                        in a complex can unlock the whole building.</span>
+                </div>
+
+            </div>
+
+            <!-- RISKS & BOTTLENECKS -->
+            <div class="section-label">Risks, Bottlenecks & Efficiency</div>
+            <div class="info-ribbon">
+                <div class="ribbon-card risk">
+                    <h4>🔴 Key Risks</h4>
+                    <ul>
+                        <li><strong>Promising coverage that doesn't exist</strong><span>Fix: Coverage check is step one.
+                                Non-negotiable.</span></li>
+                        <li><strong>Incomplete application docs</strong><span>Fix: Physical checklist per client before
+                                leaving.</span></li>
+                        <li><strong>Client not home for installation</strong><span>Fix: Confirm the morning of, not just
+                                the night
+                                before.</span></li>
+                        <li><strong>Technician no-show not escalated</strong><span>Fix: Onea escalates to ISP same day.
+                                We don't
+                                wait.</span></li>
+                        <li><strong>Wrong ISP portal used</strong><span>Fix: One agent = one assigned portal login.
+                                Labelled
+                                clearly.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card bottle">
+                    <h4>⚠️ Bottlenecks</h4>
+                    <ul>
+                        <li><strong>Flyers run out mid-session</strong><span>Fix: Minimum 200 per agent per session.
+                                Restock
+                                weekly.</span></li>
+                        <li><strong>ISP portal goes down</strong><span>Fix: ISP ops contact on speed dial for verbal
+                                submissions.</span></li>
+                        <li><strong>Applications sit in someone's bag</strong><span>Fix: Submit within 2 hours of
+                                collection — hard
+                                rule.</span></li>
+                        <li><strong>CRM not updated after steps</strong><span>Fix: Update the record before you move to
+                                the next
+                                client. Not at end of day.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card efficiency">
+                    <h4>✅ Efficiency Fixes</h4>
+                    <ul>
+                        <li><strong>Laminated ISP comparison card</strong><span>One page. Current prices. Always in the
+                                bag.</span>
+                        </li>
+                        <li><strong>WhatsApp template messages</strong><span>Pre-written for: application confirmation,
+                                installation
+                                reminder, activation check-in.</span></li>
+                        <li><strong>Weekly lead review</strong><span>Every Monday: review warm leads, escalate stuck
+                                applications,
+                                check waitlist.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card mindset">
+                    <h4>💜 Team Experience</h4>
+                    <ul>
+                        <li><strong>Pain: No feedback on whether applications were approved</strong><span>Fix: Assign
+                                one admin to
+                                track portal status and update the agent by WhatsApp.</span></li>
+                        <li><strong>Pain: Clients call the agent about installation, not admin</strong><span>Fix: Client
+                                receives
+                                admin contact at application stage, not the agent's personal number.</span></li>
+                        <li><strong>Pain: Agent unsure which ISP to push</strong><span>Fix: Simple decision tree card —
+                                3 questions
+                                → 1 recommendation.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- END CONN -->
+
+
+        <!-- ============================================================ -->
+        <!-- DIVISION 2: AGENCY -->
+        <!-- ============================================================ -->
+        <div class="division" id="div-agency">
+
+            <div class="div-header agency">
+                <div class="div-header-icon">📣</div>
+                <div>
+                    <h2>Digital Marketing & Communications Agency — Sales Process</h2>
+                    <p>Strategy, creative, media buying, campaigns, PR, social media, content, branding. Clients range
+                        from SMEs
+                        to corporates. Minimum 70% deposit on all projects.</p>
+                </div>
+            </div>
+
+            <!-- CCC ALIGNMENT -->
+            <div class="ccc-banner">
+                <div class="ccc-item c1">
+                    <div class="ccc-word">Connect</div>
+                    <div class="ccc-desc">The discovery call is not a sales pitch. It's a listening session. Understand
+                        their
+                        business before you open a slide deck.</div>
+                </div>
+                <div class="ccc-divider">·</div>
+                <div class="ccc-item c2">
+                    <div class="ccc-word">Communicate</div>
+                    <div class="ccc-desc">Your proposal must speak their language — business outcomes, not marketing
+                        jargon. Tell
+                        them what they'll get, not what you'll do.</div>
+                </div>
+                <div class="ccc-divider">·</div>
+                <div class="ccc-item c3">
+                    <div class="ccc-word">Converse</div>
+                    <div class="ccc-desc">Objections are part of the process. Stay calm, ask questions, and solve the
+                        real
+                        concern. Don't discount. Restructure the scope.</div>
+                </div>
+            </div>
+
+            <!-- FLOW DIAGRAM -->
+            <div class="section-label">Process Flow — End to End</div>
+            <div class="flow-container">
+                <div class="flow-title agency">Agency Sales Flow</div>
+                <div class="flow">
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 1</span> Lead qualification</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">01</div>
+                                    <div class="flow-label">Lead Comes In</div>
+                                    <div class="flow-sub">Referral · Inbound · Cold</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">02</div>
+                                    <div class="flow-label">Qualify Lead</div>
+                                    <div class="flow-sub">Budget · Timeline · Decision maker</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box decision agency">
+                                    <div class="flow-num agency">⬦</div>
+                                    <div class="flow-label">Qualified?</div>
+                                    <div class="flow-sub">Yes → Discovery<br />No → Nurture</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 2</span> Proposal progression</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">03</div>
+                                    <div class="flow-label">Discovery Call</div>
+                                    <div class="flow-sub">Listen · Needs brief</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">04</div>
+                                    <div class="flow-label">Proposal Build</div>
+                                    <div class="flow-sub">Scope · Pricing · Timeline</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">05</div>
+                                    <div class="flow-label">Present Proposal</div>
+                                    <div class="flow-sub">Walk through in person/call</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box decision agency">
+                                    <div class="flow-num agency">⬦</div>
+                                    <div class="flow-label">Objections?</div>
+                                    <div class="flow-sub">Handle → revise<br />Approved → next</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 3</span> Close & retain</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">06</div>
+                                    <div class="flow-label">Contract & Deposit</div>
+                                    <div class="flow-sub">70% upfront · Signed SLA</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">07</div>
+                                    <div class="flow-label">Onboarding</div>
+                                    <div class="flow-sub">Brief team · Kick-off</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box agency">
+                                    <div class="flow-num agency">08</div>
+                                    <div class="flow-label">Deliver & Retain</div>
+                                    <div class="flow-sub">Report · Upsell · Renew</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DETAILED STEPS -->
+            <div class="section-label">Step-by-Step Detail</div>
+            <div class="steps-grid">
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">01</div>
+                        <div class="step-title">Lead Comes In — Capture It Immediately</div>
+                        <span class="step-who agency">BDM / Account Manager</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Every lead — WhatsApp, email, referral, DM, website form — goes into the CRM within 1
+                                hour of receipt.
+                                No exceptions.</li>
+                            <li>Log the source (where they came from), the name, company, and what they're asking about.
+                            </li>
+                            <li>Send an acknowledgement within 2 hours: <em>"Thanks for reaching out. I'll be in touch
+                                    by [time] to
+                                    understand what you need."</em></li>
+                            <li>Assign a priority: Hot (budget + timeline ready), Warm (interested, exploring), Cold
+                                (just browsing).
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Lead logged in CRM. Acknowledged. Priority
+                        assigned.
+                    </div>
+                    <span class="step-flag flag-bottle">⚠ Bottleneck: Leads sitting in WhatsApp without being logged.
+                        Fix:
+                        Dedicated CRM contact method — not a personal number.</span>
+                </div>
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">02</div>
+                        <div class="step-title">Qualify the Lead — Know Before You Commit Time</div>
+                        <span class="step-who agency">BDM / Account Manager</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Ask the four qualifying questions in a casual conversation or a short WhatsApp
+                                exchange:<br />
+                                — <em>What do you need help with?</em><br />
+                                — <em>When do you need it done?</em><br />
+                                — <em>Do you have a budget in mind?</em><br />
+                                — <em>Are you the person who makes the final call?</em>
+                            </li>
+                            <li>If the answer to question 4 is no — ask to include the decision-maker in the discovery
+                                call.</li>
+                            <li>If they have no budget whatsoever, send them our pricing guide and check back in 2
+                                weeks.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Lead is qualified or routed to nurture.
+                        Time is
+                        protected.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Hours spent on proposals for people who can't say yes.
+                        Resolution:
+                        Qualify before you build anything.</span>
+                </div>
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">03</div>
+                        <div class="step-title">Discovery Call — Listen More Than You Talk</div>
+                        <span class="step-who agency">BDM / Account Manager / CEO</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Book a 30–45 minute call or meeting. Send a calendar invite with a brief agenda so
+                                they're prepared.
+                            </li>
+                            <li>Open the call: <em>"Before I tell you anything about us, help me understand your
+                                    business."</em> Then
+                                listen.</li>
+                            <li>Take notes in the discovery brief template — not on random paper.</li>
+                            <li>Ask about: current marketing, what's not working, who their customers are, biggest
+                                business challenge
+                                right now.</li>
+                            <li>End with: <em>"Based on what you've told me, I think we can help with [X]. I'll send a
+                                    proposal by
+                                    [date]."</em></li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Completed discovery brief. Clear
+                        understanding of
+                        what the client needs and why.</div>
+                    <span class="step-flag flag-tip">✅ Mindset: Every discovery call is a Connect moment. If they feel
+                        heard,
+                        they'll trust the proposal.</span>
+                </div>
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">04</div>
+                        <div class="step-title">Proposal Build — Solve Their Problem, Not Ours</div>
+                        <span class="step-who agency">Account Manager + Creative Lead</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Use the discovery brief as the foundation. The proposal must reference things the client
+                                actually
+                                said.</li>
+                            <li>Structure: Executive Summary → Their Problem → Our Solution → Deliverables → Timeline →
+                                Pricing → Next
+                                Steps.</li>
+                            <li>Pricing from the approved price list only. No improvised quotes. If in doubt, check with
+                                the CEO
+                                first.</li>
+                            <li>Include a payment terms page clearly: 70% deposit on acceptance, 30% on
+                                delivery/sign-off.</li>
+                            <li>Get the proposal reviewed internally before sending — one fresh set of eyes catches
+                                errors.</li>
+                            <li>Send as a PDF. Always. Not as a link that can expire.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Professional, branded proposal PDF sent to
+                        client
+                        within agreed timeframe.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Under-pricing from gut feel. Resolution: Use the pricing
+                        workbook.
+                        Always.</span>
+                </div>
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">05</div>
+                        <div class="step-title">Present the Proposal — Walk Through It Together</div>
+                        <span class="step-who agency">BDM / Account Manager</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Never just email a proposal and hope for the best. Book a call to walk through it.</li>
+                            <li>Open: <em>"I'll take you through this section by section. Stop me any time you have
+                                    questions."</em>
+                            </li>
+                            <li>At the pricing slide, don't apologise for the number. Present it confidently.</li>
+                            <li>Watch for hesitation or silence at the pricing section — that's a signal to ask:
+                                <em>"Does the scope
+                                    feel right, or is there a part you'd like us to adjust?"</em></li>
+                            <li>Always end with a clear close: <em>"What would you need to see from our side to move
+                                    forward?"</em>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Proposal presented. Feedback captured. Next
+                        step
+                        agreed on the call.</div>
+                    <span class="step-flag flag-bottle">⚠ Bottleneck: Client ghosts after receiving the proposal. Fix:
+                        Book the
+                        presentation call before sending the PDF.</span>
+                </div>
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">06</div>
+                        <div class="step-title">Objection Handling — Stay in the Conversation</div>
+                        <span class="step-who agency">BDM / Account Manager</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>The most common objections and how to handle them:<br />
+                                — <em>"It's too expensive"</em> → Offer to reduce scope, not price. Protect the rate
+                                card.<br />
+                                — <em>"We need to think about it"</em> → Ask what's holding them back. Set a follow-up
+                                date on the
+                                call.<br />
+                                — <em>"We're getting other quotes"</em> → Ask what criteria they'll use to decide. Then
+                                show how Onea
+                                meets those.<br />
+                                — <em>"We don't have budget right now"</em> → Ask when their next financial period
+                                starts. Log for
+                                follow-up.
+                            </li>
+                            <li>Never give a discount without giving something back (reduced scope, shorter timeline).
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Objection addressed. Revised proposal sent
+                        if needed.
+                        Client moves to next step.</div>
+                    <span class="step-flag flag-tip">✅ Mindset: Objections are Converse moments. They're not saying no —
+                        they're
+                        asking you to convince them.</span>
+                </div>
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">07</div>
+                        <div class="step-title">Contract & Deposit — Close It Properly</div>
+                        <span class="step-who agency">Account Manager / CEO</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Send the SLA/contract the same day the client says yes — don't let 24 hours pass.</li>
+                            <li>Contract must include: scope of work, deliverables, timelines, payment terms (70%
+                                deposit, 30% on
+                                delivery), revision rounds, and IP ownership.</li>
+                            <li>Send the invoice for the deposit immediately with the contract. One email, both
+                                attachments.</li>
+                            <li>Confirm work starts when the deposit clears. Not before. This is a firm rule — no
+                                exceptions.</li>
+                            <li>Once payment is received, send a receipt and a welcome message to the client.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Signed contract on file. 70% deposit
+                        received.
+                        Project starts.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Starting work before the deposit clears. Resolution: Zero
+                        exceptions. The contract makes this clear from proposal stage.</span>
+                </div>
+
+                <div class="step-card agency">
+                    <div class="step-header">
+                        <div class="step-num-badge agency">08</div>
+                        <div class="step-title">Onboarding — Set the Project Up for Success</div>
+                        <span class="step-who agency">Account Manager + Delivery Team</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Hold an internal briefing with the delivery team within 24 hours of the deposit
+                                clearing.</li>
+                            <li>Share the full discovery brief and signed proposal with the team. No verbal briefings
+                                alone.</li>
+                            <li>Send the client a kick-off email with: project start date, key milestones, their point
+                                of contact at
+                                Onea, and what you'll need from them (brand assets, login access, approvals).</li>
+                            <li>Set up a shared folder or project board and invite the client.</li>
+                            <li>Book the first progress check-in 2 weeks out — not when something goes wrong.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output agency"><strong>Output:</strong> Project live. Team briefed. Client
+                        informed.
+                        Milestones set.</div>
+                    <span class="step-flag flag-tip">✅ Efficiency: A strong onboarding prevents scope creep. Clients who
+                        know what
+                        to expect, ask for less.</span>
+                </div>
+
+            </div>
+
+            <!-- RISKS & BOTTLENECKS -->
+            <div class="section-label">Risks, Bottlenecks & Efficiency</div>
+            <div class="info-ribbon">
+                <div class="ribbon-card risk">
+                    <h4>🔴 Key Risks</h4>
+                    <ul>
+                        <li><strong>Starting work without a deposit</strong><span>Fix: Non-negotiable policy. Invoice
+                                and contract
+                                go together.</span></li>
+                        <li><strong>Scope creep eroding margin</strong><span>Fix: Revision rounds clearly stated in
+                                contract. Extra
+                                rounds = extra invoice.</span></li>
+                        <li><strong>Decision-maker not in discovery call</strong><span>Fix: Qualify who the
+                                decision-maker is before
+                                booking the call.</span></li>
+                        <li><strong>Quoting from memory, not the price list</strong><span>Fix: Every quote goes through
+                                the pricing
+                                workbook. No exceptions.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card bottle">
+                    <h4>⚠️ Bottlenecks</h4>
+                    <ul>
+                        <li><strong>Proposal takes too long to build</strong><span>Fix: Use the proposal template.
+                                Discovery brief
+                                feeds straight into it.</span></li>
+                        <li><strong>Client ghosts after receiving proposal</strong><span>Fix: Book the presentation call
+                                before you
+                                send the PDF.</span></li>
+                        <li><strong>CEO is the only person who can approve proposals</strong><span>Fix: Define a
+                                threshold —
+                                proposals under a set value can be sent by AM without CEO sign-off.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card efficiency">
+                    <h4>✅ Efficiency Fixes</h4>
+                    <ul>
+                        <li><strong>Proposal template</strong><span>One template for all service types. Fill in the
+                                blanks from the
+                                discovery brief.</span></li>
+                        <li><strong>Pre-written follow-up sequences</strong><span>Day 1, Day 3, Day 7 after sending a
+                                proposal — in
+                                HubSpot.</span></li>
+                        <li><strong>Contract template ready to send</strong><span>Fill in scope, pricing, dates. Sign
+                                electronically. Same day as verbal yes.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card mindset">
+                    <h4>💜 Team Experience</h4>
+                    <ul>
+                        <li><strong>Pain: Unclear on what to say when a client pushes back on price</strong><span>Fix:
+                                Objection
+                                handling cheat sheet — printed and on every desk.</span></li>
+                        <li><strong>Pain: Proposals take forever because team doesn't have the
+                                pricing</strong><span>Fix: Pricing
+                                workbook is always accessible. Shared drive, not someone's laptop.</span></li>
+                        <li><strong>Pain: Not knowing where a deal is in the pipeline</strong><span>Fix: HubSpot
+                                pipeline stages —
+                                visible to the whole team in real time.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- END AGENCY -->
+
+
+        <!-- ============================================================ -->
+        <!-- DIVISION 3: IT SERVICES -->
+        <!-- ============================================================ -->
+        <div class="division" id="div-it">
+
+            <div class="div-header it">
+                <div class="div-header-icon">🖥️</div>
+                <div>
+                    <h2>IT Services — Sales Process</h2>
+                    <p>Network cabling, infrastructure, cloud, ERP, hardware supply, software licensing, IT support.
+                        Technical
+                        sales that require precision and credibility from the first conversation.</p>
+                </div>
+            </div>
+
+            <!-- CCC ALIGNMENT -->
+            <div class="ccc-banner">
+                <div class="ccc-item c1">
+                    <div class="ccc-word">Connect</div>
+                    <div class="ccc-desc">IT clients buy from people who understand their environment. Get on-site
+                        early. Build
+                        trust before you build a proposal.</div>
+                </div>
+                <div class="ccc-divider">·</div>
+                <div class="ccc-item c2">
+                    <div class="ccc-word">Communicate</div>
+                    <div class="ccc-desc">Technical specs matter, but the decision-maker cares about downtime, cost, and
+                        peace of
+                        mind. Translate tech into business impact.</div>
+                </div>
+                <div class="ccc-divider">·</div>
+                <div class="ccc-item c3">
+                    <div class="ccc-word">Converse</div>
+                    <div class="ccc-desc">Procurement is rarely one call. Be patient. Stay present. A client who asks
+                        questions is
+                        a client who's buying — help them get there.</div>
+                </div>
+            </div>
+
+            <!-- FLOW DIAGRAM -->
+            <div class="section-label">Process Flow — End to End</div>
+            <div class="flow-container">
+                <div class="flow-title it">IT Services Sales Flow</div>
+                <div class="flow">
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 1</span> Discovery & sizing</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">01</div>
+                                    <div class="flow-label">Lead Identified</div>
+                                    <div class="flow-sub">Tender · Referral · Existing client</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">02</div>
+                                    <div class="flow-label">Technical Discovery</div>
+                                    <div class="flow-sub">Environment · Scope · Pain</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">03</div>
+                                    <div class="flow-label">Site Assessment</div>
+                                    <div class="flow-sub">On-site survey if needed</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">04</div>
+                                    <div class="flow-label">Quotation</div>
+                                    <div class="flow-sub">BOM · Labour · Timeline</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 2</span> Approval & procurement</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box decision it">
+                                    <div class="flow-num it">⬦</div>
+                                    <div class="flow-label">Approved?</div>
+                                    <div class="flow-sub">Yes → proceed<br />No → revise</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">05</div>
+                                    <div class="flow-label">PO & Deposit</div>
+                                    <div class="flow-sub">70% deposit · Purchase order</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">06</div>
+                                    <div class="flow-label">Procurement</div>
+                                    <div class="flow-sub">Source hardware · Check ETD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-row">
+                        <div class="row-label"><span class="row-label-pill">Phase 3</span> Delivery & support</div>
+                        <div class="flow-row-content">
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">07</div>
+                                    <div class="flow-label">Delivery & Install</div>
+                                    <div class="flow-sub">On-site · Tested · Signed off</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">
+                                <svg viewBox="0 0 28 16">
+                                    <path d="M0 8 H20 M16 4 L24 8 L16 12" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-box it">
+                                    <div class="flow-num it">08</div>
+                                    <div class="flow-label">Support & Upsell</div>
+                                    <div class="flow-sub">SLA · Next project pipeline</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DETAILED STEPS -->
+            <div class="section-label">Step-by-Step Detail</div>
+            <div class="steps-grid">
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">01</div>
+                        <div class="step-title">Lead Identified — Know Where It's Coming From</div>
+                        <span class="step-who it">BDM / CTO / CEO</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Log the lead immediately — source (tender portal, referral, existing client expansion,
+                                cold outreach),
+                                contact person, company size, and what they're asking about.</li>
+                            <li>For tenders: confirm the submission deadline immediately. Add it to the calendar with a
+                                5-day
+                                early-warning reminder.</li>
+                            <li>For referrals: send a thank-you to the referrer within 24 hours. This keeps the pipeline
+                                flowing.</li>
+                            <li>Assign the lead to the right person: CTO for technical scoping, BDM for commercial
+                                pursuit.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> Lead logged, source captured, responsible
+                        person
+                        assigned, deadline noted.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Tender deadlines missed. Resolution: Tender leads get a
+                        calendar
+                        entry and a responsible owner the same hour they're received.</span>
+                </div>
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">02</div>
+                        <div class="step-title">Technical Discovery — Understand the Environment</div>
+                        <span class="step-who it">CTO / Senior Dev</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Request a technical discovery meeting or call — 45 to 60 minutes with the client's IT
+                                manager or
+                                operations lead.</li>
+                            <li>Find out: current infrastructure, existing systems, pain points, compliance requirements
+                                (POPIA, ISO,
+                                etc.), number of users/endpoints, and any previous failed solutions.</li>
+                            <li>Document everything in the technical brief template. Don't rely on memory for technical
+                                environments.
+                            </li>
+                            <li>At the end of discovery, confirm: <em>"Based on what you've shared, we'll do a site
+                                    visit and come
+                                    back to you with a detailed quotation."</em></li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> Technical brief complete. Clear picture of what
+                        the
+                        client needs and the environment we're working in.</div>
+                    <span class="step-flag flag-tip">✅ Mindset: A discovery that uncovers pain is a discovery that
+                        closes deals.
+                        Listen for what's frustrating them right now.</span>
+                </div>
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">03</div>
+                        <div class="step-title">Site Assessment — See It With Your Own Eyes</div>
+                        <span class="step-who it">CTO / Senior Technician</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Book the site visit with a defined purpose: <em>"We're coming to assess [X] so we can
+                                    scope the work
+                                    accurately."</em></li>
+                            <li>Bring the site assessment checklist. Take photos and measurements where needed.</li>
+                            <li>For cabling projects: count cable runs, identify conduit routes, assess patch panel
+                                locations, note
+                                power points.</li>
+                            <li>For network/cloud: document current equipment (make, model, age), internet link type,
+                                and physical
+                                server room conditions.</li>
+                            <li>For hardware supply: capture exact specs required — don't spec from memory.</li>
+                            <li>Never quote on-site. Take the information away and build the quote properly.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> Completed site assessment report. Photos on
+                        file. Data
+                        for accurate quoting.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Quoting without a site visit leads to scope
+                        underestimation and
+                        margin erosion. Fix: Site visit is mandatory for all infrastructure and cabling work.</span>
+                </div>
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">04</div>
+                        <div class="step-title">Quotation — Build It Right</div>
+                        <span class="step-who it">CTO / Account Manager</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Use the IT pricing workbook. Every line item — hardware, software licensing, labour,
+                                transport,
+                                consumables — must be captured.</li>
+                            <li>Apply the correct margin: hardware min 15%, labour min 20%, software licensing as per
+                                vendor
+                                agreement.</li>
+                            <li>Separate your quote into sections: Hardware Supply, Software & Licensing, Labour &
+                                Installation,
+                                Post-installation Support (optional).</li>
+                            <li>State lead times clearly for hardware — if stock isn't confirmed, say so. Overpromising
+                                on ETD is a
+                                trust killer.</li>
+                            <li>Include the payment terms: 70% on PO, 30% on delivery/sign-off. Always.</li>
+                            <li>Get CTO sign-off before sending. Technical accuracy is non-negotiable.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> Professional, accurate quotation with itemised
+                        BOM,
+                        labour, and payment terms. CTO approved.</div>
+                    <span class="step-flag flag-bottle">⚠ Bottleneck: Quotations delayed because one person holds all
+                        the supplier
+                        pricing. Fix: Shared supplier price list, updated monthly, accessible to the CTO and AM.</span>
+                </div>
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">05</div>
+                        <div class="step-title">PO & Deposit — Formalise Before You Move</div>
+                        <span class="step-who it">Account Manager / CEO</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>For corporate clients: request a Purchase Order before or alongside the deposit invoice.
+                            </li>
+                            <li>Send the deposit invoice the same day as the signed quote/approval. Don't wait.</li>
+                            <li>Procurement starts when the deposit clears. Communicate this to the client upfront — it
+                                manages
+                                expectations on lead times.</li>
+                            <li>For tender contracts: follow the client's payment process exactly. Understand their
+                                30/60/90-day
+                                payment terms before you commit to a project timeline.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> PO received, deposit invoice sent, payment
+                        confirmed,
+                        procurement authorised.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Procuring hardware before payment clears. Fix: No
+                        procurement
+                        without deposit. Cash flow rule — not just policy.</span>
+                </div>
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">06</div>
+                        <div class="step-title">Procurement & Scheduling — Coordinate Everything</div>
+                        <span class="step-who it">CTO / Admin</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Place hardware orders with confirmed suppliers immediately after deposit. Log order
+                                reference numbers.
+                            </li>
+                            <li>Confirm delivery ETD from the supplier within 24 hours of ordering.</li>
+                            <li>Communicate the installation timeline to the client: <em>"Hardware arrives [date],
+                                    installation
+                                    scheduled for [date]."</em></li>
+                            <li>Book the technician(s) for the installation date. Don't assume availability — confirm in
+                                writing.</li>
+                            <li>Inspect hardware on receipt before the installation date. Don't arrive on-site with
+                                faulty equipment.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> Hardware confirmed in hand. Installation date
+                        booked.
+                        Client and technician aligned.</div>
+                    <span class="step-flag flag-bottle">⚠ Bottleneck: Hardware delays that aren't communicated to the
+                        client. Fix:
+                        Update the client the day the ETD changes — not when they ask.</span>
+                </div>
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">07</div>
+                        <div class="step-title">Delivery & Installation — Execute Cleanly</div>
+                        <span class="step-who it">CTO / Technicians</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Arrive on time. Bring all tools, equipment, and consumables. Don't make a second trip
+                                for something
+                                forgotten.</li>
+                            <li>Brief the client on-site before starting: what you're doing, how long it'll take, who to
+                                speak to if
+                                there's a question.</li>
+                            <li>Test every deliverable before you leave. Cabling: run tests on all points. Network: test
+                                speed and
+                                failover. Hardware: boot up and confirm specs.</li>
+                            <li>If something doesn't work on-site and can't be fixed immediately, tell the client
+                                honestly. Give a
+                                resolution timeline and stick to it.</li>
+                            <li>Get the sign-off form completed before the technician leaves. Signature = delivery
+                                confirmed.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> Work complete, tested, and signed off by
+                        client.
+                        Remaining 30% invoice triggered.</div>
+                    <span class="step-flag flag-risk">🔴 Risk: Leaving without a signed completion form. Fix: Completion
+                        sign-off
+                        is mandatory before the final invoice is issued.</span>
+                </div>
+
+                <div class="step-card it">
+                    <div class="step-header">
+                        <div class="step-num-badge it">08</div>
+                        <div class="step-title">Support & Upsell — Stay in the Account</div>
+                        <span class="step-who it">Account Manager / CTO</span>
+                    </div>
+                    <div class="step-body">
+                        <ol>
+                            <li>Send a check-in message 5 business days after delivery: <em>"Just checking everything is
+                                    running well.
+                                    Any issues we can help with?"</em></li>
+                            <li>Offer a support or maintenance SLA while the relationship is warm. It's easier to retain
+                                than to
+                                re-acquire.</li>
+                            <li>At the 30-day mark: review the project with the client. What worked, what could improve.
+                                Use this for
+                                your own process improvement too.</li>
+                            <li>Ask: <em>"Is there anything else in your environment you'd like us to look at?"</em> —
+                                This is where
+                                Phase 2 projects come from.</li>
+                            <li>Log all upsell opportunities in the CRM as new pipeline items.</li>
+                        </ol>
+                    </div>
+                    <div class="step-output it"><strong>Output:</strong> Client satisfied, SLA offered, next opportunity
+                        identified and logged.</div>
+                    <span class="step-flag flag-tip">✅ Mindset: The IT client who's happy at sign-off is worth three
+                        referrals and
+                        at least one follow-on project.</span>
+                </div>
+
+            </div>
+
+            <!-- RISKS & BOTTLENECKS -->
+            <div class="section-label">Risks, Bottlenecks & Efficiency</div>
+            <div class="info-ribbon">
+                <div class="ribbon-card risk">
+                    <h4>🔴 Key Risks</h4>
+                    <ul>
+                        <li><strong>Missing a tender deadline</strong><span>Fix: Calendar entry + 5-day warning the
+                                minute a tender
+                                is identified.</span></li>
+                        <li><strong>Quoting without a site visit</strong><span>Fix: Site visit mandatory for all infra
+                                work. No
+                                exceptions.</span></li>
+                        <li><strong>Hardware procurement before deposit</strong><span>Fix: Procurement is only
+                                authorised after
+                                proof of payment.</span></li>
+                        <li><strong>No signed completion form</strong><span>Fix: Final invoice doesn't go out without
+                                the completion
+                                sign-off. Full stop.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card bottle">
+                    <h4>⚠️ Bottlenecks</h4>
+                    <ul>
+                        <li><strong>Quotations held up by one person's schedule</strong><span>Fix: CTO has 24 hours to
+                                review. If
+                                unavailable, CEO signs off on commercial, CTO confirms tech specs separately.</span>
+                        </li>
+                        <li><strong>Supplier pricing not current</strong><span>Fix: Shared supplier price list. Updated
+                                monthly. One
+                                person owns the update.</span></li>
+                        <li><strong>Hardware delays not communicated</strong><span>Fix: Any ETD change gets communicated
+                                to the
+                                client before they ask.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card efficiency">
+                    <h4>✅ Efficiency Fixes</h4>
+                    <ul>
+                        <li><strong>Site assessment checklist</strong><span>Role-specific — one for cabling, one for
+                                network, one
+                                for hardware delivery. Always in the bag.</span></li>
+                        <li><strong>Technical brief template</strong><span>Fill this in during the discovery call. It
+                                feeds directly
+                                into the quotation.</span></li>
+                        <li><strong>Completion sign-off form</strong><span>Pre-printed. On every job. Final invoice
+                                doesn't move
+                                without it.</span></li>
+                    </ul>
+                </div>
+                <div class="ribbon-card mindset">
+                    <h4>💜 Team Experience</h4>
+                    <ul>
+                        <li><strong>Pain: Technicians arrive on-site without full information</strong><span>Fix:
+                                Internal job brief
+                                issued 48 hours before every installation — what, where, who, what to bring.</span></li>
+                        <li><strong>Pain: Client calls the CTO directly with support issues after
+                                delivery</strong><span>Fix:
+                                Support contact is the Account Manager. CTO is escalation only. Communicated in the
+                                handover doc.</span>
+                        </li>
+                        <li><strong>Pain: No visibility on whether a PO or deposit has been received</strong><span>Fix:
+                                Finance
+                                confirms payment in the team WhatsApp group before procurement is authorised. One
+                                message. Done.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- END IT -->
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>
+            <strong>Onea Africa (Pty) Ltd</strong> — Reg: 2016/461132/07 · VAT: 4550322707 · B-BBEE Level 1
+            <div style="margin-top: 4px;">CSD: MAAA0662773 · connect@onea.co.za · 081 718 3881 · www.onea.africa</div>
+        </div>
+        <div style="text-align:right;">
+            <div>Sales Process Documentation v1.0</div>
+            <div>April 2026 — Internal Use Only</div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(divId, btn) {
+            document.querySelectorAll('.division').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('div-' + divId).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>
