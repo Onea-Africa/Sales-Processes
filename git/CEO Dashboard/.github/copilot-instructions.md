@@ -1,0 +1,5 @@
+- [x] Verify that the copilot-instructions.md file is present and up to date.
+- [x] Scaffold the project with Vite + React + TypeScript.
+- [x] Create a basic dashboard starter app.
+- [x] Add package.json, tsconfig.json, and README.md.
+- [x] Ensure the project compiles successfully.
