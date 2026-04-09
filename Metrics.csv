@@ -1,0 +1,26 @@
+KEY,VALUE,— Edit column B only —
+weekLabel,W14 · Apr 2026,
+,— REVENUE —,
+revenue_mtd,48500
+revenue_target,120000
+revenue_ytd,312000
+revenue_arr,1440000
+,— CASH —,
+cash_balance,22400
+cash_runway,1.8
+cash_debtors,61000
+,— SUBSCRIBERS —,
+subs_active,87
+subs_target,200
+subs_pending,14
+subs_churn,3
+,— CLIENTS —,
+clients_active,11
+clients_target,20
+clients_new_mtd,1
+clients_at_risk,2
+,— KPIs —,
+kpis_nps,68
+kpis_invoiceAge,34
+kpis_utilisation,72
+kpis_deals,6
