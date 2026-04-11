@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onea Africa | Connect. Communicate. Converse.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --green: #8CC444;
+      --yellow: #F4D350;
+      --violet: #D6139F;
+      --green-light: #EAF5D3;
+      --violet-light: #FCE8F6;
+      --yellow-light: #FEF9E0;
+      --dark: #111111;
+      --mid: #444444;
+      --light: #F7F7F5;
+      --white: #FFFFFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-icon::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .logo-icon::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--violet);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .nav-cta {
+      background: var(--green);
+      color: white !important;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: #78a838 !important;
+      color: white !important;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      padding: 120px 5% 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      background: var(--light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(140, 196, 68, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: 30%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(214, 19, 159, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-light);
+      border: 1px solid rgba(140, 196, 68, 0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #5a8a2a;
+      margin-bottom: 28px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(1.4);
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .hero-tagline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 600;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .t-green {
+      color: var(--green);
+    }
+
+    .t-yellow {
+      color: #c9a800;
+    }
+
+    .t-violet {
+      color: var(--violet);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      display: inline-block;
+      border: 2px solid var(--green);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--green);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--dark);
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      border: 2px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--dark);
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 24px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-card.span-2 {
+      grid-column: span 2;
+    }
+
+    .hero-card .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+    }
+
+    .icon-green {
+      background: var(--green-light);
+    }
+
+    .icon-yellow {
+      background: var(--yellow-light);
+    }
+
+    .icon-violet {
+      background: var(--violet-light);
+    }
+
+    .hero-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--dark);
+    }
+
+    .hero-card p {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--mid);
+      line-height: 1.3;
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--dark);
+      padding: 20px 5%;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      overflow: hidden;
+    }
+
+    .trust-label {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .trust-items {
+      display: flex;
+      gap: 48px;
+      align-items: center;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .trust-item::before {
+      content: '✓';
+      width: 18px;
+      height: 18px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section {
+      padding: 100px 5%;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: var(--green);
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 60px;
+    }
+
+    .section-header .cta-side {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+
+    /* ── PILLARS ── */
+    #pillars {
+      background: white;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      border: 2px solid var(--dark);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+
+    .pillar {
+      padding: 48px 36px;
+      background: white;
+      transition: background 0.3s;
+      cursor: default;
+      position: relative;
+    }
+
+    .pillar:hover {
+      background: var(--light);
+    }
+
+    .pillar:not(:last-child) {
+      border-right: 2px solid var(--dark);
+    }
+
+    .pillar-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 16px;
+      opacity: 0.08;
+      position: absolute;
+      top: 24px;
+      right: 24px;
+    }
+
+    .pillar-tag {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .pillar-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .pillar-desc {
+      font-size: 0.92rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .pillar-services {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .pillar-services li {
+      font-size: 0.85rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .pillar-services li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .p-green .pillar-tag,
+    .p-green .pillar-title {
+      color: var(--green);
+    }
+
+    .p-green .pillar-services li::before {
+      background: var(--green);
+    }
+
+    .p-green .pillar-number {
+      color: var(--green);
+    }
+
+    .p-yellow .pillar-tag,
+    .p-yellow .pillar-title {
+      color: #c9a800;
+    }
+
+    .p-yellow .pillar-services li::before {
+      background: var(--yellow);
+    }
+
+    .p-yellow .pillar-number {
+      color: var(--yellow);
+    }
+
+    .p-violet .pillar-tag,
+    .p-violet .pillar-title {
+      color: var(--violet);
+    }
+
+    .p-violet .pillar-services li::before {
+      background: var(--violet);
+    }
+
+    .p-violet .pillar-number {
+      color: var(--violet);
+    }
+
+    .pillar-link {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .pillar-link:hover {
+      gap: 10px;
+    }
+
+    .p-green .pillar-link {
+      color: var(--green);
+    }
+
+    .p-yellow .pillar-link {
+      color: #c9a800;
+    }
+
+    .p-violet .pillar-link {
+      color: var(--violet);
+    }
+
+    /* ── WHY US ── */
+    #why {
+      background: var(--dark);
+      color: white;
+    }
+
+    #why .section-tag {
+      color: var(--yellow);
+    }
+
+    #why .section-title {
+      color: white;
+    }
+
+    #why .section-sub {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-top: 60px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .why-card {
+      background: var(--dark);
+      padding: 40px 32px;
+      transition: background 0.3s;
+    }
+
+    .why-card:hover {
+      background: #1a1a1a;
+    }
+
+    .why-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .why-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .why-card p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+    }
+
+    /* ── FIBRE ── */
+    #fibre {
+      background: var(--green-light);
+    }
+
+    .fibre-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .fibre-plans {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .fibre-plan {
+      background: white;
+      border-radius: 12px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .fibre-plan:hover {
+      border-color: var(--green);
+      transform: translateX(6px);
+    }
+
+    .fibre-plan.featured {
+      border-color: var(--green);
+      background: white;
+    }
+
+    .plan-speed {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--dark);
+    }
+
+    .plan-type {
+      font-size: 0.78rem;
+      color: var(--mid);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .plan-badge {
+      background: var(--green);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .plan-badge.yellow {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+
+    .plan-cta {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .isp-logos {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .isp-chip {
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--mid);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: white;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-box {
+      background: var(--dark);
+      border-radius: 20px;
+      padding: 48px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-box::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      background: var(--violet);
+      opacity: 0.15;
+      border-radius: 50%;
+    }
+
+    .about-box::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -40px;
+      width: 160px;
+      height: 160px;
+      background: var(--green);
+      opacity: 0.1;
+      border-radius: 50%;
+    }
+
+    .about-box h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .about-box p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-stat {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .about-stat .num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--green);
+      display: block;
+    }
+
+    .about-stat .lbl {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .about-content .section-sub {
+      margin-bottom: 28px;
+    }
+
+    .values-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .values-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .val-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .values-list li strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .values-list li span {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    /* ── BLOG ── */
+    #blog {
+      background: var(--light);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .blog-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-card.featured .blog-thumb {
+      height: 240px;
+    }
+
+    .thumb-green {
+      background: var(--green-light);
+    }
+
+    .thumb-violet {
+      background: var(--violet-light);
+    }
+
+    .thumb-yellow {
+      background: var(--yellow-light);
+    }
+
+    .blog-body {
+      padding: 24px;
+    }
+
+    .blog-cat {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .cat-green {
+      color: var(--green);
+    }
+
+    .cat-violet {
+      color: var(--violet);
+    }
+
+    .cat-yellow {
+      color: #a98a00;
+    }
+
+    .blog-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      color: var(--dark);
+    }
+
+    .blog-card.featured h3 {
+      font-size: 1.25rem;
+    }
+
+    .blog-card p {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .blog-date {
+      font-size: 0.75rem;
+      color: rgba(0, 0, 0, 0.35);
+    }
+
+    .blog-read {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.2s;
+    }
+
+    .blog-read:hover {
+      gap: 8px;
+    }
+
+    /* ── CTA BANNER ── */
+    #cta-banner {
+      background: linear-gradient(135deg, var(--green) 0%, #6aaa22 100%);
+      padding: 80px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cta-banner::before {
+      content: 'Connect.\AConverse.\ACommunicate.';
+      white-space: pre;
+      position: absolute;
+      font-family: 'Syne', sans-serif;
+      font-size: 8rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      line-height: 1;
+      text-align: center;
+      width: 100%;
+    }
+
+    #cta-banner h2 {
+      color: white;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    #cta-banner p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--green);
+      padding: 14px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: white;
+      padding: 14px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      transition: border-color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline-white:hover {
+      border-color: white;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: white;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 28px;
+      color: var(--dark);
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .c-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--green-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .c-label {
+      font-size: 0.75rem;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .c-value {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .c-value:hover {
+      color: var(--green);
+    }
+
+    .contact-form {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .contact-form h3 {
+      font-size: 1.3rem;
+      margin-bottom: 24px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .form-submit:hover {
+      background: #78a838;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 5% 30px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .footer-brand .logo-text {
+      color: white;
+    }
+
+    .footer-brand .logo-text span {
+      color: var(--green);
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.7;
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .social-btn:hover {
+      background: var(--green);
+      color: white;
+    }
+
+    .footer-col h5 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--green);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-reg {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.2);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .pillar-chips {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pchip {
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .pchip-g {
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .pchip-y {
+      background: var(--yellow-light);
+      color: #9a7a00;
+    }
+
+    .pchip-v {
+      background: var(--violet-light);
+      color: var(--violet);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pillar:not(:last-child) {
+        border-right: none;
+        border-bottom: 2px solid var(--dark);
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-header {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header .cta-side {
+        justify-content: flex-start;
+      }
+
+      .fibre-layout,
+      .about-layout,
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .trust-items {
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      section {
+        padding: 60px 5%;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="logo-icon"></div>
+      <span class="logo-text">onea<span>.</span>africa</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#pillars">Services</a></li>
+      <li><a href="#fibre">Connectivity</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Pretoria-Based · Nationally Delivered · B-BBEE Level 1</div>
+      <h1 class="hero-title">Technology that works.<br>Communications that land.</h1>
+      <div class="hero-tagline">
+        <span class="t-green">Connect.</span>
+        <span class="t-yellow">Communicate.</span>
+        <span class="t-violet">Converse.</span>
+      </div>
+      <p class="hero-sub">We connect people and businesses to fibre. We build the digital presence that gets them
+        noticed. We tell the stories that make people care. One company. Three pillars. End-to-end.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Start a Conversation</a>
+        <a href="#pillars" class="btn-secondary">See What We Do</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="card-icon icon-green">🌐</div>
+        <h4>Fibre Connectivity</h4>
+        <p>Residential and business fibre via Openserve — fast, reliable, managed.</p>
+        <div class="stat-row">
+          <div class="stat-num">4</div>
+          <div class="stat-label">ISP partners<br>on Openserve</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="card-icon icon-violet">📣</div>
+        <h4>Digital Marketing</h4>
+        <p>Campaigns, content, and creative that actually convert.</p>
+        <div class="stat-row">
+          <div class="stat-num">3</div>
+          <div class="stat-label">service pillars<br>under one roof</div>
+        </div>
+      </div>
+      <div class="hero-card span-2">
+        <div class="card-icon icon-yellow">💼</div>
+        <h4>IT Infrastructure & ERP</h4>
+        <p>Cloud solutions, managed services, hardware, software licensing, and ERP — everything your business needs to
+          run without headaches.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <span class="trust-label">Trusted by</span>
+    <div class="trust-items">
+      <span class="trust-item">B-BBEE Level 1 Certified</span>
+      <span class="trust-item">CSD Registered Supplier</span>
+      <span class="trust-item">VAT Registered</span>
+      <span class="trust-item">Openserve Authorised Reseller</span>
+      <span class="trust-item">Telkom Partner</span>
+    </div>
+  </div>
+
+  <!-- PILLARS -->
+  <section id="pillars">
+    <div class="section-header fade-up">
+      <div>
+        <span class="section-tag">What We Do</span>
+        <h2 class="section-title">Three pillars.<br>One mission.</h2>
+        <p class="section-sub">Onea Africa is built around a simple idea: that people and businesses thrive when they
+          can connect, be heard, and have meaningful conversations. Everything we do flows from that.</p>
+      </div>
+      <div class="cta-side">
+        <a href="#contact" class="btn-primary">Work with us →</a>
+      </div>
+    </div>
+
+    <div class="pillars-grid fade-up">
+      <!-- CONNECT -->
+      <div class="pillar p-green">
+        <div class="pillar-number">01</div>
+        <div class="pillar-tag">Connect</div>
+        <h3 class="pillar-title">Get Connected.<br>Stay Connected.</h3>
+        <p class="pillar-desc">From fibre to your home or office, to IT infrastructure that keeps your business running
+          — we handle the technical layer so you can focus on what you do best.</p>
+        <ul class="pillar-services">
+          <li>Fibre Connectivity (via Openserve)</li>
+          <li>IT Infrastructure & Managed Services</li>
+          <li>Cloud Solutions</li>
+          <li>ERP Implementation</li>
+          <li>Hardware & Software Licensing</li>
+          <li>Network Cabling & Installation</li>
+        </ul>
+        <a href="#contact" class="pillar-link">Get connected →</a>
+      </div>
+
+      <!-- COMMUNICATE -->
+      <div class="pillar p-yellow">
+        <div class="pillar-number">02</div>
+        <div class="pillar-tag">Communicate</div>
+        <h3 class="pillar-title">Be Seen.<br>Be Heard.</h3>
+        <p class="pillar-desc">Digital presence isn't optional anymore. We build websites, run campaigns, create
+          content, and manage media — all aligned to your brand and your goals.</p>
+        <ul class="pillar-services">
+          <li>Website Design & Development</li>
+          <li>Digital Marketing</li>
+          <li>Creative & Content Production</li>
+          <li>Social Media Management</li>
+          <li>Media Buying & Planning</li>
+          <li>Brand Identity & Activation</li>
+        </ul>
+        <a href="#contact" class="pillar-link">Build your presence →</a>
+      </div>
+
+      <!-- CONVERSE -->
+      <div class="pillar p-violet">
+        <div class="pillar-number">03</div>
+        <div class="pillar-tag">Converse</div>
+        <h3 class="pillar-title">Tell Your Story.<br>Own the Narrative.</h3>
+        <p class="pillar-desc">Good PR is about more than press releases. It's about building trust, managing
+          perception, and making sure the right people hear the right things at the right time.</p>
+        <ul class="pillar-services">
+          <li>Public Relations & Comms Strategy</li>
+          <li>Stakeholder Engagement</li>
+          <li>Tender Writing & Submissions</li>
+          <li>Media Relations</li>
+          <li>Corporate Communications</li>
+          <li>Crisis Communication</li>
+        </ul>
+        <a href="#contact" class="pillar-link">Start the conversation →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="section-header fade-up">
+      <div>
+        <span class="section-tag">Why Onea Africa</span>
+        <h2 class="section-title">We don't just deliver<br>services. We deliver outcomes.</h2>
+        <p class="section-sub">You don't want an agency that disappears after the invoice. You want a team that's
+          invested in what happens next. That's us.</p>
+      </div>
+    </div>
+
+    <div class="why-grid fade-up">
+      <div class="why-card">
+        <div class="why-num" style="color:var(--green)">01</div>
+        <h4>End-to-End Capability</h4>
+        <p>One team handles connectivity, digital presence, and communications. No handoffs, no gaps, no "that's not our
+          department."</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num" style="color:var(--yellow)">02</div>
+        <h4>B-BBEE Level 1</h4>
+        <p>We're a Level 1 contributor — which means working with us counts toward your transformation goals without
+          compromising on quality.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num" style="color:var(--violet)">03</div>
+        <h4>Built for South Africa</h4>
+        <p>Based in Pretoria. Thinking nationally. We understand the local landscape — the regulations, the market, the
+          nuance.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num" style="color:var(--green)">04</div>
+        <h4>Proven Partners</h4>
+        <p>We work with established networks — Openserve, Telkom, Supersonic, Home Connect — so our quality has
+          infrastructure behind it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIBRE -->
+  <section id="fibre">
+    <div class="fibre-layout">
+      <div class="fade-up">
+        <span class="section-tag">Connect · Fibre</span>
+        <h2 class="section-title">Fibre internet for homes and businesses across South Africa.</h2>
+        <p class="section-sub" style="margin-bottom:28px">We resell fibre on the Openserve network through multiple ISP
+          partners — so you get options, not a take-it-or-leave-it. Fast installation, reliable support, no headaches.
+        </p>
+        <div class="isp-logos">
+          <span class="isp-chip">Telkom</span>
+          <span class="isp-chip">Supersonic</span>
+          <span class="isp-chip">Home Connect</span>
+          <span class="isp-chip">ND Connect</span>
+        </div>
+        <div style="margin-top:36px">
+          <a href="#contact" class="btn-primary">Check availability in your area →</a>
+        </div>
+      </div>
+
+      <div class="fibre-plans fade-up">
+        <div class="fibre-plan featured">
+          <div>
+            <div class="plan-speed">10 Mbps</div>
+            <div class="plan-type">Residential Starter</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+            <span class="plan-badge">Popular</span>
+            <a href="#contact" class="plan-cta">Get this →</a>
+          </div>
+        </div>
+        <div class="fibre-plan">
+          <div>
+            <div class="plan-speed">25 Mbps</div>
+            <div class="plan-type">Residential / SME</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+            <span class="plan-badge yellow">Great value</span>
+            <a href="#contact" class="plan-cta">Get this →</a>
+          </div>
+        </div>
+        <div class="fibre-plan">
+          <div>
+            <div class="plan-speed">50 Mbps</div>
+            <div class="plan-type">Business / Power User</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+            <a href="#contact" class="plan-cta">Get this →</a>
+          </div>
+        </div>
+        <div class="fibre-plan">
+          <div>
+            <div class="plan-speed">100+ Mbps</div>
+            <div class="plan-type">Enterprise / Custom</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+            <a href="#contact" class="plan-cta">Talk to us →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-layout">
+      <div class="about-visual fade-up">
+        <div class="about-box">
+          <h3>Connecting people since 2016.</h3>
+          <p>Onea Africa started as a networking services business in Pretoria. Over the years, we realised that
+            connectivity alone wasn't enough — businesses needed to be visible, and their voices needed to be heard. So
+            we grew into three pillars: Connect, Communicate, Converse. Today, we're a full-service technology and
+            digital agency with the reach, credentials, and team to deliver on all three.</p>
+          <div class="about-stat-row">
+            <div class="about-stat">
+              <span class="num">9+</span>
+              <span class="lbl">Years in operation</span>
+            </div>
+            <div class="about-stat">
+              <span class="num">3</span>
+              <span class="lbl">Core service pillars</span>
+            </div>
+            <div class="about-stat">
+              <span class="num">L1</span>
+              <span class="lbl">B-BBEE status</span>
+            </div>
+            <div class="about-stat">
+              <span class="num">100%</span>
+              <span class="lbl">South African owned</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content fade-up">
+        <span class="section-tag">About Us</span>
+        <h2 class="section-title">We build the infrastructure for meaningful connection.</h2>
+        <p class="section-sub">Our vision is to enable individuals and businesses to connect, exchange ideas, and create
+          real value together. Not just online — in the real world, with real impact.</p>
+        <ul class="values-list">
+          <li>
+            <div class="val-icon" style="background:var(--green-light)">🌱</div>
+            <div>
+              <strong>Rooted in purpose</strong>
+              <span>We're not here to tick boxes. We're here to help businesses grow and communities connect.</span>
+            </div>
+          </li>
+          <li>
+            <div class="val-icon" style="background:var(--violet-light)">🤝</div>
+            <div>
+              <strong>Partners, not vendors</strong>
+              <span>We invest in understanding your world. Your success is what makes us successful.</span>
+            </div>
+          </li>
+          <li>
+            <div class="val-icon" style="background:var(--yellow-light)">⚡</div>
+            <div>
+              <strong>Results-first thinking</strong>
+              <span>We move fast, we're direct, and we focus on what actually moves the needle for you.</span>
+            </div>
+          </li>
+        </ul>
+        <a href="#contact" class="btn-primary">Work with us →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="section-header fade-up">
+      <div>
+        <span class="section-tag">Insights & Resources</span>
+        <h2 class="section-title">We write about what we know.</h2>
+        <p class="section-sub">Connectivity, digital marketing, communications — if it's in our world, we'll share what
+          we've learned. No fluff, just useful.</p>
+      </div>
+      <div class="cta-side">
+        <a href="#" class="btn-secondary">View all posts →</a>
+      </div>
+    </div>
+
+    <div class="blog-grid fade-up">
+      <div class="blog-card featured">
+        <div class="blog-thumb thumb-green">📡</div>
+        <div class="blog-body">
+          <span class="blog-cat cat-green">Connectivity</span>
+          <h3>Why Fibre Beats WiFi Extenders Every Time (and What to Do About Dead Zones)</h3>
+          <p>If you're still running a single router and wondering why half your house has no signal, this is for you.
+            We break down the real solution — and it's simpler than you think.</p>
+          <div class="blog-meta">
+            <span class="blog-date">March 2024</span>
+            <a href="#" class="blog-read">Read more →</a>
+          </div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb thumb-violet">🎯</div>
+        <div class="blog-body">
+          <span class="blog-cat cat-violet">Digital Marketing</span>
+          <h3>How to Improve the Way You Present Your Brand Online</h3>
+          <p>Your brand is showing up somewhere right now. The question is whether it's showing up the way you'd want it
+            to.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Feb 2024</span>
+            <a href="#" class="blog-read">Read more →</a>
+          </div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb thumb-yellow">📰</div>
+        <div class="blog-body">
+          <span class="blog-cat cat-yellow">PR & Comms</span>
+          <h3>What Most Small Businesses Get Wrong About Stakeholder Engagement</h3>
+          <p>It's not about issuing statements. It's about building relationships before you need them.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Jan 2024</span>
+            <a href="#" class="blog-read">Read more →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section id="cta-banner">
+    <h2>Ready to Connect, Communicate,<br>and Converse?</h2>
+    <p>Whether you need fibre, a new website, a PR strategy, or all three — we're the team that ties it together. Let's
+      start with a conversation.</p>
+    <div class="cta-buttons">
+      <a href="#contact" class="btn-white">Get in Touch</a>
+      <a href="mailto:connect@onea.co.za" class="btn-outline-white">connect@onea.co.za</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header fade-up">
+      <div>
+        <span class="section-tag">Contact Us</span>
+        <h2 class="section-title">Let's talk about what<br>you actually need.</h2>
+        <p class="section-sub">No hard sell. Just an honest conversation about where you are, where you want to be, and
+          whether we're the right fit to help you get there.</p>
+      </div>
+    </div>
+
+    <div class="contact-layout fade-up">
+      <div class="contact-info">
+        <h3>Get in touch directly</h3>
+        <div class="contact-item">
+          <div class="c-icon">📧</div>
+          <div>
+            <span class="c-label">Email</span>
+            <a href="mailto:connect@onea.co.za" class="c-value">connect@onea.co.za</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">📞</div>
+          <div>
+            <span class="c-label">Phone / WhatsApp</span>
+            <a href="tel:0817183881" class="c-value">081 718 3881</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">🌐</div>
+          <div>
+            <span class="c-label">Website</span>
+            <a href="https://www.onea.africa" class="c-value">www.onea.africa</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <span class="c-label">Location</span>
+            <span class="c-value">Pretoria, Gauteng — South Africa</span>
+          </div>
+        </div>
+
+        <div style="margin-top:36px">
+          <div
+            style="font-size:0.8rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">
+            Our services</div>
+          <div class="pillar-chips" style="flex-wrap:wrap;gap:8px">
+            <span class="pchip pchip-g">🌐 Connect</span>
+            <span class="pchip pchip-y">📣 Communicate</span>
+            <span class="pchip pchip-v">💬 Converse</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3>Send us a message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Your surname">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@company.co.za">
+        </div>
+        <div class="form-group">
+          <label>I'm interested in</label>
+          <select>
+            <option value="">Select a service area</option>
+            <option>Fibre Connectivity</option>
+            <option>IT Infrastructure & Cloud</option>
+            <option>ERP Solutions</option>
+            <option>Website Development</option>
+            <option>Digital Marketing</option>
+            <option>PR & Communications</option>
+            <option>Tender Writing</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us a bit about what you're working on and what you need..."></textarea>
+        </div>
+        <button class="form-submit">Send Message →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:0">
+          <div class="logo-icon"></div>
+          <span class="logo-text">onea<span>.</span>africa</span>
+        </div>
+        <p>Connect. Communicate. Converse.<br>A Pretoria-based technology and digital services company enabling
+          meaningful connection for businesses across South Africa.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">fb</a>
+          <a href="#" class="social-btn">tw</a>
+          <a href="#" class="social-btn">ig</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul class="footer-links">
+          <li><a href="#">Fibre Connectivity</a></li>
+          <li><a href="#">IT Infrastructure</a></li>
+          <li><a href="#">Cloud Solutions</a></li>
+          <li><a href="#">ERP & Software</a></li>
+          <li><a href="#">Network Cabling</a></li>
+          <li><a href="#">Managed Services</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Communicate & Converse</h5>
+        <ul class="footer-links">
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">Digital Marketing</a></li>
+          <li><a href="#">Content & Creative</a></li>
+          <li><a href="#">Media Buying</a></li>
+          <li><a href="#">PR & Comms</a></li>
+          <li><a href="#">Tender Writing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Onea Africa (Pty) Ltd. All rights reserved.</p>
+      <div class="footer-reg">
+        Reg: 2016/461132/07 &nbsp;·&nbsp; VAT: 4550322707 &nbsp;·&nbsp; CSD: MAAA0662773 &nbsp;·&nbsp; B-BBEE Level 1
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Nav background on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.08)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    });
+  </script>
+</body>
+
+</html>
