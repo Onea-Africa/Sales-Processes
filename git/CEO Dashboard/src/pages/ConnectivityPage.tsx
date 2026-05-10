@@ -7,21 +7,42 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
     <div className="font-body-lg text-body-lg" style={{ backgroundColor: '#f8fbec', color: '#1a1c18' }}>
 
       {/* Nav */}
-      <header className="sticky top-0 z-50 border-b border-[#424938]/30" style={{ backgroundColor: 'rgba(19,19,19,0.85)', backdropFilter: 'blur(16px)' }}>
-        <div className="flex justify-between items-center w-full px-[64px] py-4 max-w-[1440px] mx-auto">
-          <Link to="/" className="font-display-lg text-[32px] font-bold" style={{ color: '#a6e15d' }}>Onea Africa</Link>
+      <header className="sticky top-0 z-50" style={{ backgroundColor: 'rgba(247,249,243,0.96)', backdropFilter: 'blur(16px)', borderBottom: '2px solid #8CC444' }}>
+        <div className="flex justify-between items-center w-full px-[64px] py-3 max-w-[1440px] mx-auto">
+          <Link to="/">
+            <img src="/Clean_Backround.png" alt="Onea Africa" className="h-8 w-auto" />
+          </Link>
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="font-medium hover:text-[#a6e15d] transition-colors duration-300 text-[#c2c9b3]">Solutions</Link>
-            <Link to="/case-studies" className="font-medium hover:text-[#a6e15d] transition-colors duration-300 text-[#c2c9b3]">Case Studies</Link>
-            <span className="font-bold border-b-2 pb-1" style={{ color: '#a6e15d', borderColor: '#a6e15d' }}>Operations</span>
-            <a href="#" className="font-medium hover:text-[#a6e15d] transition-colors duration-300 text-[#c2c9b3]">Network</a>
-            <a href="#" className="font-medium hover:text-[#a6e15d] transition-colors duration-300 text-[#c2c9b3]">Insights</a>
+            {[
+              { label: 'Solutions', to: '/', active: false },
+              { label: 'Case Studies', to: '/case-studies', active: false },
+            ].map(item => (
+              <Link key={item.label} to={item.to} className="relative font-medium text-[#424938] hover:text-[#416900] transition-colors duration-200 group py-1">
+                {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#8CC444] group-hover:w-full transition-all duration-300 rounded-full" />
+              </Link>
+            ))}
+            <span className="relative font-bold text-[#416900] py-1">
+              Operations
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#8CC444] rounded-full" />
+            </span>
+            {[
+              { label: 'Network', href: '#' },
+              { label: 'Insights', href: '#' },
+            ].map(item => (
+              <a key={item.label} href={item.href} className="relative font-medium text-[#424938] hover:text-[#416900] transition-colors duration-200 group py-1">
+                {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#8CC444] group-hover:w-full transition-all duration-300 rounded-full" />
+              </a>
+            ))}
           </nav>
-          <div className="flex items-center gap-4">
-            <button className="font-medium hover:text-[#a6e15d] transition-colors text-[#c2c9b3]">Client Login</button>
+          <div className="flex items-center gap-3">
+            <button className="text-sm font-medium text-[#424938] hover:text-[#416900] transition-colors px-3 py-1.5 rounded-full hover:bg-[#8CC444]/10">
+              Client Login
+            </button>
             <button
-              className="px-6 py-2 rounded-full font-bold shadow-lg hover:opacity-90 active:scale-95 transition-all text-[#1f3700]"
-              style={{ backgroundColor: '#a6e15d', boxShadow: '0 4px 14px rgba(166,225,93,0.2)' }}
+              className="px-5 py-2 rounded-full font-bold hover:scale-95 active:scale-95 transition-all text-sm"
+              style={{ backgroundColor: '#8CC444', color: '#102000', boxShadow: '0 2px 8px rgba(140,196,68,0.3)' }}
               onClick={onTalkToUs}
             >
               Launch Platform

@@ -51,19 +51,56 @@ export default function HomePage({ onTalkToUs }: Props) {
         </div>
       </section>
 
-      {/* Trust Grid */}
+      {/* Trust Grid — Technology Partners & Credentials */}
       <section className="bg-soft-surface py-xl border-y border-border-subtle">
         <div className="max-w-[1280px] mx-auto px-md">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-lg items-center text-center">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-lg items-center text-center">
+            <div className="flex flex-col items-center gap-sm">
+              <span className="material-symbols-outlined text-[2rem]" style={{ color: '#416900' }}>verified</span>
+              <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">B-BBEE Level 1</p>
+            </div>
+            <div className="flex flex-col items-center gap-sm">
+              <span className="material-symbols-outlined text-[2rem]" style={{ color: '#416900' }}>partner_exchange</span>
+              <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Openserve Partner</p>
+            </div>
+            <div className="flex flex-col items-center gap-sm">
+              <span className="material-symbols-outlined text-[2rem]" style={{ color: '#168ECB' }}>signal_cellular_alt</span>
+              <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Telkom Partner</p>
+            </div>
+            <div className="flex flex-col items-center gap-sm">
+              <span className="material-symbols-outlined text-[2rem]" style={{ color: '#416900' }}>public</span>
+              <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">National Coverage</p>
+            </div>
+            <div className="flex flex-col items-center gap-sm">
+              <span className="material-symbols-outlined text-[2rem]" style={{ color: '#D6139F' }}>groups</span>
+              <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Community Focused</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted By — Client Strip */}
+      <section className="py-xl bg-white border-b border-border-subtle">
+        <div className="max-w-[1280px] mx-auto px-md">
+          <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest text-center mb-lg">Trusted by</p>
+          <div className="flex flex-wrap justify-center gap-lg">
             {[
-              { icon: 'verified', label: 'B-BBEE Level 1 Status' },
-              { icon: 'partner_exchange', label: 'Openserve Partnership' },
-              { icon: 'public', label: 'National Coverage' },
-              { icon: 'groups', label: 'Community Focused' },
-            ].map(item => (
-              <div key={item.label} className="flex flex-col items-center gap-sm">
-                <span className="material-symbols-outlined text-primary text-[2rem]">{item.icon}</span>
-                <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">{item.label}</p>
+              { initials: 'SR', name: 'Shepherd Removals', bg: '#EA2300', accent: '#38D4FB' },
+              { initials: 'LT', name: 'Lekhuleni Telecoms', bg: '#168ECB', accent: '#8CC444' },
+              { initials: 'RC', name: 'Rachips', bg: '#8CC444', accent: '#F4D350' },
+              { initials: 'IC', name: 'Ishani Cakes', bg: '#D6139F', accent: '#F4D350' },
+              { initials: 'MD', name: 'MulDiv Consulting', bg: '#416900', accent: '#8CC444' },
+              { initials: 'PS', name: 'Purple Sands', bg: '#6B3FA0', accent: '#F4D350' },
+              { initials: 'RB', name: 'Rathusha BlueStar', bg: '#1565C0', accent: '#8CC444' },
+            ].map(c => (
+              <div key={c.name} className="flex flex-col items-center gap-sm group cursor-default">
+                <div
+                  className="w-16 h-16 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-sm group-hover:scale-105 transition-transform"
+                  style={{ background: `linear-gradient(135deg, ${c.bg}, ${c.accent})` }}
+                >
+                  {c.initials}
+                </div>
+                <span className="font-label-md text-[11px] text-on-surface-variant text-center max-w-[72px] leading-tight">{c.name}</span>
               </div>
             ))}
           </div>

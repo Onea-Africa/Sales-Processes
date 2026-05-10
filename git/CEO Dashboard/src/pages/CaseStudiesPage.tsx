@@ -5,58 +5,81 @@ interface Props { onTalkToUs: () => void; }
 
 const cards = [
   {
-    id: 'national-fibre-rollout',
-    cat: 'Connect',
-    badge: 'bg-onea-green text-primary',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXemd6mc_L54nayImwbMiHxqRbQ5PkJE850s7qOv92LtQQI4qtuxFhcjgV1m4zgBIwRyy6LhyIFszTHQ5F-gpFx40sb9-qWfdyw5t606wD7wDksd6HpBgkDu4x7vLXIuBe9DKtmgwTVMt6KsyWl0FJdy3yzwzCs03TnQy0hnyWU99p3KmZIz9oKmld5_h63lQANaxutmaY1A7QOASOm7ggLEa6FMhMPOi9KCpi50aoW9gKQM_tpKXL_0baWsEEOwLJ5wkd4spoljM',
-    title: 'National Fibre Rollout for Retail Giant',
-    desc: 'Optimizing cross-border logistics and real-time inventory management through a dedicated high-speed fibre network across 200+ locations.',
-    linkColor: 'text-primary',
-  },
-  {
-    id: 'strategic-pr-tech-hubs',
+    id: 'shepherd-removals',
     cat: 'Communicate',
-    badge: 'bg-onea-violet/10 border border-onea-violet/20 text-onea-violet',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDuHFhhJ0Xyzw_yzg9xuVYtWHGs3mYV_YdOXbYf3MwyRIwYTlkiMOjLvkomoWZUnQtlrvA46GgBmThLTGKAEthN4F2grpy7edGG6iiKMmhul-SYkUt9GSZXEjN1wcFko7Afzo__MitlxP5Qft0UvYb-kHPHVSZswRudY1IM589c6x18PF23Dfftqsi_UeHLVUw2wW-p7kVURZ07KM_mOhH52SnKiv_R5rKqney5MJZXSVbsEA9_QOHiNgRwAi0ICpjX-IG2tjl2dNk',
-    title: 'Strategic Public Relations for Tech Hubs',
-    desc: "Elevating the brand narrative for Africa's leading technology incubators through targeted media outreach and content strategy.",
-    linkColor: 'text-primary',
+    badge: 'text-white text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
+    badgeBg: '#EA2300',
+    initials: 'SR',
+    gradFrom: '#EA2300',
+    gradTo: '#38D4FB',
+    title: 'Shepherd Removals & Deliveries',
+    desc: 'Brand identity, IT services and website development for a growing removals and logistics company.',
   },
   {
-    id: 'openserve-integration',
+    id: 'lekhuleni-telecoms',
     cat: 'Connect',
-    badge: 'bg-onea-green text-primary',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCUa2ItHniObxYMwH3nTNfzM1lnKQA-RSYM4_brqXEkwu-U_eAmYjvT7bze6iNj5occfIBXm-Ij8di6_XSQnkyoa9lvBEch9uqX5ZWu2oIdLd2N8h6_WVEGliqWrDpPQW53DBVjhDZHo2KwrONRottkNopEABVs46vf5k8iQfT7u_b-LJK02kxhDog_CekLgt5tfUTFk9iiekt1q_K4mjKCedisg4XSFU6IWhIUTBJLtNMpqPVbLE6MUa5ANgw-1iHoBCtj4Og5QbE',
-    title: 'Openserve Infrastructure Integration',
-    desc: 'Seamlessly integrating national backbone infrastructure with last-mile delivery systems for enhanced service uptime.',
-    linkColor: 'text-primary',
+    badge: 'bg-onea-green text-primary text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
+    badgeBg: '#8CC444',
+    initials: 'LT',
+    gradFrom: '#168ECB',
+    gradTo: '#8CC444',
+    title: 'Lekhuleni Telecoms & Projects',
+    desc: 'Hosting, website development, IT services and connectivity solutions for a telecoms and projects company.',
   },
   {
-    id: 'smart-wifi-deployment',
-    cat: 'Converse',
-    badge: 'bg-onea-yellow/10 border border-onea-yellow/20 text-on-secondary-container',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBqLYIxQTey6nfCuiD6UcZ8577ONFW8q_zv6D6myxHBravi3GmzzljjdeInz2FhxvAM1XRZSO29_5_3Uf-aR64n99ZXpbNaPPsg3hH20vrQAdTjRaBwrdxm6vJmQZ0OtAfhmBdrUNBJyE8EKt-BhvKqsDqBo3N2oMapOesiY1yLqrYm507iGALaDk39erS_-1k2ANoSBJ312xGCaLGMcwEkf7dA_S5HtHMBXyC6RZFb0CFp2ObSfqsbLYvqqEpEeShDYm-HC2x8FV0',
-    title: 'Regional Smart WiFi Deployment',
-    desc: 'Implementing high-capacity, mesh-enabled smart WiFi solutions for multi-purpose commercial and leisure developments.',
-    linkColor: 'text-primary',
-  },
-  {
-    id: 'fintech-digital-performance',
+    id: 'rachips',
     cat: 'Communicate',
-    badge: 'bg-onea-violet/10 border border-onea-violet/20 text-onea-violet',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC8SkaQQAqZhJ6yHarotvMDfwl0kwHr6qnTGk3Ks4FkjmMBXsWBMKT9lbEUK4EO2BrE4O3UcbZ5Iu73FJalUYXZjiufYZ5xaH22HCbWsqJk81gUieGtFS_MsrXaHBGgfZ4AyHSTJ3ZrFnbRy-jAn6kI7ylIfZd3KXExQP99dLHBWEm-7g-yEMLFNraQRevkJibBN7v7RLjIyUQ7WahVlu4MENnrj4QfrI_vWGnuRLnYJmwYsGd4sj9-FJc0ZFfqesNWi3elmj0REmU',
-    title: 'Digital Performance for FinTech Startups',
-    desc: 'Scaling customer acquisition and brand visibility for emerging financial technology firms in the SADC region.',
-    linkColor: 'text-primary',
+    badge: 'text-white text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
+    badgeBg: '#D6139F',
+    initials: 'RC',
+    gradFrom: '#8CC444',
+    gradTo: '#F4D350',
+    title: 'Rachips',
+    desc: 'IT services, branding and social media management to grow brand presence and digital engagement.',
   },
   {
-    id: 'broadband-expansion',
+    id: 'ishani-cakes',
+    cat: 'Communicate',
+    badge: 'text-white text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
+    badgeBg: '#D6139F',
+    initials: 'IC',
+    gradFrom: '#D6139F',
+    gradTo: '#F4D350',
+    title: 'Ishani Cakes',
+    desc: 'IT services, digital marketing and content creation to build an engaging online presence for a specialty cake brand.',
+  },
+  {
+    id: 'muldiv-consulting',
     cat: 'Connect',
-    badge: 'bg-onea-green text-primary',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBE6VbpzhcscDuF9QNASU1uxSMONHiTeXjLYaxhqoS2nzuikZFJsl-j7x7Pz_l_bXRIYlvLP16ubHnngn50ekPs2iATwBX3VQCz0wCe-CxijQ36HlfvFQjkTTRsN0rxfvcFXUgaNjDxIZTtf55bdwiV1GIIl3WYx2PXTHnovJS_i-k9J7OlJTpvaEPB8SsWKsrEbdkAimhNGbeOYR34wrCNwzsYzxFIa8xUKdJzvmINIWzgwolIbJxcc5AvdShzRfH8tt-Y4cKIZh4',
-    title: 'Broadband Expansion Project Phase II',
-    desc: 'Extending high-speed internet access to previously underserved rural communities through innovative microwave backhaul technology.',
-    linkColor: 'text-primary',
+    badge: 'bg-onea-green text-primary text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
+    badgeBg: '#8CC444',
+    initials: 'MD',
+    gradFrom: '#416900',
+    gradTo: '#8CC444',
+    title: 'MulDiv Consulting & Advisory',
+    desc: 'Managed hosting solutions providing reliable infrastructure for a consulting and advisory services firm.',
+  },
+  {
+    id: 'purple-sands-trading',
+    cat: 'Connect',
+    badge: 'bg-onea-green text-primary text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
+    badgeBg: '#8CC444',
+    initials: 'PS',
+    gradFrom: '#6B3FA0',
+    gradTo: '#F4D350',
+    title: 'Purple Sands Trading',
+    desc: 'IT services and technology support to keep a trading business running reliably and efficiently.',
+  },
+  {
+    id: 'rathusha-bluestar',
+    cat: 'Connect',
+    badge: 'bg-onea-green text-primary text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
+    badgeBg: '#8CC444',
+    initials: 'RB',
+    gradFrom: '#1565C0',
+    gradTo: '#8CC444',
+    title: 'Rathusha BlueStar',
+    desc: 'IT services and technical support solutions for a dynamic business operating across multiple sectors.',
   },
 ];
 
@@ -131,14 +154,13 @@ export default function CaseStudiesPage({ onTalkToUs }: Props) {
                 to={`/case-studies/${cs.id}`}
                 className="group bg-white rounded-lg overflow-hidden card-shadow transition-transform duration-500 hover:-translate-y-2 border border-border-subtle"
               >
-                <div className="aspect-[4/3] overflow-hidden relative">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    src={cs.img}
-                    alt={cs.title}
-                  />
+                <div className="aspect-[4/3] relative flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${cs.gradFrom}, ${cs.gradTo})` }}>
+                  <span className="text-white font-bold text-[72px] opacity-25 select-none">{cs.initials}</span>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-white font-extrabold text-[56px] drop-shadow-lg">{cs.initials}</span>
+                  </div>
                   <div className="absolute top-md left-md">
-                    <span className={`text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider ${cs.badge}`}>
+                    <span className={cs.badge} style={{ backgroundColor: cs.badgeBg }}>
                       {cs.cat}
                     </span>
                   </div>
@@ -146,7 +168,7 @@ export default function CaseStudiesPage({ onTalkToUs }: Props) {
                 <div className="p-xl">
                   <h3 className="font-headline-md text-text-primary mb-md leading-snug">{cs.title}</h3>
                   <p className="text-on-surface-variant line-clamp-2 mb-xl">{cs.desc}</p>
-                  <span className={`inline-flex items-center gap-sm font-bold group/link ${cs.linkColor}`}>
+                  <span className="inline-flex items-center gap-sm text-primary font-bold group/link">
                     View Case Study
                     <span className="material-symbols-outlined transition-transform group-hover/link:translate-x-1">arrow_forward</span>
                   </span>
