@@ -28,21 +28,27 @@ const sendEmailNotification = async (enquiry) => {
       <p><strong>Email:</strong> ${enquiry.email}</p>
       <p><strong>Phone:</strong> ${enquiry.phone || 'Not provided'}</p>
       <p><strong>Company:</strong> ${enquiry.company || 'Not provided'}</p>
-      <p><strong>Service Interest:</strong> ${enquiry.serviceInterest}</p>
+      <p><strong>Service Requested:</strong> ${enquiry.service}</p>
+      <p><strong>Category:</strong> ${enquiry.serviceInterest}</p>
       <p><strong>Message:</strong></p><p>${enquiry.message}</p>
       <hr><p style="color:#888;font-size:12px">reCAPTCHA score: ${enquiry.recaptchaScore}</p>`,
   });
 };
 
 const appendToGoogleSheets = async (data) => {
-  // Google Sheets integration — requires GOOGLE_SHEETS_ID and service account credentials
-  // Implement using googleapis npm package when credentials are available
+  // Appends a row to the "Enquiries" tab in Google Sheets.
+  // Columns: Timestamp | Name | Email | Phone | Company | Service Request | Message | reCAPTCHA Score
+  // Requires GOOGLE_SHEETS_ID + GOOGLE_SERVICE_ACCOUNT_JSON env vars.
+  // Implement with: const { google } = require('googleapis');
+  // Sheet tab name: "Enquiries"
+  // Row values: [new Date().toISOString(), data.name, data.email, data.phone, data.company,
+  //              data.service, data.message, data.recaptchaScore]
 };
 
 router.post('/', async (req, res) => {
   try {
-    const { name, email, phone, company, message, serviceInterest, recaptchaToken } = req.body;
-    if (!name || !email || !message) return res.status(400).json({ error: 'Name, email and message are required.' });
+    const { name, email, phone, company, message, service, serviceInterest, recaptchaToken } = req.body;
+    if (!name || !email || !phone || !service) return res.status(400).json({ error: 'Name, email, contact number and service are required.' });
 
     const captcha = await verifyRecaptcha(recaptchaToken);
     if (captcha.success && captcha.score < 0.5) {
@@ -51,6 +57,7 @@ router.post('/', async (req, res) => {
 
     const enquiry = await Enquiry.create({
       name, email, phone, company, message,
+      service: service || '',
       serviceInterest: serviceInterest || 'general',
       recaptchaScore: captcha.score || null,
     });

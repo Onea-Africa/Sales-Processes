@@ -6,6 +6,7 @@ const enquirySchema = new mongoose.Schema({
   phone: { type: String, trim: true },
   company: { type: String, trim: true },
   message: { type: String, required: true },
+  service: { type: String, default: '' },
   serviceInterest: { type: String, enum: ['connect', 'communicate', 'converse', 'general'], default: 'general' },
   recaptchaScore: { type: Number },
   source: { type: String, default: 'website' },

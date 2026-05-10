@@ -25,6 +25,18 @@ const team = [
       email: 'connect@onea.co.za',
     },
   },
+  {
+    name: 'Yoland Nkabinde',
+    role: 'Accounts & Compliance Administrator',
+    bio: 'Yoland keeps Onea Africa\'s financial and compliance engine running smoothly. She manages accounts, ensures regulatory compliance, and supports the day-to-day operational integrity of the business.',
+    initials: 'YN',
+    gradFrom: '#8CC444',
+    gradTo: '#416900',
+    social: {
+      linkedin: 'https://www.linkedin.com/company/onea-africa',
+      email: 'yoland@onea.co.za',
+    },
+  },
 ];
 
 export default function TeamPage({ onTalkToUs }: Props) {
@@ -45,7 +57,7 @@ export default function TeamPage({ onTalkToUs }: Props) {
       {/* Team grid */}
       <section className="py-xxl">
         <div className="max-w-[1280px] mx-auto px-xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-xl max-w-[900px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
             {team.map(member => (
               <div key={member.name} className="bg-white rounded-lg border border-border-subtle overflow-hidden card-shadow group hover:-translate-y-1 transition-transform duration-300">
                 <div className="h-[260px] flex items-center justify-center relative" style={{ background: `linear-gradient(135deg, ${member.gradFrom}, ${member.gradTo})` }}>

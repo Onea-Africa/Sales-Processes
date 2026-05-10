@@ -23,8 +23,8 @@ export default function LoadingScreen() {
           {[0, 1, 2].map(i => (
             <div
               key={i}
-              className="w-2.5 h-2.5 rounded-full bg-primary"
-              style={{ animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }}
+              className="w-2.5 h-2.5 rounded-full"
+              style={{ backgroundColor: '#8CC444', animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }}
             />
           ))}
         </div>
