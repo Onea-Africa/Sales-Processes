@@ -64,14 +64,16 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
               Vertically integrated African technology solutions, from Openserve Fibre integration to managed enterprise-grade WiFi and Smart CCTV ecosystems.
             </p>
             <div className="flex gap-4">
-              <button
+              <a
                 className="px-8 py-4 rounded-full font-bold flex items-center gap-2 hover:opacity-90 transition-all text-[#1f3700]"
                 style={{ backgroundColor: '#a6e15d' }}
-                onClick={onTalkToUs}
+                href="https://partners.openserve.co.za/dashboards/main"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Request Coverage Map
                 <span className="material-symbols-outlined">map</span>
-              </button>
+              </a>
               <a
                 href="#specs"
                 className="border px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all text-[#e5e2e1] border-[#424938]"
@@ -156,9 +158,9 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
               <div className="absolute -right-20 -bottom-20 w-96 h-96 opacity-10 pointer-events-none">
                 <span className="material-symbols-outlined text-[300px]">router</span>
               </div>
-              <button className="w-fit border-b pb-1 font-bold hover:opacity-70 transition-all" style={{ color: '#416900', borderColor: '#416900' }} onClick={onTalkToUs}>
+              <a href="https://partners.openserve.co.za/dashboards/main" target="_blank" rel="noopener noreferrer" className="w-fit border-b pb-1 font-bold hover:opacity-70 transition-all" style={{ color: '#416900', borderColor: '#416900' }}>
                 View Coverage Portal
-              </button>
+              </a>
             </div>
 
             {/* Managed WiFi */}
@@ -208,14 +210,16 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
                 <p className="text-[#424938] mb-6">
                   Empower your technicians with real-time site survey tools, installation tracking, and instant support escalation.
                 </p>
-                <button
+                <a
+                  href="https://onea.africa/field"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:opacity-80 transition-all text-[#1a1c18]"
                   style={{ backgroundColor: '#d9dbcd' }}
-                  onClick={onTalkToUs}
                 >
                   Access Portal
                   <span className="material-symbols-outlined">launch</span>
-                </button>
+                </a>
               </div>
               <div className="w-full md:w-64 h-48 rounded-lg overflow-hidden border border-[#424938]/30">
                 <img
@@ -287,13 +291,15 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
                 </div>
               ))}
             </div>
-            <button
+            <a
+              href="https://partners.openserve.co.za/dashboards/main"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 rounded-full font-bold flex items-center gap-2 hover:opacity-90 transition-all text-[#1f3700]"
               style={{ backgroundColor: '#a6e15d' }}
-              onClick={onTalkToUs}
             >
               Open Interactive Map
-            </button>
+            </a>
           </div>
         </section>
 

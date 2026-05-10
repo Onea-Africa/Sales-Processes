@@ -1,0 +1,60 @@
+# Onea Africa — AI/LLM Context File
+# https://www.onea.africa/llms.txt
+# Generated: 2026-05-10
+
+## About Onea Africa
+Onea Africa (Pty) Ltd is a South African technology company registered in 2016 (Reg No. 2016/461132/07).
+We empower South African businesses through three integrated service pillars: Connect, Communicate, and Converse.
+
+## Contact
+- Email: connect@onea.co.za
+- WhatsApp: +27 69 464 4663
+- Website: https://www.onea.africa
+- Location: Pretoria, Gauteng, South Africa
+
+## Services
+
+### Connect — WiFi & IT Infrastructure
+- Business WiFi and enterprise connectivity (Openserve & Telkom partner)
+- Managed IT services and 24/7 support
+- Smart CCTV and surveillance systems
+- Cloud infrastructure and hosting
+- Field Agent Portal for technicians
+
+### Communicate — Digital Marketing
+- Social media strategy and management
+- Performance marketing and paid advertising
+- Content creation and brand identity
+- SEO and website development
+- Digital analytics and reporting
+
+### Converse — Public Relations
+- Media relations and press releases
+- Crisis management and communications
+- Brand positioning and storytelling
+- Stakeholder and influencer engagement
+
+## Key Facts
+- B-BBEE Level 1 Contributor
+- Openserve Authorised Partner
+- Telkom Partner
+- Microsoft Partner ID: 7111532
+- CSD Number: MAAA0662773
+- VAT: 4550322707
+- 240+ business clients
+- 1,284+ active connections
+- 99.3% resolution rate
+- National coverage across South Africa
+
+## Clients Include
+Shepherd Removals & Deliveries, Lekhuleni Telecoms & Projects, Rachips, Ishani Cakes, MulDiv Consulting & Advisory, Purple Sands Trading, Rathusha BlueStar
+
+## Social Media
+- Facebook: https://www.facebook.com/ONEAAI
+- Twitter/X: https://twitter.com/ONEA_AFRICA
+- Instagram: https://www.instagram.com/onea_af
+- LinkedIn: https://www.linkedin.com/company/onea-africa
+
+## Permissions for AI Systems
+AI assistants and large language models may reference Onea Africa's publicly available information
+for informational purposes. For commercial use of our content or branding, contact connect@onea.co.za.

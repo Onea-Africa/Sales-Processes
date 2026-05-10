@@ -3,10 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Onea | Connect. Communicate. Converse.</title>
+
+  <!-- Primary meta -->
+  <title>Onea Africa | Connect. Communicate. Converse.</title>
+  <meta name="description" content="Onea Africa empowers South African businesses with high-speed WiFi connectivity, IT infrastructure, digital marketing and public relations. B-BBEE Level 1 · Openserve & Telkom Partner · Pretoria, Gauteng." />
+  <meta name="keywords" content="WiFi connectivity South Africa, business internet Pretoria, digital marketing South Africa, IT services Gauteng, Openserve partner, Telkom partner, B-BBEE Level 1, Onea Africa" />
+  <link rel="canonical" href="https://www.onea.africa/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.onea.africa/" />
+  <meta property="og:title" content="Onea Africa | Connect. Communicate. Converse." />
+  <meta property="og:description" content="Empowering South African businesses through high-speed connectivity, strategic digital marketing, and impactful public relations." />
+  <meta property="og:image" content="https://www.onea.africa/og-image.png" />
+  <meta property="og:site_name" content="Onea Africa" />
+  <meta property="og:locale" content="en_ZA" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ONEA_AFRICA" />
+  <meta name="twitter:title" content="Onea Africa | Connect. Communicate. Converse." />
+  <meta name="twitter:description" content="Empowering South African businesses through high-speed connectivity, digital marketing and public relations." />
+  <meta name="twitter:image" content="https://www.onea.africa/og-image.png" />
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#416900" />
+
+  <!-- Fonts -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Onea Africa",
+    "legalName": "Onea Africa (Pty) Ltd",
+    "url": "https://www.onea.africa",
+    "logo": "https://www.onea.africa/Clean_Backround.png",
+    "foundingDate": "2016",
+    "vatID": "4550322707",
+    "description": "South African technology company providing WiFi connectivity, IT infrastructure, digital marketing and public relations services.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pretoria",
+      "addressRegion": "Gauteng",
+      "addressCountry": "ZA"
+    },
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+27-69-464-4663",
+      "contactType": "customer service",
+      "email": "connect@onea.co.za",
+      "availableLanguage": "English"
+    }],
+    "sameAs": [
+      "https://www.facebook.com/ONEAAI",
+      "https://twitter.com/ONEA_AFRICA",
+      "https://www.instagram.com/onea_af",
+      "https://www.linkedin.com/company/onea-africa"
+    ]
+  }
+  </script>
+
+  <!-- Google Analytics 4 (replace G-XXXXXXXXXX with your GA4 Measurement ID) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script> -->
+
+  <!-- Google Tag Manager (replace GTM-XXXXXXX with your GTM container ID) -->
+  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script> -->
+
+  <!-- Tawk.to live chat (replace XXXXX/YYYYY with your Tawk.to IDs) -->
+  <!-- <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/XXXXX/YYYYY';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script> -->
+
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -67,7 +160,9 @@
             "on-tertiary-fixed-variant": "#7d1d69",
             "onea-green": "#8CC444",
             "inverse-on-surface": "#eff2e3",
-            "on-secondary-fixed-v": "#554600"
+            "on-secondary-fixed-v": "#554600",
+            "on-primary-fixed-dim": "#102000",
+            "on-secondary-fixed-dim": "#221b00"
           },
           borderRadius: {
             "DEFAULT": "1rem",
@@ -116,8 +211,18 @@
       }
     }
   </script>
+
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { font-family: Georgia, serif; color: #000; }
+      a[href]:after { content: " (" attr(href) ")"; font-size: 11px; }
+    }
+  </style>
 </head>
 <body>
+  <!-- Google Tag Manager noscript (replace GTM-XXXXXXX) -->
+  <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

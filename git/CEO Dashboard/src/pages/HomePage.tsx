@@ -54,7 +54,7 @@ export default function HomePage({ onTalkToUs }: Props) {
       {/* Trust Grid — Technology Partners & Credentials */}
       <section className="bg-soft-surface py-xl border-y border-border-subtle">
         <div className="max-w-[1280px] mx-auto px-md">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-lg items-center text-center">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-lg items-center text-center">
             <div className="flex flex-col items-center gap-sm">
               <span className="material-symbols-outlined text-[2rem]" style={{ color: '#416900' }}>verified</span>
               <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">B-BBEE Level 1</p>
@@ -66,6 +66,11 @@ export default function HomePage({ onTalkToUs }: Props) {
             <div className="flex flex-col items-center gap-sm">
               <span className="material-symbols-outlined text-[2rem]" style={{ color: '#168ECB' }}>signal_cellular_alt</span>
               <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Telkom Partner</p>
+            </div>
+            <div className="flex flex-col items-center gap-sm">
+              <span className="material-symbols-outlined text-[2rem]" style={{ color: '#0078D4' }}>computer</span>
+              <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Microsoft Partner</p>
+              <p className="font-label-md text-[10px] text-on-surface-variant">ID 7111532</p>
             </div>
             <div className="flex flex-col items-center gap-sm">
               <span className="material-symbols-outlined text-[2rem]" style={{ color: '#416900' }}>public</span>
@@ -111,12 +116,12 @@ export default function HomePage({ onTalkToUs }: Props) {
       <section className="py-lg bg-surface-container-low border-b border-border-subtle">
         <div className="max-w-[1280px] mx-auto px-md flex flex-wrap justify-center gap-xl items-center">
           <span className="font-label-md text-on-surface-variant uppercase tracking-widest">Platform Access:</span>
-          <button className="flex items-center gap-xs font-semibold text-primary hover:underline" onClick={onTalkToUs}>
+          <a href="https://onea.africa/dashboard" target="_blank" rel="noopener noreferrer" className="flex items-center gap-xs font-semibold text-primary hover:underline">
             <span className="material-symbols-outlined text-[20px]">dashboard</span> Onea Dashboard
-          </button>
-          <button className="flex items-center gap-xs font-semibold text-primary hover:underline" onClick={onTalkToUs}>
+          </a>
+          <a href="https://onea.africa/field" target="_blank" rel="noopener noreferrer" className="flex items-center gap-xs font-semibold text-primary hover:underline">
             <span className="material-symbols-outlined text-[20px]">support_agent</span> Field Agent Portal
-          </button>
+          </a>
         </div>
       </section>
 
@@ -136,13 +141,14 @@ export default function HomePage({ onTalkToUs }: Props) {
               </div>
               <div className="mb-md">
                 <span className="inline-block px-md py-xs bg-onea-green/10 border border-onea-green text-primary rounded-full font-label-md text-label-md mb-sm">Connect</span>
-                <h3 className="font-headline-md text-headline-md text-text-primary">Fibre &amp; IT Solutions</h3>
+                <h3 className="font-headline-md text-headline-md text-text-primary">WiFi &amp; IT Solutions</h3>
+
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant mb-xl">
                 High-speed fibre connectivity and robust IT infrastructure tailored for South African enterprises. Reliable, scalable, and secure.
               </p>
               <ul className="space-y-sm mb-xl">
-                {['Business Fibre', 'Managed IT Services', 'Cloud Infrastructure'].map(item => (
+                {['Strong WiFi Coverage', 'Managed IT Services', 'Cloud Infrastructure'].map(item => (
                   <li key={item} className="flex items-center gap-sm font-label-md text-label-md">
                     <span className="material-symbols-outlined text-primary text-[16px]">check_circle</span> {item}
                   </li>
@@ -210,9 +216,17 @@ export default function HomePage({ onTalkToUs }: Props) {
         <div className="max-w-[1280px] mx-auto bg-primary text-on-primary rounded-xl p-xxl relative overflow-hidden">
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
             <div>
-              <h2 className="font-headline-lg text-headline-lg mb-md">A Proud Openserve Partner</h2>
+              <h2 className="font-headline-lg text-headline-lg mb-md">Proud Technology Partners</h2>
+              <div className="flex gap-md mb-lg">
+                <span className="inline-flex items-center gap-xs px-md py-xs bg-white/10 rounded-full font-label-md text-label-md">
+                  <span className="material-symbols-outlined text-[16px]">partner_exchange</span> Openserve
+                </span>
+                <span className="inline-flex items-center gap-xs px-md py-xs bg-white/10 rounded-full font-label-md text-label-md" style={{ color: '#a8d4f5' }}>
+                  <span className="material-symbols-outlined text-[16px]">signal_cellular_alt</span> Telkom
+                </span>
+              </div>
               <p className="font-body-lg text-body-lg opacity-90 mb-xl">
-                Through our strategic partnership with Openserve, we bring world-class connectivity to the doorstep of South African businesses, ensuring you stay ahead in the digital economy.
+                Through strategic partnerships with Openserve and Telkom, we bring world-class connectivity to the doorstep of South African businesses, ensuring you stay ahead in the digital economy.
               </p>
               <button
                 className="bg-onea-yellow text-on-secondary-fixed px-xl h-[56px] rounded-lg font-bold hover:scale-95 transition-all"
@@ -231,6 +245,84 @@ export default function HomePage({ onTalkToUs }: Props) {
           </div>
           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-onea-yellow/10 rounded-full -ml-20 -mb-20 blur-3xl pointer-events-none"></div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-xxl px-md bg-soft-surface border-y border-border-subtle">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="text-center mb-xxl">
+            <h2 className="font-headline-lg text-headline-lg text-text-primary mb-md">What Our Clients Say</h2>
+            <p className="text-on-surface-variant text-body-lg max-w-xl mx-auto">Real feedback from businesses we've helped connect, communicate and grow.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-xl">
+            {[
+              {
+                name: 'Shepherd Removals',
+                initials: 'SR',
+                gradFrom: '#EA2300', gradTo: '#38D4FB',
+                quote: 'Onea Africa transformed our brand from the ground up — website, identity and digital presence. We look professional, we rank online, and our enquiries have doubled.',
+                role: 'Director, Shepherd Removals & Deliveries',
+              },
+              {
+                name: 'Lekhuleni Telecoms',
+                initials: 'LT',
+                gradFrom: '#168ECB', gradTo: '#8CC444',
+                quote: 'Their managed hosting and connectivity solutions have been rock-solid. Zero downtime in 18 months. The team is responsive and genuinely understands telecoms.',
+                role: 'CEO, Lekhuleni Telecoms & Projects',
+              },
+              {
+                name: 'Rachips',
+                initials: 'RC',
+                gradFrom: '#8CC444', gradTo: '#F4D350',
+                quote: 'Onea built our social media presence from scratch. In 6 months we went from 200 followers to over 4,000 and started getting DM orders every week.',
+                role: 'Founder, Rachips',
+              },
+            ].map(t => (
+              <div key={t.name} className="bg-white rounded-lg p-xl border border-border-subtle card-shadow">
+                <div className="flex gap-xs mb-lg">
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-[18px]" style={{ color: '#F4D350', fontVariationSettings: "'FILL' 1" }}>star</span>)}
+                </div>
+                <p className="text-on-surface text-body-md leading-relaxed mb-xl italic">"{t.quote}"</p>
+                <div className="flex items-center gap-md">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-[14px]" style={{ background: `linear-gradient(135deg, ${t.gradFrom}, ${t.gradTo})` }}>
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-on-surface text-body-md">{t.name}</p>
+                    <p className="text-on-surface-variant text-body-sm">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-xxl px-md bg-white">
+        <div className="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-xxl items-start">
+          <div>
+            <h2 className="font-headline-lg text-headline-lg text-text-primary mb-md">Frequently Asked Questions</h2>
+            <p className="text-on-surface-variant text-body-lg mb-xl">Still have questions? <button className="text-primary font-bold hover:underline" onClick={onTalkToUs}>Talk to our team.</button></p>
+          </div>
+          <div className="space-y-md">
+            {[
+              { q: 'What areas does Onea Africa service?', a: 'We primarily service Gauteng and surrounding metros, with connectivity solutions available nationally through our Openserve and Telkom partnerships. Contact us to check availability in your area.' },
+              { q: 'Do you offer once-off services or only retainers?', a: 'Both. We offer once-off projects (website builds, brand identity, IT setup) as well as ongoing managed services (WiFi maintenance, digital marketing retainers, PR campaigns).' },
+              { q: 'How long does a WiFi installation take?', a: 'A standard business WiFi installation takes 1–3 business days from confirmation of order, depending on site complexity and access point quantity.' },
+              { q: 'Can I bundle connectivity, marketing and PR?', a: 'Yes — and we encourage it. Clients who bundle services across our three pillars get a tailored package with a single point of contact and a unified growth strategy.' },
+              { q: 'What is your B-BBEE level?', a: 'Onea Africa is a B-BBEE Level 1 contributor. We can provide our certificate on request for your supplier development and compliance reporting.' },
+            ].map((item, i) => (
+              <details key={i} className="group bg-soft-surface rounded-lg border border-border-subtle overflow-hidden">
+                <summary className="px-xl py-lg font-semibold text-on-surface cursor-pointer flex justify-between items-center gap-md list-none">
+                  {item.q}
+                  <span className="material-symbols-outlined text-primary text-[20px] flex-shrink-0 group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div className="px-xl pb-lg text-on-surface-variant text-body-md leading-relaxed">{item.a}</div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
