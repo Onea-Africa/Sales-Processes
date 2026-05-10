@@ -19,20 +19,41 @@ const SERVICES = [
 
 export default function TalkToUsModal({ onClose }: Props) {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
+
     const fd = new FormData(e.currentTarget);
     const payload = {
-      name: fd.get('name'),
-      email: fd.get('email'),
-      phone: fd.get('phone'),
+      name:    fd.get('name'),
+      email:   fd.get('email'),
+      phone:   fd.get('phone'),
       company: fd.get('company'),
       service: fd.get('service'),
       message: fd.get('message'),
     };
-    console.log('Enquiry:', payload);
-    setSubmitted(true);
+
+    try {
+      const res = await fetch('http://localhost:4000/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Submission failed');
+      setSubmitted(true);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Submission failed';
+      setError(msg.includes('fetch') || msg.includes('NetworkError')
+        ? 'Could not reach the server. Please email connect@onea.co.za or WhatsApp +27 69 464 4663.'
+        : msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -215,17 +236,35 @@ export default function TalkToUsModal({ onClose }: Props) {
                   />
                 </div>
 
+                {/* Error banner */}
+                {error && (
+                  <div className="flex items-start gap-sm px-lg py-md rounded-lg bg-red-50 border border-red-200 text-red-700 text-body-md">
+                    <span className="material-symbols-outlined text-[18px] flex-shrink-0 mt-0.5">error</span>
+                    {error}
+                  </div>
+                )}
+
                 {/* Submit */}
                 <div className="pt-md">
                   <button
                     type="submit"
-                    className="w-full font-display-lg text-label-md uppercase tracking-wider font-bold h-14 rounded-full shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-md text-white"
+                    disabled={loading}
+                    className="w-full font-display-lg text-label-md uppercase tracking-wider font-bold h-14 rounded-full shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-md text-white disabled:opacity-70 disabled:cursor-not-allowed"
                     style={{ backgroundColor: '#8CC444' }}
-                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#416900')}
+                    onMouseEnter={e => { if (!loading) e.currentTarget.style.backgroundColor = '#416900'; }}
                     onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#8CC444')}
                   >
-                    Submit Request
-                    <span className="material-symbols-outlined">send</span>
+                    {loading ? (
+                      <>
+                        <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Submit Request
+                        <span className="material-symbols-outlined">send</span>
+                      </>
+                    )}
                   </button>
                   <p className="text-center font-label-md text-on-surface-variant mt-md">
                     Typically responds within 24 hours.

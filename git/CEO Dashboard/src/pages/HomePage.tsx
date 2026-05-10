@@ -70,7 +70,6 @@ export default function HomePage({ onTalkToUs }: Props) {
             <div className="flex flex-col items-center gap-sm">
               <span className="material-symbols-outlined text-[2rem]" style={{ color: '#0078D4' }}>computer</span>
               <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Microsoft Partner</p>
-              <p className="font-label-md text-[10px] text-on-surface-variant">ID 7111532</p>
             </div>
             <div className="flex flex-col items-center gap-sm">
               <span className="material-symbols-outlined text-[2rem]" style={{ color: '#416900' }}>public</span>

@@ -2,6 +2,7 @@
   "name": "onea-africa-server",
   "version": "1.0.0",
   "description": "Onea Africa backend API",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
