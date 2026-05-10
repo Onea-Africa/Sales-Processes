@@ -17,12 +17,12 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
               { label: 'Solutions', to: '/', active: false },
               { label: 'Case Studies', to: '/case-studies', active: false },
             ].map(item => (
-              <Link key={item.label} to={item.to} className="relative font-medium text-[#424938] hover:text-[#416900] transition-colors duration-200 group py-1">
+              <Link key={item.label} to={item.to} className="relative font-medium text-[#424938] hover:text-[#8CC444] transition-colors duration-200 group py-1">
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#8CC444] group-hover:w-full transition-all duration-300 rounded-full" />
               </Link>
             ))}
-            <span className="relative font-bold text-[#416900] py-1">
+            <span className="relative font-bold text-[#8CC444] py-1">
               Operations
               <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#8CC444] rounded-full" />
             </span>
@@ -30,14 +30,14 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
               { label: 'Network', href: '#' },
               { label: 'Insights', href: '#' },
             ].map(item => (
-              <a key={item.label} href={item.href} className="relative font-medium text-[#424938] hover:text-[#416900] transition-colors duration-200 group py-1">
+              <a key={item.label} href={item.href} className="relative font-medium text-[#424938] hover:text-[#8CC444] transition-colors duration-200 group py-1">
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#8CC444] group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-3">
-            <button className="text-sm font-medium text-[#424938] hover:text-[#416900] transition-colors px-3 py-1.5 rounded-full hover:bg-[#8CC444]/10">
+            <button className="text-sm font-medium text-[#424938] hover:text-[#8CC444] transition-colors px-3 py-1.5 rounded-full hover:bg-[#8CC444]/10">
               Client Login
             </button>
             <button
@@ -140,7 +140,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
             <div className="md:col-span-2 p-10 bento-card rounded-xl relative overflow-hidden flex flex-col justify-between h-[450px]">
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="material-symbols-outlined scale-125" style={{ color: '#416900' }}>settings_input_component</span>
+                  <span className="material-symbols-outlined scale-125" style={{ color: '#8CC444' }}>settings_input_component</span>
                   <h3 className="font-display-lg text-[20px] font-semibold">Openserve Fibre Integration</h3>
                 </div>
                 <p className="text-[#424938] max-w-md mb-6">
@@ -149,7 +149,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
                 <ul className="space-y-3">
                   {['Enterprise-grade backhaul', 'Automated client onboarding', 'Tier 1 peering & latency optimization'].map(f => (
                     <li key={f} className="flex items-center gap-2 text-[14px] text-[#1a1c18]">
-                      <span className="material-symbols-outlined text-[14px]" style={{ color: '#416900' }}>check_circle</span>
+                      <span className="material-symbols-outlined text-[14px]" style={{ color: '#8CC444' }}>check_circle</span>
                       {f}
                     </li>
                   ))}
@@ -158,7 +158,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
               <div className="absolute -right-20 -bottom-20 w-96 h-96 opacity-10 pointer-events-none">
                 <span className="material-symbols-outlined text-[300px]">router</span>
               </div>
-              <a href="https://partners.openserve.co.za/dashboards/main" target="_blank" rel="noopener noreferrer" className="w-fit border-b pb-1 font-bold hover:opacity-70 transition-all" style={{ color: '#416900', borderColor: '#416900' }}>
+              <a href="https://partners.openserve.co.za/dashboards/main" target="_blank" rel="noopener noreferrer" className="w-fit border-b pb-1 font-bold hover:opacity-70 transition-all" style={{ color: '#8CC444', borderColor: '#8CC444' }}>
                 View Coverage Portal
               </a>
             </div>
@@ -167,7 +167,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
             <div className="p-10 bento-card rounded-xl flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(140,196,68,0.2)' }}>
-                  <span className="material-symbols-outlined" style={{ color: '#416900' }}>wifi</span>
+                  <span className="material-symbols-outlined" style={{ color: '#8CC444' }}>wifi</span>
                 </div>
                 <h3 className="font-display-lg text-[20px] font-semibold mb-4">Managed WiFi Systems</h3>
                 <p className="text-[14px] text-[#424938]">
@@ -180,7 +180,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
                   <span className="text-[#1a1c18]">4,500+</span>
                 </div>
                 <div className="w-full h-1 rounded-full overflow-hidden" style={{ backgroundColor: '#d9dbcd' }}>
-                  <div className="h-full w-[85%] rounded-full" style={{ backgroundColor: '#416900' }}></div>
+                  <div className="h-full w-[85%] rounded-full" style={{ backgroundColor: '#8CC444' }}></div>
                 </div>
               </div>
             </div>
@@ -287,7 +287,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
               ].map(loc => (
                 <div key={loc.city} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: 'rgba(248,251,236,0.5)' }}>
                   <span className="text-[14px]">{loc.city}</span>
-                  <span className="font-bold text-[14px]" style={{ color: loc.active ? '#416900' : '#705d00' }}>{loc.status}</span>
+                  <span className="font-bold text-[14px]" style={{ color: loc.active ? '#8CC444' : '#705d00' }}>{loc.status}</span>
                 </div>
               ))}
             </div>
@@ -304,7 +304,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
         </section>
 
         {/* CTA */}
-        <section className="mb-24 py-20 px-12 rounded-3xl text-center relative overflow-hidden" style={{ backgroundColor: '#416900', color: '#ffffff' }}>
+        <section className="mb-24 py-20 px-12 rounded-3xl text-center relative overflow-hidden" style={{ backgroundColor: '#8CC444', color: '#102000' }}>
           <div className="relative z-10">
             <h2 className="font-display-lg text-[48px] font-bold mb-6">Ready to scale your infrastructure?</h2>
             <p className="max-w-2xl mx-auto mb-10 text-[18px] font-medium opacity-90">

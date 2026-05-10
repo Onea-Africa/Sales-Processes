@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface Props { onClose: () => void; }
 
@@ -61,7 +62,13 @@ export default function TalkToUsModal({ onClose }: Props) {
       className="fixed inset-0 bg-on-surface/40 backdrop-blur-md z-[60] flex items-center justify-center p-md md:p-xl"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="bg-white rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] w-full max-w-4xl overflow-hidden flex flex-col md:flex-row max-h-[95vh] overflow-y-auto">
+      <motion.div
+        className="bg-white rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] w-full max-w-4xl overflow-hidden flex flex-col md:flex-row max-h-[95vh] overflow-y-auto"
+        initial={{ opacity: 0, y: 60, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0,  scale: 1 }}
+        exit={{ opacity: 0, y: 40, scale: 0.96 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+      >
 
         {/* Left sidebar */}
         <div className="hidden md:flex flex-col justify-between w-5/12 bg-soft-surface p-xl border-r border-border-subtle flex-shrink-0">
@@ -81,7 +88,7 @@ export default function TalkToUsModal({ onClose }: Props) {
                 <p className="font-body-md text-on-surface-variant">Strategic marketing tailored for emerging markets.</p>
               </div>
               <div className="flex items-start gap-md">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#F4D35020', color: '#416900' }}>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#F4D35020', color: '#8CC444' }}>
                   <span className="material-symbols-outlined">public</span>
                 </div>
                 <p className="font-body-md text-on-surface-variant">Impactful public relations that build lasting trust.</p>
@@ -121,7 +128,7 @@ export default function TalkToUsModal({ onClose }: Props) {
                 onClick={onClose}
                 className="px-xl py-md rounded-full font-bold transition-all text-white"
                 style={{ backgroundColor: '#8CC444' }}
-                onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#416900')}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#8CC444')}
                 onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#8CC444')}
               >
                 Close
@@ -251,7 +258,7 @@ export default function TalkToUsModal({ onClose }: Props) {
                     disabled={loading}
                     className="w-full font-display-lg text-label-md uppercase tracking-wider font-bold h-14 rounded-full shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-md text-white disabled:opacity-70 disabled:cursor-not-allowed"
                     style={{ backgroundColor: '#8CC444' }}
-                    onMouseEnter={e => { if (!loading) e.currentTarget.style.backgroundColor = '#416900'; }}
+                    onMouseEnter={e => { if (!loading) e.currentTarget.style.backgroundColor = '#8CC444'; }}
                     onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#8CC444')}
                   >
                     {loading ? (
@@ -276,7 +283,7 @@ export default function TalkToUsModal({ onClose }: Props) {
           )}
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }

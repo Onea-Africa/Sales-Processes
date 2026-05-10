@@ -4,7 +4,7 @@ import { blogPosts } from '../data/blogPosts';
 interface Props { onTalkToUs: () => void; }
 
 const catColor: Record<string, string> = {
-  Connectivity: '#416900',
+  Connectivity: '#8CC444',
   Business: '#168ECB',
   'Digital Marketing': '#D6139F',
 };

@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import AnimatedSection from '../components/motion/AnimatedSection';
+import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
 
 interface Props { onTalkToUs: () => void; }
 
@@ -39,7 +42,7 @@ const tiers = [
 ];
 
 const divisions = [
-  { key: 'connect' as const, label: 'Connect — WiFi & IT', icon: 'settings_ethernet', color: '#416900' },
+  { key: 'connect' as const, label: 'Connect — WiFi & IT', icon: 'settings_ethernet', color: '#8CC444' },
   { key: 'market' as const, label: 'Communicate — Digital', icon: 'campaign', color: '#705d00' },
   { key: 'pr' as const, label: 'Converse — PR', icon: 'forum', color: '#9a3783' },
 ];
@@ -51,11 +54,13 @@ export default function PricingPage({ onTalkToUs }: Props) {
       {/* Hero */}
       <section className="bg-soft-surface border-b border-border-subtle py-xxl text-center">
         <div className="max-w-[1280px] mx-auto px-xl">
-          <span className="inline-block px-md py-xs bg-primary/10 text-primary rounded-full font-label-md text-label-md mb-lg">Transparent Pricing</span>
-          <h1 className="font-display-lg text-display-lg-mobile md:text-headline-lg text-text-primary mb-md">Simple, Scalable Plans</h1>
-          <p className="text-on-surface-variant text-body-lg max-w-2xl mx-auto">
-            Choose from three tiers across our three divisions. Mix and match to build the perfect package for your business.
-          </p>
+          <AnimatedSection>
+            <span className="inline-block px-md py-xs bg-primary/10 text-primary rounded-full font-label-md text-label-md mb-lg">Transparent Pricing</span>
+            <h1 className="font-display-lg text-display-lg-mobile md:text-headline-lg text-text-primary mb-md">Simple, Scalable Plans</h1>
+            <p className="text-on-surface-variant text-body-lg max-w-2xl mx-auto">
+              Choose from three tiers across our three divisions. Mix and match to build the perfect package for your business.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -63,52 +68,58 @@ export default function PricingPage({ onTalkToUs }: Props) {
       {divisions.map(div => (
         <section key={div.key} className="py-xxl border-b border-border-subtle">
           <div className="max-w-[1280px] mx-auto px-xl">
-            <div className="flex items-center gap-md mb-xxl">
+            <AnimatedSection className="flex items-center gap-md mb-xxl" delay={0.05}>
               <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: `${div.color}15` }}>
                 <span className="material-symbols-outlined text-[24px]" style={{ color: div.color }}>{div.icon}</span>
               </div>
               <h2 className="font-headline-md text-text-primary">{div.label}</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-xl">
+            </AnimatedSection>
+            <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-xl" stagger={0.1}>
               {tiers.map(tier => (
-                <div
-                  key={tier.name}
-                  className={`rounded-lg p-xl border transition-all ${
-                    tier.highlight
-                      ? 'bg-primary text-on-primary border-primary shadow-xl scale-105'
-                      : 'bg-white border-border-subtle'
-                  }`}
-                >
-                  {tier.highlight && (
-                    <span className="inline-block px-md py-xs bg-onea-yellow text-on-secondary-fixed rounded-full font-label-md text-[11px] mb-md uppercase">Most Popular</span>
-                  )}
-                  <h3 className="font-headline-md text-[24px] mb-xs">{tier.name}</h3>
-                  <p className={`text-body-md mb-lg ${tier.highlight ? 'text-on-primary/70' : 'text-on-surface-variant'}`}>{tier.tagline}</p>
-                  <div className="mb-xl">
-                    <span className="font-extrabold text-[36px]">{tier.price[div.key]}</span>
-                    {tier.price[div.key] !== 'Custom' && <span className={`text-body-md ${tier.highlight ? 'text-on-primary/70' : 'text-on-surface-variant'}`}>/month</span>}
-                  </div>
-                  <ul className="space-y-sm mb-xl">
-                    {tier.features[div.key].map(f => (
-                      <li key={f} className={`flex items-start gap-sm text-body-md ${tier.highlight ? '' : 'text-on-surface'}`}>
-                        <span className={`material-symbols-outlined text-[16px] mt-0.5 flex-shrink-0 ${tier.highlight ? 'text-onea-green' : 'text-primary'}`}>check_circle</span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={onTalkToUs}
-                    className={`w-full py-md rounded-full font-bold transition-all ${
+                <StaggerItem key={tier.name}>
+                  <motion.div
+                    className={`rounded-lg p-xl border transition-all h-full ${
                       tier.highlight
-                        ? 'bg-white text-primary hover:bg-soft-surface'
-                        : 'bg-primary text-on-primary hover:opacity-90'
+                        ? 'bg-primary text-on-primary border-primary shadow-xl scale-105'
+                        : 'bg-white border-border-subtle'
                     }`}
+                    whileHover={!tier.highlight ? { y: -4, boxShadow: '0 16px 40px rgba(65,105,0,0.1)' } : {}}
+                    transition={{ duration: 0.22 }}
                   >
-                    {tier.price[div.key] === 'Custom' ? 'Get a Quote' : 'Get Started'}
-                  </button>
-                </div>
+                    {tier.highlight && (
+                      <span className="inline-block px-md py-xs bg-onea-yellow text-on-secondary-fixed rounded-full font-label-md text-[11px] mb-md uppercase">Most Popular</span>
+                    )}
+                    <h3 className="font-headline-md text-[24px] mb-xs">{tier.name}</h3>
+                    <p className={`text-body-md mb-lg ${tier.highlight ? 'text-on-primary/70' : 'text-on-surface-variant'}`}>{tier.tagline}</p>
+                    <div className="mb-xl">
+                      <span className="font-extrabold text-[36px]">{tier.price[div.key]}</span>
+                      {tier.price[div.key] !== 'Custom' && <span className={`text-body-md ${tier.highlight ? 'text-on-primary/70' : 'text-on-surface-variant'}`}>/month</span>}
+                    </div>
+                    <ul className="space-y-sm mb-xl">
+                      {tier.features[div.key].map(f => (
+                        <li key={f} className={`flex items-start gap-sm text-body-md ${tier.highlight ? '' : 'text-on-surface'}`}>
+                          <span className={`material-symbols-outlined text-[16px] mt-0.5 flex-shrink-0 ${tier.highlight ? 'text-onea-green' : 'text-primary'}`}>check_circle</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <motion.button
+                      onClick={onTalkToUs}
+                      className={`w-full py-md rounded-full font-bold transition-all ${
+                        tier.highlight
+                          ? 'bg-white text-primary hover:bg-soft-surface'
+                          : 'bg-primary text-on-primary hover:opacity-90'
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      {tier.price[div.key] === 'Custom' ? 'Get a Quote' : 'Get Started'}
+                    </motion.button>
+                  </motion.div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerGrid>
           </div>
         </section>
       ))}
@@ -116,18 +127,26 @@ export default function PricingPage({ onTalkToUs }: Props) {
       {/* CTA */}
       <section className="py-xxl bg-soft-surface text-center">
         <div className="max-w-[700px] mx-auto px-xl">
-          <h2 className="font-headline-md text-text-primary mb-md">Need a custom bundle?</h2>
-          <p className="text-on-surface-variant text-body-lg mb-xl">
-            We design bespoke packages combining connectivity, digital marketing and PR for maximum impact. Let's talk.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-md justify-center">
-            <button onClick={onTalkToUs} className="bg-primary text-on-primary px-xl py-md rounded-full font-bold hover:opacity-90 transition-all">
-              Talk to Our Team
-            </button>
-            <Link to="/case-studies" className="border-2 border-primary text-primary px-xl py-md rounded-full font-bold hover:bg-primary/5 transition-all text-center">
-              See Our Work
-            </Link>
-          </div>
+          <AnimatedSection>
+            <h2 className="font-headline-md text-text-primary mb-md">Need a custom bundle?</h2>
+            <p className="text-on-surface-variant text-body-lg mb-xl">
+              We design bespoke packages combining connectivity, digital marketing and PR for maximum impact. Let's talk.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-md justify-center">
+              <motion.button
+                onClick={onTalkToUs}
+                className="bg-primary text-on-primary px-xl py-md rounded-full font-bold"
+                whileHover={{ scale: 1.04, opacity: 0.9 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2 }}
+              >
+                Talk to Our Team
+              </motion.button>
+              <Link to="/case-studies" className="border-2 border-primary text-primary px-xl py-md rounded-full font-bold hover:bg-primary/5 transition-all text-center">
+                See Our Work
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 

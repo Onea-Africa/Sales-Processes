@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import AnimatedSection from '../components/motion/AnimatedSection';
+import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
 
 interface Props { onTalkToUs: () => void; }
 
@@ -54,7 +57,7 @@ const cards = [
     badge: 'bg-onea-green text-primary text-xs font-bold px-md py-xs rounded-full uppercase tracking-wider',
     badgeBg: '#8CC444',
     initials: 'MD',
-    gradFrom: '#416900',
+    gradFrom: '#8CC444',
     gradTo: '#8CC444',
     title: 'MulDiv Consulting & Advisory',
     desc: 'Managed hosting solutions providing reliable infrastructure for a consulting and advisory services firm.',
@@ -105,12 +108,12 @@ export default function CaseStudiesPage({ onTalkToUs }: Props) {
         <div className="absolute inset-0 z-0">
           <img
             className="w-full h-full object-cover opacity-30 grayscale hover:grayscale-0 transition-all duration-1000 scale-110"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD214ZGwjLpFzRYo7nFm96C7pytCkGC19uThQ08YIZRFXhjySAiUEhgwZz0YeAKZWcfZBCgOK08ZpEFRFvehwadRwE-tbqD17HUM7NfYHhQCi6mt5tDKXXcDHnzMuTO-3I08u9eNIed3wL-HjfNrrF7et2jKtgNtG24iDL2I5vnU3BaCw-FGnrq85wZGZIjinKESOhxFb0zmX9rwCIXzlxbkFg3jMtYIKkbNUqwP3mRrt7J_DVmFpHo4ZRR2OywZjcQtzE0R9yVusQ"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD214ZGwjLpFzRYo7nFm96C7pytCkGC19uThQ08YIZRFXhjySAiUEhgwZz0YeAHhQCi6mt5tDKXXcDHnzMuTO-3I08u9eNIed3wL-HjfNrrF7et2jKtgNtG24iDL2I5vnU3BaCw-FGnrq85wZGZIjinKESOhxFb0zmX9rwCIXzlxbkFg3jMtYIKkbNUqwP3mRrt7J_DVmFpHo4ZRR2OywZjcQtzE0R9yVusQ"
             alt="Skyscraper architecture"
           />
         </div>
         <div className="max-w-[1280px] mx-auto px-xl relative z-10 w-full">
-          <div className="max-w-3xl">
+          <AnimatedSection className="max-w-3xl">
             <span className="inline-block px-md py-xs bg-onea-green/10 text-primary rounded-full font-label-md text-label-md mb-lg">Case Studies</span>
             <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-text-primary leading-tight">
               Delivering Excellence Across Africa
@@ -118,7 +121,7 @@ export default function CaseStudiesPage({ onTalkToUs }: Props) {
             <p className="mt-lg text-on-surface-variant text-body-lg max-w-xl">
               Exploring how Onea empowers businesses through integrated connectivity and digital transformation strategies.
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -128,7 +131,7 @@ export default function CaseStudiesPage({ onTalkToUs }: Props) {
           <div className="flex flex-wrap items-center gap-md">
             <span className="text-label-md text-on-surface-variant mr-md">Filter by:</span>
             {FILTERS.map(f => (
-              <button
+              <motion.button
                 key={f}
                 className={`px-lg py-sm rounded-full font-semibold transition-all ${
                   active === f
@@ -136,9 +139,12 @@ export default function CaseStudiesPage({ onTalkToUs }: Props) {
                     : 'bg-soft-surface text-on-surface-variant hover:bg-onea-green/10 hover:text-primary'
                 }`}
                 onClick={() => setActive(f)}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.15 }}
               >
                 {f}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -147,61 +153,69 @@ export default function CaseStudiesPage({ onTalkToUs }: Props) {
       {/* Cards Grid */}
       <section className="py-xxl bg-background">
         <div className="max-w-[1280px] mx-auto px-xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
+          <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
             {visible.map(cs => (
-              <Link
-                key={cs.id}
-                to={`/case-studies/${cs.id}`}
-                className="group bg-white rounded-lg overflow-hidden card-shadow transition-transform duration-500 hover:-translate-y-2 border border-border-subtle"
-              >
-                <div className="aspect-[4/3] relative flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${cs.gradFrom}, ${cs.gradTo})` }}>
-                  <span className="text-white font-bold text-[72px] opacity-25 select-none">{cs.initials}</span>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white font-extrabold text-[56px] drop-shadow-lg">{cs.initials}</span>
-                  </div>
-                  <div className="absolute top-md left-md">
-                    <span className={cs.badge} style={{ backgroundColor: cs.badgeBg }}>
-                      {cs.cat}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-xl">
-                  <h3 className="font-headline-md text-text-primary mb-md leading-snug">{cs.title}</h3>
-                  <p className="text-on-surface-variant line-clamp-2 mb-xl">{cs.desc}</p>
-                  <span className="inline-flex items-center gap-sm text-primary font-bold group/link">
-                    View Case Study
-                    <span className="material-symbols-outlined transition-transform group-hover/link:translate-x-1">arrow_forward</span>
-                  </span>
-                </div>
-              </Link>
+              <StaggerItem key={cs.id}>
+                <motion.div whileHover={{ y: -6, boxShadow: '0 24px 50px rgba(65,105,0,0.10)' }} transition={{ duration: 0.25 }}>
+                  <Link
+                    to={`/case-studies/${cs.id}`}
+                    className="group bg-white rounded-lg overflow-hidden card-shadow border border-border-subtle block"
+                  >
+                    <div className="aspect-[4/3] relative flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${cs.gradFrom}, ${cs.gradTo})` }}>
+                      <span className="text-white font-bold text-[72px] opacity-25 select-none">{cs.initials}</span>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-white font-extrabold text-[56px] drop-shadow-lg">{cs.initials}</span>
+                      </div>
+                      <div className="absolute top-md left-md">
+                        <span className={cs.badge} style={{ backgroundColor: cs.badgeBg }}>
+                          {cs.cat}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-xl">
+                      <h3 className="font-headline-md text-text-primary mb-md leading-snug">{cs.title}</h3>
+                      <p className="text-on-surface-variant line-clamp-2 mb-xl">{cs.desc}</p>
+                      <span className="inline-flex items-center gap-sm text-primary font-bold group/link">
+                        View Case Study
+                        <span className="material-symbols-outlined transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              </StaggerItem>
             ))}
-          </div>
-          <div className="mt-xxl flex justify-center">
+          </StaggerGrid>
+          <AnimatedSection className="mt-xxl flex justify-center">
             <button className="px-xl py-md border-2 border-primary text-primary font-bold rounded-full hover:bg-primary/5 transition-all active:scale-95">
               Load More Case Studies
             </button>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-xxl bg-primary text-on-primary">
         <div className="max-w-[1280px] mx-auto px-xl text-center">
-          <h2 className="font-display-lg text-headline-lg mb-lg">Have a vision for your next project?</h2>
-          <p className="text-on-primary/80 text-body-lg max-w-2xl mx-auto mb-xl">
-            Let's collaborate to build the digital infrastructure and communication strategies your business deserves.
-          </p>
-          <div className="flex flex-col md:flex-row justify-center gap-md">
-            <button
-              className="bg-white text-primary px-xl py-md rounded-full font-bold hover:bg-surface-bright transition-all active:scale-95"
-              onClick={onTalkToUs}
-            >
-              Start a Conversation
-            </button>
-            <Link to="/connectivity" className="border-2 border-white/30 text-white px-xl py-md rounded-full font-bold hover:bg-white/10 transition-all active:scale-95 text-center">
-              Our Solutions
-            </Link>
-          </div>
+          <AnimatedSection>
+            <h2 className="font-display-lg text-headline-lg mb-lg">Have a vision for your next project?</h2>
+            <p className="text-on-primary/80 text-body-lg max-w-2xl mx-auto mb-xl">
+              Let's collaborate to build the digital infrastructure and communication strategies your business deserves.
+            </p>
+            <div className="flex flex-col md:flex-row justify-center gap-md">
+              <motion.button
+                className="bg-white text-primary px-xl py-md rounded-full font-bold"
+                onClick={onTalkToUs}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ duration: 0.2 }}
+              >
+                Start a Conversation
+              </motion.button>
+              <Link to="/connectivity" className="border-2 border-white/30 text-white px-xl py-md rounded-full font-bold hover:bg-white/10 transition-all active:scale-95 text-center">
+                Our Solutions
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
