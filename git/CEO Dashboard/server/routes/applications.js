@@ -60,7 +60,7 @@ function row(label, value, alt, isHtml) {
     </tr>`;
 }
 
-function buildEmailHtml({ mode, name, email, phone, position, message, linkedin, source, timestamp }) {
+function buildEmailHtml({ mode, name, email, phone, idNumber, position, message, linkedin, source, timestamp }) {
   const heading = MODE_LABEL[mode] || 'Careers Enquiry';
 
   const positionRow = (mode === 'apply' || mode === 'speculative') && position
@@ -91,6 +91,7 @@ function buildEmailHtml({ mode, name, email, phone, position, message, linkedin,
         ${row('Full Name', name)}
         ${row('Email', `<a href="mailto:${email}" style="color:#8CC444;">${email}</a>`, '', true)}
         ${row('Phone', `<a href="tel:${phone}" style="color:#8CC444;">${phone}</a>`, '', true)}
+        ${row('ID / Passport No.', idNumber)}
         ${positionRow}
         ${row('Message', message)}
         ${linkedinRow}
@@ -109,10 +110,12 @@ router.post('/', async (req, res) => {
     const {
       mode = 'speculative',
       name, email, phone,
+      idNumber,              // SA ID or passport number
       position,              // job title (apply) | area (speculative) | '' (contact)
       message,
       linkedin, source,
       recaptchaToken,
+      cvBase64, cvFilename,  // optional CV file as base64
       // legacy field names from old SpeculativeApplicationModal — keep for backward compat
       area, intro,
     } = req.body;
@@ -136,14 +139,29 @@ router.post('/', async (req, res) => {
     const timestamp = new Date().toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' });
     const subjectPosition = resolvedPosition || 'General Enquiry';
 
+    const attachments = [];
+    if (cvBase64 && cvFilename) {
+      try {
+        attachments.push({
+          filename: cvFilename,
+          content:  Buffer.from(cvBase64, 'base64'),
+        });
+        console.log('[APPLICATIONS] CV attached:', cvFilename);
+      } catch {
+        console.warn('[APPLICATIONS] Could not decode CV base64 — skipping attachment');
+      }
+    }
+
     const transporter = await getTransporter();
     const info = await transporter.sendMail({
-      from:    `"Onea Africa Careers" <${process.env.SMTP_USER || 'noreply@onea.africa'}>`,
-      to:      'hr@onea.co.za',
-      replyTo: email,
-      subject: `Careers Enquiry — ${name} — ${subjectPosition}`,
-      html:    buildEmailHtml({
+      from:        `"Onea Africa Careers" <${process.env.SMTP_USER || 'noreply@onea.africa'}>`,
+      to:          'hr@onea.co.za',
+      replyTo:     email,
+      subject:     `Careers Enquiry — ${name} — ${subjectPosition}`,
+      attachments,
+      html:        buildEmailHtml({
         mode, name, email, phone,
+        idNumber: idNumber || '',
         position: resolvedPosition,
         message:  resolvedMessage,
         linkedin: linkedin || '',
