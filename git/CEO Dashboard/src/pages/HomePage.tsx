@@ -110,7 +110,7 @@ export default function HomePage({ onTalkToUs }: Props) {
             {[
               { icon: 'verified',         color: '#8CC444', label: 'B-BBEE Level 1' },
               { icon: 'partner_exchange', color: '#8CC444', label: 'Openserve Partner' },
-              { icon: 'signal_cellular_alt', color: '#168ECB', label: 'Telkom Partner' },
+              { icon: 'signal_cellular_alt', color: '#8CC444', label: 'Telkom Partner' },
               { icon: 'computer',         color: '#0078D4', label: 'Microsoft Partner' },
               { icon: 'public',           color: '#8CC444', label: 'National Coverage' },
               { icon: 'groups',           color: '#D6139F', label: 'Community Focused' },
@@ -238,7 +238,7 @@ export default function HomePage({ onTalkToUs }: Props) {
               { n: '240+',   l: 'Business Clients' },
             ].map(s => (
               <StaggerItem key={s.l}>
-                <div className="text-[48px] font-extrabold leading-tight" style={{ color: '#8CC444' }}>
+                <div className="text-[48px] font-extrabold leading-tight" style={{ color: '#D6139F' }}>
                   <AnimatedCounter raw={s.n} />
                 </div>
                 <p className="font-label-md text-label-md uppercase tracking-widest mt-xs text-on-primary/70">{s.l}</p>
@@ -263,14 +263,15 @@ export default function HomePage({ onTalkToUs }: Props) {
                 </span>
               </div>
               <p className="font-body-lg text-body-lg opacity-90 mb-xl">Through strategic partnerships with Openserve and Telkom, we bring world-class connectivity to the doorstep of South African businesses, ensuring you stay ahead in the digital economy.</p>
-              <motion.button
-                className="bg-onea-yellow text-on-secondary-fixed px-xl h-[56px] rounded-lg font-bold"
-                onClick={onTalkToUs}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-              >
-                Get Connected Now
-              </motion.button>
+              <Link to="/pricing">
+                <motion.span
+                  className="inline-block bg-onea-yellow text-on-secondary-fixed px-xl h-[56px] leading-[56px] rounded-lg font-bold"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  Get Connected Now
+                </motion.span>
+              </Link>
             </AnimatedSection>
             <AnimatedSection direction="right" className="hidden md:block">
               <img
@@ -294,13 +295,13 @@ export default function HomePage({ onTalkToUs }: Props) {
           </AnimatedSection>
           <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-xl">
             {[
-              { name: 'Shepherd Removals',  initials: 'SR', gradFrom: '#EA2300', gradTo: '#38D4FB',
+              { name: 'Shepherd Removals',  initials: 'SR', gradFrom: '#EA2300', gradTo: '#38D4FB', logoUrl: '/clients/shepherd.png',
                 quote: 'Onea Africa transformed our brand from the ground up — website, identity and digital presence. We look professional, we rank online, and our enquiries have doubled.',
                 role: 'Director, Shepherd Removals & Deliveries' },
-              { name: 'Lekhuleni Telecoms', initials: 'LT', gradFrom: '#168ECB', gradTo: '#8CC444',
+              { name: 'Lekhuleni Telecoms', initials: 'LT', gradFrom: '#8CC444', gradTo: '#8CC444', logoUrl: '/clients/lekhuleni.png',
                 quote: 'Their managed hosting and connectivity solutions have been rock-solid. Zero downtime in 18 months. The team is responsive and genuinely understands telecoms.',
                 role: 'CEO, Lekhuleni Telecoms & Projects' },
-              { name: 'Rachips',            initials: 'RC', gradFrom: '#8CC444', gradTo: '#F4D350',
+              { name: 'Rachips',            initials: 'RC', gradFrom: '#8CC444', gradTo: '#F4D350', logoUrl: '/clients/rachips.png',
                 quote: 'Onea built our social media presence from scratch. In 6 months we went from 200 followers to over 4,000 and started getting DM orders every week.',
                 role: 'Founder, Rachips' },
             ].map(t => (
@@ -315,8 +316,11 @@ export default function HomePage({ onTalkToUs }: Props) {
                   </div>
                   <p className="text-on-surface text-body-md leading-relaxed mb-xl italic">"{t.quote}"</p>
                   <div className="flex items-center gap-md">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-[14px]" style={{ background: `linear-gradient(135deg, ${t.gradFrom}, ${t.gradTo})` }}>
-                      {t.initials}
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-white border border-border-subtle flex items-center justify-center flex-shrink-0">
+                      {t.logoUrl
+                        ? <img src={t.logoUrl} alt={t.name} className="w-full h-full object-cover" />
+                        : <div className="w-full h-full flex items-center justify-center text-white font-bold text-[14px]" style={{ background: `linear-gradient(135deg, ${t.gradFrom}, ${t.gradTo})` }}>{t.initials}</div>
+                      }
                     </div>
                     <div>
                       <p className="font-semibold text-on-surface text-body-md">{t.name}</p>
@@ -342,7 +346,7 @@ export default function HomePage({ onTalkToUs }: Props) {
               {[
                 { q: 'What areas does Onea Africa service?', a: 'We are based in Gauteng and primarily serve the greater Pretoria and Johannesburg region, with connectivity solutions available nationally through our Openserve and Telkom partnerships. Contact us to check availability in your area.' },
                 { q: 'Do you offer once-off services or only retainers?', a: 'Both. We offer once-off projects (website builds, brand identity, IT setup) as well as ongoing managed services (WiFi maintenance, digital marketing retainers, PR campaigns).' },
-                { q: 'How long does a WiFi installation take?', a: 'A standard business WiFi installation takes 1–3 business days from confirmation of order, depending on site complexity and access point quantity.' },
+                { q: 'How long does a WiFi installation take?', a: 'Most WiFi installations are done the same day or within 24 hours. Larger sites may take up to a day longer. Fibre installations typically take 1 to 3 business days from order confirmation.' },
                 { q: 'Can I bundle connectivity, marketing and PR?', a: 'Yes — and we encourage it. Clients who bundle services across our three pillars get a tailored package with a single point of contact and a unified growth strategy.' },
                 { q: 'What is your B-BBEE level?', a: 'Onea Africa is a B-BBEE Level 1 contributor. We can provide our certificate on request for your supplier development and compliance reporting.' },
               ].map((item, i) => (
