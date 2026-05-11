@@ -31,7 +31,8 @@ app.use(express.json());
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 50, message: { error: 'Too many requests' } });
 app.use('/api', limiter);
 
-app.use('/api/enquiries',    require('./routes/enquiries'));
+app.use('/api/enquiries',           require('./routes/enquiries'));
+app.use('/api/telkom-applications', require('./routes/telkom-applications'));
 app.use('/api/applications', require('./routes/applications'));
 app.use('/api/newsletter',   require('./routes/newsletter'));
 app.use('/api/quotes',       require('./routes/quotes'));
