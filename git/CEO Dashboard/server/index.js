@@ -5,11 +5,27 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 
-app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+const allowedOrigins = [
+  'https://onea.africa',
+  'https://www.onea.africa',
+  'http://localhost:5173',
+  'http://localhost:4000',
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // allow server-to-server calls (no origin) and any listed origin
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS blocked: ${origin}`));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+  credentials: true,
+};
+
+// Handle preflight for all routes before anything else
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 50, message: { error: 'Too many requests' } });
