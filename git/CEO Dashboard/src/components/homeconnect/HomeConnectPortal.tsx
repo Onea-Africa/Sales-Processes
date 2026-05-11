@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const API = 'https://onea-africa-backend.onrender.com';
-const COLOR = '#00695C';
-const ACCENT = '#26A69A';
+const COLOR = '#11BFE0';
+const ACCENT = '#0D9CB8';
 
 const PACKAGES = [
   { name: 'Home Connect 20/10 Mbps',   price: '328' },
