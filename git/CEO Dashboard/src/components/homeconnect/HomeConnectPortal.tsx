@@ -155,12 +155,38 @@ function StepForm({ data, onChange }: { data: Lead; onChange: (k: keyof Lead, v:
 
 // ── Main Portal ───────────────────────────────────────────────────────────────
 
+const DRAFT_KEY = 'onea_hcn_draft';
+
+function buildMailto(d: Lead) {
+  const body = [
+    `Package: ${d.selectedPackage} — R${d.packagePrice}/month`,
+    ``,
+    `Title: ${d.title}`,
+    `First Name: ${d.firstName}`,
+    `Last Name: ${d.lastName}`,
+    `ID / Passport: ${d.idNumber}`,
+    `Cellphone: ${d.cellphone}`,
+    `WhatsApp: ${d.whatsapp || 'N/A'}`,
+    `Email: ${d.email}`,
+    ``,
+    `Please process this Home Connect application.`,
+  ].join('\n');
+  return `mailto:sales@onea.co.za?subject=${encodeURIComponent(`Home Connect Application — ${d.firstName} ${d.lastName}`)}&body=${encodeURIComponent(body)}`;
+}
+
 export default function HomeConnectPortal({ onClose }: { onClose: () => void }) {
   const [step, setStep]       = useState<1 | 2 | 'success'>(1);
-  const [data, setData]       = useState<Lead>(blank);
+  const [data, setData]       = useState<Lead>(() => {
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      return saved ? { ...blank, ...JSON.parse(saved) } : blank;
+    } catch { return blank; }
+  });
   const [submitting, setSub]  = useState(false);
   const [error, setError]     = useState('');
+  const [drafted, setDrafted] = useState(false);
   const [refId, setRefId]     = useState('');
+  const hasDraft = !!localStorage.getItem(DRAFT_KEY);
 
   // Warm up the backend on mount
   useEffect(() => { fetch(`${API}/api/health`).catch(() => {}); }, []);
@@ -179,6 +205,7 @@ export default function HomeConnectPortal({ onClose }: { onClose: () => void }) 
 
   const submit = async () => {
     setError('');
+    setDrafted(false);
     setSub(true);
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 35000);
@@ -192,15 +219,19 @@ export default function HomeConnectPortal({ onClose }: { onClose: () => void }) 
       clearTimeout(timer);
       if (!res.ok) throw new Error((await res.json()).error || 'Server error');
       const json = await res.json();
+      localStorage.removeItem(DRAFT_KEY);
       setRefId(json.id);
       setStep('success');
     } catch (e: unknown) {
       clearTimeout(timer);
+      // Save draft to localStorage so data is never lost
+      try { localStorage.setItem(DRAFT_KEY, JSON.stringify(data)); } catch { /* quota full */ }
+      setDrafted(true);
       const msg = e instanceof Error ? e.message : '';
       setError(
-        msg.includes('abort') || msg.includes('network')
-          ? 'Connection timed out. Please try again or email sales@onea.co.za.'
-          : msg || 'Something went wrong. Please try again.'
+        msg.includes('abort') || msg.includes('Failed to fetch') || msg.includes('network')
+          ? 'Server unreachable — your details have been saved as a draft.'
+          : msg || 'Something went wrong — your details have been saved as a draft.'
       );
     } finally {
       setSub(false);
@@ -272,6 +303,14 @@ export default function HomeConnectPortal({ onClose }: { onClose: () => void }) 
             )}
           </div>
 
+          {/* Draft restored banner */}
+          {hasDraft && step !== 'success' && (
+            <div className="px-6 py-2 flex items-center gap-2 text-xs font-medium" style={{ background: `${COLOR}12`, color: '#0a7a96' }}>
+              <span className="material-symbols-outlined text-[14px]">restore</span>
+              Draft restored — your previous details have been loaded.
+            </div>
+          )}
+
           {/* Body */}
           <div className="px-6 py-6 min-h-[420px]">
             <AnimatePresence mode="wait">
@@ -329,8 +368,22 @@ export default function HomeConnectPortal({ onClose }: { onClose: () => void }) 
                 {step === 1 ? 'Cancel' : '← Back'}
               </button>
 
-              <div className="flex items-center gap-3">
-                {error && <p className="text-red-500 text-xs max-w-[200px] text-right">{error}</p>}
+              <div className="flex items-center gap-3 flex-wrap justify-end">
+                {error && (
+                  <div className="text-right max-w-[220px]">
+                    <p className="text-red-500 text-xs">{error}</p>
+                    {drafted && (
+                      <a
+                        href={buildMailto(data)}
+                        className="inline-flex items-center gap-1 text-xs font-semibold mt-1 underline"
+                        style={{ color: COLOR }}
+                      >
+                        <span className="material-symbols-outlined text-[13px]">mail</span>
+                        Send via email instead
+                      </a>
+                    )}
+                  </div>
+                )}
                 {step === 1 ? (
                   <motion.button
                     onClick={() => setStep(2)}

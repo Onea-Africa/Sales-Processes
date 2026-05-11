@@ -428,13 +428,39 @@ const STEPS = [
 
 // ─── Main Portal ──────────────────────────────────────────────────────────────
 
+const TLK_DRAFT_KEY = 'onea_tlk_draft';
+
+function buildTelkomMailto(d: FD) {
+  const body = [
+    `Telkom Application — ${d.fullName}`,
+    ``,
+    `Full Name: ${d.fullName}`,
+    `ID/Passport: ${d.idNumber}`,
+    `Mobile: ${d.mobile}`,
+    `Email: ${d.email}`,
+    `Address: ${d.physicalAddress}`,
+    `Package: ${d.selectedPackage} (${d.serviceType}) — R${d.packagePrice}/month`,
+    `Activation Date: ${d.activationDate}`,
+    ``,
+    `Please process this Telkom application. Note: signatures were captured but could not be submitted due to a server error.`,
+  ].join('\n');
+  return `mailto:sales@onea.co.za?subject=${encodeURIComponent(`Telkom Application — ${d.fullName}`)}&body=${encodeURIComponent(body)}`;
+}
+
 export default function TelkomPortal({ onClose }: { onClose: () => void }) {
-  const [step, setStep]   = useState(1);
-  const [data, setData]   = useState<FD>({ ...blank });
-  const [err,  setErr]    = useState('');
-  const [busy, setBusy]   = useState(false);
-  const [done, setDone]   = useState(false);
-  const [refId, setRefId] = useState('');
+  const [step, setStep]     = useState(1);
+  const [data, setData]     = useState<FD>(() => {
+    try {
+      const saved = localStorage.getItem(TLK_DRAFT_KEY);
+      return saved ? { ...blank, ...JSON.parse(saved) } : { ...blank };
+    } catch { return { ...blank }; }
+  });
+  const [err,      setErr]     = useState('');
+  const [drafted,  setDrafted] = useState(false);
+  const [busy,     setBusy]    = useState(false);
+  const [done,     setDone]    = useState(false);
+  const [refId,    setRefId]   = useState('');
+  const hasDraft = !!localStorage.getItem(TLK_DRAFT_KEY);
 
   const sig1 = useRef<SigHandle>(null);
   const sig2 = useRef<SigHandle>(null);
@@ -516,15 +542,21 @@ export default function TelkomPortal({ onClose }: { onClose: () => void }) {
       clearTimeout(timer);
       const result = await res.json();
       if (!res.ok) throw new Error(result.error || 'Submission failed');
+      localStorage.removeItem(TLK_DRAFT_KEY);
       setRefId(result.id ?? '');
       setDone(true);
     } catch (err: unknown) {
       clearTimeout(timer);
+      // Save draft (without large signature data)
+      try {
+        const { ...draftData } = data;
+        localStorage.setItem(TLK_DRAFT_KEY, JSON.stringify(draftData));
+      } catch { /* quota */ }
+      setDrafted(true);
       const msg = err instanceof Error ? err.message : 'Unknown error';
-      if (msg.includes('aborted')) setErr('Request timed out — please try again.');
-      else if (msg.toLowerCase().includes('fetch') || msg.toLowerCase().includes('failed to fetch'))
-        setErr('Could not reach the server. Please try again or contact hr@onea.co.za.');
-      else setErr(msg);
+      if (msg.includes('aborted') || msg.toLowerCase().includes('failed to fetch'))
+        setErr('Server unreachable — your details have been saved as a draft.');
+      else setErr(msg || 'Something went wrong — your details have been saved as a draft.');
     } finally {
       setBusy(false);
     }
@@ -638,10 +670,27 @@ export default function TelkomPortal({ onClose }: { onClose: () => void }) {
 
       {/* Footer nav */}
       <div className="flex-shrink-0 bg-white border-t border-gray-100 px-4 md:px-8 py-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+        {hasDraft && !err && (
+          <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 rounded-xl px-4 py-2 mb-3 text-[12px]">
+            <span className="material-symbols-outlined text-[15px] flex-shrink-0">restore</span>
+            Draft restored — your previous details have been loaded.
+          </div>
+        )}
         {err && (
-          <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-2.5 mb-3 text-[13px]">
-            <span className="material-symbols-outlined text-[16px] flex-shrink-0">error</span>
-            {err}
+          <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 mb-3 text-[13px]">
+            <div className="flex items-center gap-2 text-red-700">
+              <span className="material-symbols-outlined text-[16px] flex-shrink-0">error</span>
+              {err}
+            </div>
+            {drafted && (
+              <a
+                href={buildTelkomMailto(data)}
+                className="inline-flex items-center gap-1 mt-1.5 ml-6 text-[12px] font-semibold text-[#8CC444] underline"
+              >
+                <span className="material-symbols-outlined text-[13px]">mail</span>
+                Send details via email instead
+              </a>
+            )}
           </div>
         )}
         <div className="max-w-2xl mx-auto flex items-center gap-3">
