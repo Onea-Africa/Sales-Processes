@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+
+const API = 'https://onea-africa-backend.onrender.com';
 
 interface Props { onClose: () => void; }
 
@@ -23,6 +25,11 @@ export default function TalkToUsModal({ onClose }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Wake up the Render backend while the user fills the form
+  useEffect(() => {
+    fetch(`${API}/api/health`).catch(() => {});
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -38,20 +45,30 @@ export default function TalkToUsModal({ onClose }: Props) {
       message: fd.get('message'),
     };
 
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 30000);
+
     try {
-      const res = await fetch('http://localhost:4000/api/enquiries', {
+      const res = await fetch(`${API}/api/enquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
+      clearTimeout(timer);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Submission failed');
       setSubmitted(true);
     } catch (err: unknown) {
+      clearTimeout(timer);
       const msg = err instanceof Error ? err.message : 'Submission failed';
-      setError(msg.includes('fetch') || msg.includes('NetworkError')
-        ? 'Could not reach the server. Please email connect@onea.co.za or WhatsApp +27 69 464 4663.'
-        : msg);
+      if (msg === 'The user aborted a request.' || msg.includes('aborted')) {
+        setError('Server is taking too long to respond — please try again in a moment.');
+      } else if (msg.toLowerCase().includes('fetch') || msg.toLowerCase().includes('networkerror') || msg.toLowerCase().includes('failed to fetch')) {
+        setError('Could not reach the server. Please try again or WhatsApp us on +27 69 464 4663.');
+      } else {
+        setError(msg);
+      }
     } finally {
       setLoading(false);
     }

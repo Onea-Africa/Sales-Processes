@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from '../components/motion/AnimatedSection';
 import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
+import CareersApplicationModal, { CareersModalMode } from '../components/CareersApplicationModal';
 
 interface Props { onTalkToUs: () => void; }
 
@@ -10,7 +12,7 @@ const openRoles = [
     division: 'Connect',
     location: 'Pretoria, Gauteng',
     type: 'Full-time',
-    desc: 'Install, configure and maintain WiFi, fibre and CCTV systems for business clients. You\'ll work closely with the field operations team and represent Onea Africa on-site.',
+    desc: "Install, configure and maintain WiFi, fibre and CCTV systems for business clients. You'll work closely with the field operations team and represent Onea Africa on-site.",
   },
   {
     title: 'Digital Marketing Specialist',
@@ -29,16 +31,27 @@ const openRoles = [
 ];
 
 const divColor: Record<string, string> = {
-  Connect: '#8CC444',
+  Connect:     '#8CC444',
   Communicate: '#705d00',
-  Converse: '#9a3783',
+  Converse:    '#9a3783',
 };
 
-export default function CareersPage({ onTalkToUs }: Props) {
+export default function CareersPage({ onTalkToUs: _onTalkToUs }: Props) {
+  const rolesRef = useRef<HTMLDivElement>(null);
+  const [modalOpen,  setModalOpen]  = useState(false);
+  const [modalMode,  setModalMode]  = useState<CareersModalMode>('speculative');
+  const [modalTitle, setModalTitle] = useState<string | undefined>(undefined);
+
+  const openApply = (mode: CareersModalMode, jobTitle?: string) => {
+    setModalMode(mode);
+    setModalTitle(jobTitle);
+    setModalOpen(true);
+  };
+
   return (
     <div className="bg-background text-on-surface font-body-md">
 
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section className="bg-soft-surface border-b border-border-subtle py-xxl">
         <div className="max-w-[1280px] mx-auto px-xl">
           <AnimatedSection>
@@ -51,7 +64,7 @@ export default function CareersPage({ onTalkToUs }: Props) {
         </div>
       </section>
 
-      {/* Values */}
+      {/* ── Why Onea Africa? ── */}
       <section className="py-xxl border-b border-border-subtle">
         <div className="max-w-[1280px] mx-auto px-xl">
           <AnimatedSection className="text-center mb-xxl">
@@ -59,9 +72,9 @@ export default function CareersPage({ onTalkToUs }: Props) {
           </AnimatedSection>
           <StaggerGrid className="grid grid-cols-1 sm:grid-cols-3 gap-xl">
             {[
-              { icon: 'diversity_3', title: 'Community First', desc: 'We exist to uplift South African businesses and the communities they serve.' },
-              { icon: 'lightbulb', title: 'Innovation Driven', desc: 'Technology moves fast. We empower our team to learn, experiment, and grow.' },
-              { icon: 'verified', title: 'B-BBEE Level 1', desc: 'We are proud contributors to transformation and economic inclusion in South Africa.' },
+              { icon: 'diversity_3', title: 'Community First',   desc: 'We exist to uplift South African businesses and the communities they serve.' },
+              { icon: 'lightbulb',   title: 'Innovation Driven', desc: 'Technology moves fast. We empower our team to learn, experiment, and grow.' },
+              { icon: 'verified',    title: 'B-BBEE Level 1',    desc: 'We are proud contributors to transformation and economic inclusion in South Africa.' },
             ].map(v => (
               <StaggerItem key={v.title}>
                 <motion.div
@@ -79,15 +92,16 @@ export default function CareersPage({ onTalkToUs }: Props) {
         </div>
       </section>
 
-      {/* Open Roles */}
-      <section className="py-xxl">
+      {/* ── Open Positions ── */}
+      <section className="py-xxl" ref={rolesRef}>
         <div className="max-w-[1280px] mx-auto px-xl">
           <AnimatedSection className="mb-xxl">
             <h2 className="font-headline-md text-text-primary">Open Positions</h2>
           </AnimatedSection>
+
           <div className="space-y-xl">
             {openRoles.map((role, i) => (
-              <AnimatedSection key={role.title} delay={i * 0.1}>
+              <AnimatedSection key={role.title} delay={i * 0.08}>
                 <motion.div
                   className="bg-white rounded-lg border border-border-subtle p-xl card-shadow"
                   whileHover={{ borderColor: '#8CC44466', boxShadow: '0 16px 40px rgba(65,105,0,0.08)' }}
@@ -96,7 +110,8 @@ export default function CareersPage({ onTalkToUs }: Props) {
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-md">
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-sm mb-sm">
-                        <span className="font-bold px-md py-xs rounded-full text-white text-[12px]" style={{ backgroundColor: divColor[role.division] }}>
+                        <span className="font-bold px-md py-xs rounded-full text-white text-[12px]"
+                          style={{ backgroundColor: divColor[role.division] }}>
                           {role.division}
                         </span>
                         <span className="text-on-surface-variant text-body-sm">{role.location}</span>
@@ -107,7 +122,7 @@ export default function CareersPage({ onTalkToUs }: Props) {
                       <p className="text-on-surface-variant text-body-md max-w-2xl">{role.desc}</p>
                     </div>
                     <motion.button
-                      onClick={onTalkToUs}
+                      onClick={() => openApply('apply', role.title)}
                       className="bg-primary text-on-primary px-xl py-md rounded-full font-bold whitespace-nowrap flex-shrink-0"
                       whileHover={{ scale: 1.04, opacity: 0.9 }}
                       whileTap={{ scale: 0.97 }}
@@ -120,14 +135,52 @@ export default function CareersPage({ onTalkToUs }: Props) {
               </AnimatedSection>
             ))}
           </div>
-          <AnimatedSection className="mt-xxl text-center">
-            <p className="text-on-surface-variant text-body-lg mb-md">Don't see a perfect fit? We're always open to exceptional talent.</p>
-            <button onClick={onTalkToUs} className="border-2 border-primary text-primary px-xl py-md rounded-full font-bold hover:bg-primary/5 transition-all">
-              Send a Speculative Application
-            </button>
+
+          {/* ── Apply Now CTA ── */}
+          <AnimatedSection className="mt-xxl">
+            <div className="bg-soft-surface border border-border-subtle rounded-2xl p-xl md:p-xxl text-center">
+              <span className="material-symbols-outlined text-primary text-[40px] mb-md block">edit_note</span>
+              <h3 className="font-headline-md text-[24px] text-text-primary mb-sm">Apply Now</h3>
+              <p className="text-on-surface-variant text-body-lg mb-xl max-w-lg mx-auto">
+                Ready to join the team? Fill in the form and we'll be in touch. All applications go directly to our HR team.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-md justify-center">
+                <motion.button
+                  onClick={() => openApply('speculative')}
+                  className="inline-flex items-center justify-center gap-sm px-xl py-md rounded-full font-bold text-white shadow-md"
+                  style={{ backgroundColor: '#8CC444' }}
+                  whileHover={{ scale: 1.04, opacity: 0.92 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <span className="material-symbols-outlined text-[20px]">edit_note</span>
+                  Apply Now
+                </motion.button>
+                <motion.button
+                  onClick={() => rolesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                  className="inline-flex items-center justify-center gap-sm px-xl py-md rounded-full font-bold border-2 border-primary text-primary hover:bg-primary/5 transition-all"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <span className="material-symbols-outlined text-[20px]">expand_less</span>
+                  View Other Roles
+                </motion.button>
+              </div>
+            </div>
           </AnimatedSection>
         </div>
       </section>
+
+      <AnimatePresence>
+        {modalOpen && (
+          <CareersApplicationModal
+            mode={modalMode}
+            jobTitle={modalTitle}
+            onClose={() => setModalOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
     </div>
   );

@@ -55,4 +55,16 @@ if (process.env.MONGODB_URI) {
 app.listen(PORT, () => {
   console.log(`[API] Server running on http://localhost:${PORT}`);
   console.log(`[API] Health check: http://localhost:${PORT}/api/health`);
+
+  // Keep Render free tier warm — ping every 13 minutes to prevent spin-down
+  if (process.env.RENDER_EXTERNAL_URL) {
+    const https = require('https');
+    setInterval(() => {
+      https.get(`${process.env.RENDER_EXTERNAL_URL}/api/health`, res => {
+        console.log('[KEEPALIVE] ping →', res.statusCode);
+      }).on('error', err => {
+        console.warn('[KEEPALIVE] ping failed:', err.message);
+      });
+    }, 13 * 60 * 1000);
+  }
 });
