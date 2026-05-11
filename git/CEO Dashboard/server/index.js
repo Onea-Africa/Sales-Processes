@@ -31,11 +31,12 @@ app.use(express.json());
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 50, message: { error: 'Too many requests' } });
 app.use('/api', limiter);
 
-app.use('/api/enquiries', require('./routes/enquiries'));
-app.use('/api/newsletter', require('./routes/newsletter'));
-app.use('/api/quotes',     require('./routes/quotes'));
-app.use('/api/blog',       require('./routes/blog'));
-app.use('/api/auth',       require('./routes/auth'));
+app.use('/api/enquiries',    require('./routes/enquiries'));
+app.use('/api/applications', require('./routes/applications'));
+app.use('/api/newsletter',   require('./routes/newsletter'));
+app.use('/api/quotes',       require('./routes/quotes'));
+app.use('/api/blog',         require('./routes/blog'));
+app.use('/api/auth',         require('./routes/auth'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date().toISOString() }));
 
