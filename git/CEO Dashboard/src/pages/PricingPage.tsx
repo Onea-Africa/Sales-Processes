@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from '../components/motion/AnimatedSection';
 import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
 import TelkomPortal from '../components/telkom/TelkomPortal';
+import HomeConnectPortal from '../components/homeconnect/HomeConnectPortal';
 
 interface Props { onTalkToUs: () => void; }
 
@@ -200,10 +201,15 @@ export default function PricingPage({ onTalkToUs }: Props) {
   return (
     <div className="bg-background text-on-surface font-body-md">
 
-      {/* Telkom portal overlay */}
+      {/* ISP portal overlays */}
       <AnimatePresence>
         {ispPortal === 'telkom' && (
           <TelkomPortal onClose={() => setIspPortal(null)} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {ispPortal === 'homeconnect' && (
+          <HomeConnectPortal onClose={() => setIspPortal(null)} />
         )}
       </AnimatePresence>
 
@@ -236,7 +242,7 @@ export default function PricingPage({ onTalkToUs }: Props) {
               <StaggerItem key={isp.id}>
                 <motion.button
                   onClick={() => {
-                    if (isp.id === 'telkom') { setIspPortal('telkom'); setComingSoon(null); }
+                    if (isp.id === 'telkom' || isp.id === 'homeconnect') { setIspPortal(isp.id); setComingSoon(null); }
                     else { setComingSoon(isp.id); setIspPortal(null); }
                   }}
                   className="w-full text-left group"
@@ -262,8 +268,8 @@ export default function PricingPage({ onTalkToUs }: Props) {
                       className="inline-flex items-center gap-sm px-xl py-md rounded-full font-bold text-white text-body-md"
                       style={{ background: `linear-gradient(135deg, ${isp.color}, ${isp.accent})` }}
                     >
-                      {isp.id === 'telkom' ? 'Apply Now' : 'View Packages'}
-                      <span className="material-symbols-outlined text-[20px]">{isp.id === 'telkom' ? 'open_in_new' : 'arrow_forward'}</span>
+                      {(isp.id === 'telkom' || isp.id === 'homeconnect') ? 'Apply Now' : 'View Packages'}
+                      <span className="material-symbols-outlined text-[20px]">{(isp.id === 'telkom' || isp.id === 'homeconnect') ? 'open_in_new' : 'arrow_forward'}</span>
                     </span>
                   </div>
                 </motion.button>
