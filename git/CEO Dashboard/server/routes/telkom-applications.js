@@ -146,7 +146,7 @@ async function generatePDF(app) {
     const fh = doc.page.height;
     doc.rect(0, fh - 42, W, 42).fill('#f0f7e6');
     doc.fillColor(LGREY).fontSize(8).font('Helvetica')
-      .text('Onea Africa (Pty) Ltd  ·  hr@onea.co.za  ·  +27 69 464 4663  ·  www.onea.africa', M, fh - 28, { align:'center', width: W - M*2 })
+      .text('Onea Africa (Pty) Ltd  ·  sales@onea.co.za  ·  +27 69 464 4663  ·  www.onea.africa', M, fh - 28, { align:'center', width: W - M*2 })
       .text(`Application submitted electronically — ${app.submittedAt}`, M, fh - 16, { align:'center', width: W - M*2 });
 
     doc.end();
@@ -201,7 +201,7 @@ router.post('/', async (req, res) => {
             A consultant will contact you within <strong>1–2 business days</strong> to complete verification and debit order setup.
           </p>
           <p style="margin-top:20px;font-size:13px;">Your signed agreement is attached to this email for your records.</p>
-          <p style="color:#888;font-size:12px;margin-top:24px;">Onea Africa (Pty) Ltd · hr@onea.co.za · +27 69 464 4663</p>
+          <p style="color:#888;font-size:12px;margin-top:24px;">Onea Africa (Pty) Ltd · sales@onea.co.za · +27 69 464 4663</p>
         </div>`;
 
       const adminHtml = `
@@ -229,12 +229,12 @@ router.post('/', async (req, res) => {
           <div style="margin-top:20px;">
             <a href="mailto:${body.email}" style="display:inline-block;background:#8CC444;color:#102000;padding:10px 24px;border-radius:100px;font-weight:700;text-decoration:none;margin-right:8px;">Reply to Applicant</a>
           </div>
-          <p style="color:#888;font-size:12px;margin-top:24px;">Signed PDF attached. Application saved to admin dashboard.</p>
+          <p style="color:#888;font-size:12px;margin-top:24px;">Signed PDF attached. Sent to sales@onea.co.za.</p>
         </div>`;
 
       await Promise.allSettled([
-        t.sendMail({ from:`"Onea Africa" <${process.env.SMTP_USER || 'noreply@onea.africa'}>`, to:body.email, replyTo:'hr@onea.co.za', subject:`Your Telkom Application — ${id}`, html:custHtml, attachments:attach }),
-        t.sendMail({ from:`"Onea Africa Applications" <${process.env.SMTP_USER || 'noreply@onea.africa'}>`, to:'hr@onea.co.za', replyTo:body.email, subject:`New Telkom Application — ${body.fullName} — ${id}`, html:adminHtml, attachments:attach }),
+        t.sendMail({ from:`"Onea Africa" <${process.env.SMTP_USER || 'noreply@onea.africa'}>`, to:body.email, replyTo:'sales@onea.co.za', subject:`Your Telkom Application — ${id}`, html:custHtml, attachments:attach }),
+        t.sendMail({ from:`"Onea Africa Applications" <${process.env.SMTP_USER || 'noreply@onea.africa'}>`, to:'sales@onea.co.za', replyTo:body.email, subject:`New Telkom Application — ${body.fullName} — ${id}`, html:adminHtml, attachments:attach }),
       ]);
       console.log(`[TELKOM] ✓ ${id} — emails sent`);
     } catch (e) {
