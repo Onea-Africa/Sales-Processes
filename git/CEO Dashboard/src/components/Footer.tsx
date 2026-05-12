@@ -49,7 +49,7 @@ export default function Footer() {
           {/* Brand col */}
           <div className="md:col-span-1">
             <Link to="/" className="inline-block mb-lg">
-              <img src="/Clean_Backround.png" alt="Onea Africa" className="h-8 md:h-10 w-auto" />
+              <img src="/logo.png" alt="Onea Africa" className="h-8 md:h-10 w-auto object-contain" />
             </Link>
             <p className="text-on-surface-variant text-body-sm mb-lg leading-relaxed">
               Empowering South African businesses through connectivity, digital marketing and public relations.

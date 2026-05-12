@@ -10,7 +10,7 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
       <header className="sticky top-0 z-50" style={{ backgroundColor: 'rgba(247,249,243,0.96)', backdropFilter: 'blur(16px)', borderBottom: '2px solid #8CC444' }}>
         <div className="flex justify-between items-center w-full px-[64px] py-3 max-w-[1440px] mx-auto">
           <Link to="/">
-            <img src="/Clean_Backround.png" alt="Onea Africa" className="h-8 w-auto" />
+            <img src="/logo.png" alt="Onea Africa" className="h-8 w-auto object-contain" />
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             {[
