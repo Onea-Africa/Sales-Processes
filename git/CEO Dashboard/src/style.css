@@ -1,3 +1,8 @@
+/* ── tailwind ── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ── base ── */
 * { box-sizing: border-box; }
 body { margin: 0; padding: 0; }
