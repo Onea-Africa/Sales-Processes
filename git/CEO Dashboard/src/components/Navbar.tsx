@@ -26,7 +26,7 @@ export default function Navbar({ onTalkToUs }: Props) {
     >
       <nav className="flex justify-between items-center w-full px-xl py-md max-w-[1280px] mx-auto">
         <Link to="/" onClick={() => setMenuOpen(false)}>
-          <img src="/Clean_Backround.png" alt="Onea Africa" className="h-6 md:h-8 w-auto" />
+          <img src="/logo.png" alt="Onea Africa" className="h-9 md:h-11 w-auto object-contain" style={{ maxWidth: '200px' }} />
         </Link>
 
         {/* Desktop links */}

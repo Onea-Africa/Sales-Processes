@@ -18,7 +18,7 @@ export default function LoadingScreen() {
       style={{ transition: 'opacity 0.5s ease', opacity: fading ? 0 : 1, pointerEvents: fading ? 'none' : 'all' }}
     >
       <div className="flex flex-col items-center gap-lg">
-        <img src="/Clean_Backround.png" alt="Onea Africa" className="h-16 w-auto" />
+        <img src="/logo.png" alt="Onea Africa" className="h-16 w-auto" />
         <div className="flex gap-sm">
           {[0, 1, 2].map(i => (
             <div

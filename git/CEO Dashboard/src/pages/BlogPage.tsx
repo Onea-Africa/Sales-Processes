@@ -11,7 +11,7 @@ const CATEGORIES = ['All', 'Connectivity', 'Business', 'Digital Marketing'] as c
 
 const catColor: Record<string, string> = {
   Connectivity: '#8CC444',
-  Business: '#168ECB',
+  Business: '#705d00',
   'Digital Marketing': '#D6139F',
 };
 

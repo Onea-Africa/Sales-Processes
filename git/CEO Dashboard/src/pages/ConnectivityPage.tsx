@@ -347,14 +347,14 @@ export default function ConnectivityPage({ onTalkToUs }: Props) {
           </div>
           <div className="flex flex-col gap-4">
             <span className="font-label-caps text-[#e5e2e1] font-bold">COMPANY</span>
-            <a href="#" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">About Us</a>
-            <a href="#" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">Careers</a>
+            <Link to="/" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">About Us</Link>
+            <Link to="/careers" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">Careers</Link>
             <button className="text-left text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]" onClick={onTalkToUs}>Contact</button>
           </div>
           <div className="flex flex-col gap-4">
             <span className="font-label-caps text-[#e5e2e1] font-bold">LEGAL</span>
-            <a href="#" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">Privacy</a>
-            <a href="#" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">Terms</a>
+            <Link to="/privacy" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">Privacy</Link>
+            <Link to="/terms" className="text-[#c2c9b3] hover:text-[#a6e15d] transition-colors text-[14px]">Terms</Link>
           </div>
         </div>
       </footer>

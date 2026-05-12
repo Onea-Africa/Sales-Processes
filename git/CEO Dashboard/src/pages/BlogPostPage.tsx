@@ -5,7 +5,7 @@ interface Props { onTalkToUs: () => void; }
 
 const catColor: Record<string, string> = {
   Connectivity: '#8CC444',
-  Business: '#168ECB',
+  Business: '#705d00',
   'Digital Marketing': '#D6139F',
 };
 
@@ -84,7 +84,7 @@ export default function BlogPostPage({ onTalkToUs }: Props) {
           <div className="mt-xxl pt-xl border-t border-border-subtle">
             <p className="font-semibold text-on-surface mb-md">Share this article:</p>
             <div className="flex gap-sm">
-              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://onea.africa/blog/${post.id}`)}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-soft-surface flex items-center justify-center text-on-surface-variant hover:bg-black hover:text-white transition-all border border-border-subtle" aria-label="Share on X">
+              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://onea.africa/blog/${post.id}`)}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-soft-surface flex items-center justify-center text-on-surface-variant hover:bg-on-surface hover:text-white transition-all border border-border-subtle" aria-label="Share on X">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.736-8.857L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
               <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://onea.africa/blog/${post.id}`)}&title=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-soft-surface flex items-center justify-center text-on-surface-variant hover:bg-[#0A66C2] hover:text-white transition-all border border-border-subtle" aria-label="Share on LinkedIn">

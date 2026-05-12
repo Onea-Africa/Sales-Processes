@@ -68,7 +68,7 @@ const studies: CaseStudy[] = [
       },
       {
         icon: 'devices',
-        iconColor: '#168ECB',
+        iconColor: '#8CC444',
         title: 'IT Services Setup',
         desc: 'Professional email hosting, domain management and IT support infrastructure to ensure the business could operate reliably and communicate professionally with clients.',
         bullets: ['Professional email (Google Workspace)', 'Domain & hosting management'],
@@ -113,7 +113,7 @@ const studies: CaseStudy[] = [
       },
       {
         icon: 'web',
-        iconColor: '#168ECB',
+        iconColor: '#8CC444',
         title: 'Website & Digital Presence',
         desc: 'A clean, professional website showcasing their service portfolio and establishing credibility with enterprise clients who vet suppliers before engagement.',
         bullets: ['Service-focused website design', 'SEO targeting telecoms & projects keywords'],
@@ -172,7 +172,7 @@ const studies: CaseStudy[] = [
       },
       {
         icon: 'devices',
-        iconColor: '#168ECB',
+        iconColor: '#8CC444',
         title: 'IT Services & Digital Setup',
         desc: 'Professional email, a clean business landing page, and IT infrastructure to support order management as the brand scaled its online enquiries.',
         bullets: ['Business email & domain setup', 'Order inquiry workflow setup'],
@@ -224,7 +224,7 @@ const studies: CaseStudy[] = [
       },
       {
         icon: 'campaign',
-        iconColor: '#168ECB',
+        iconColor: '#8CC444',
         title: 'Digital Marketing Campaigns',
         desc: 'Targeted Meta ads to reach local customers searching for celebration cakes — birthdays, weddings and corporate events — with clear creative and precise audience targeting.',
         bullets: ['Geo-targeted Facebook & Instagram ads', 'Seasonal campaign planning'],
@@ -269,7 +269,7 @@ const studies: CaseStudy[] = [
       },
       {
         icon: 'speed',
-        iconColor: '#168ECB',
+        iconColor: '#8CC444',
         title: 'Performance Optimisation',
         desc: 'CDN configuration, image optimisation and caching layers that reduced average page load times by 3× — improving both user experience and SEO rankings.',
         bullets: ['CDN & caching layer configuration', 'Core Web Vitals optimisation'],
@@ -328,7 +328,7 @@ const studies: CaseStudy[] = [
       },
       {
         icon: 'support_agent',
-        iconColor: '#168ECB',
+        iconColor: '#8CC444',
         title: 'Managed IT Support',
         desc: 'Ongoing managed IT support with a guaranteed 2-hour response SLA — so when something does go wrong, it\'s resolved fast before it becomes a business disruption.',
         bullets: ['2-hour response SLA', 'Proactive monitoring & patch management'],
