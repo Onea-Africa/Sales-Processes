@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SignaturePad, { SigHandle } from './SignaturePad';
+import { API_BASE as API } from '../../lib/api';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -530,10 +531,10 @@ export default function TelkomPortal({ onClose }: { onClose: () => void }) {
     const timer = setTimeout(() => ctrl.abort(), 35000);
 
     // Wake up backend first
-    try { await fetch('https://onea-africa-backend.onrender.com/api/health'); } catch { /* ignore */ }
+    try { await fetch(`${API}/api/health`); } catch { /* ignore */ }
 
     try {
-      const res  = await fetch('https://onea-africa-backend.onrender.com/api/telkom-applications', {
+      const res  = await fetch(`${API}/api/telkom-applications`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body:   JSON.stringify(payload),

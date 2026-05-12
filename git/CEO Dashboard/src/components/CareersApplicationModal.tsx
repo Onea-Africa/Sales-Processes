@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const API = 'https://onea-africa-backend.onrender.com';
+import { API_BASE as API } from '../lib/api';
+
+const DRAFT_KEY = 'onea_careers_draft';
 
 declare global {
   interface Window {
@@ -166,14 +168,20 @@ export default function CareersApplicationModal({ mode, jobTitle, onClose }: Pro
       clearTimeout(timer);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Submission failed');
+      localStorage.removeItem(DRAFT_KEY);
       setSubmitted(true);
     } catch (err: unknown) {
       clearTimeout(timer);
+      // Save text fields as draft (exclude CV binary — too large for localStorage)
+      try {
+        const { cvBase64: _, cvFilename: __, ...draftPayload } = payload;
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draftPayload));
+      } catch { /* quota */ }
       const msg = err instanceof Error ? err.message : 'Submission failed';
       if (msg.includes('aborted') || msg.includes('AbortError')) {
-        setError('Server is taking too long to respond — please try again in a moment.');
+        setError('Server is taking too long — your details have been saved as a draft. Try again shortly.');
       } else if (msg.toLowerCase().includes('fetch') || msg.toLowerCase().includes('network') || msg.toLowerCase().includes('failed to fetch')) {
-        setError('Could not reach the server — please try again or email hr@onea.co.za directly.');
+        setError('Could not reach the server — your details are saved. Try again or email hr@onea.co.za directly.');
       } else {
         setError(msg);
       }

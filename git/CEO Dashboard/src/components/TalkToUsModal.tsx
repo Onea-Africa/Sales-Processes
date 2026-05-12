@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { API_BASE as API } from '../lib/api';
 
-const API = 'https://onea-africa-backend.onrender.com';
+const DRAFT_KEY = 'onea_talk_draft';
 
 interface Props { onClose: () => void; }
 
@@ -28,6 +29,21 @@ export default function TalkToUsModal({ onClose }: Props) {
   // Wake up the Render backend while the user fills the form
   useEffect(() => {
     fetch(`${API}/api/health`).catch(() => {});
+  }, []);
+
+  // Restore any saved draft into the form
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (!saved) return;
+      const draft = JSON.parse(saved) as Record<string, string>;
+      const form = document.getElementById('talk-form') as HTMLFormElement | null;
+      if (!form) return;
+      Object.entries(draft).forEach(([k, v]) => {
+        const el = form.elements.namedItem(k) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+        if (el) el.value = v;
+      });
+    } catch { /* ignore */ }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,14 +74,16 @@ export default function TalkToUsModal({ onClose }: Props) {
       clearTimeout(timer);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Submission failed');
+      localStorage.removeItem(DRAFT_KEY);
       setSubmitted(true);
     } catch (err: unknown) {
       clearTimeout(timer);
+      try { localStorage.setItem(DRAFT_KEY, JSON.stringify(payload)); } catch { /* quota */ }
       const msg = err instanceof Error ? err.message : 'Submission failed';
       if (msg === 'The user aborted a request.' || msg.includes('aborted')) {
-        setError('Server is taking too long to respond — please try again in a moment.');
+        setError('Server is taking too long to respond — your details have been saved and you can try again.');
       } else if (msg.toLowerCase().includes('fetch') || msg.toLowerCase().includes('networkerror') || msg.toLowerCase().includes('failed to fetch')) {
-        setError('Could not reach the server. Please try again or WhatsApp us on +27 69 464 4663.');
+        setError('Could not reach the server — your details are saved. Try again or WhatsApp us on +27 69 464 4663.');
       } else {
         setError(msg);
       }
@@ -158,7 +176,7 @@ export default function TalkToUsModal({ onClose }: Props) {
                 <p className="font-body-md text-on-surface-variant">Let's build something that works together.</p>
               </header>
 
-              <form className="space-y-lg" onSubmit={handleSubmit}>
+              <form id="talk-form" className="space-y-lg" onSubmit={handleSubmit}>
 
                 {/* Row 1: Name + Email */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">

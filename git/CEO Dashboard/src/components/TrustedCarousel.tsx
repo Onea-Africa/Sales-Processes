@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface Logo {
   id: string;
@@ -49,14 +49,7 @@ function LogoItem({ logo }: { logo: Logo }) {
 }
 
 export default function TrustedCarousel() {
-  const [logos, setLogos] = useState<Logo[]>(FALLBACK);
-
-  useEffect(() => {
-    fetch('http://localhost:4000/api/logos')
-      .then(r => r.json())
-      .then(data => { if (Array.isArray(data) && data.length) setLogos(data); })
-      .catch(() => {});
-  }, []);
+  const [logos] = useState<Logo[]>(FALLBACK);
 
   const items = [...logos, ...logos];
 

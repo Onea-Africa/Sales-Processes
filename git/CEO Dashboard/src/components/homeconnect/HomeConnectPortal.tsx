@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API = 'https://onea-africa-backend.onrender.com';
+import { API_BASE as API } from '../../lib/api';
 const COLOR = '#11BFE0';
 const ACCENT = '#0D9CB8';
 
