@@ -243,6 +243,7 @@ export default function PricingPage({ onTalkToUs }: Props) {
                 <motion.button
                   onClick={() => {
                     if (isp.id === 'telkom' || isp.id === 'homeconnect') { setIspPortal(isp.id); setComingSoon(null); }
+                    else if (isp.id === 'supersonic') { onTalkToUs(); }
                     else { setComingSoon(isp.id); setIspPortal(null); }
                   }}
                   className="w-full text-left group"
@@ -268,8 +269,8 @@ export default function PricingPage({ onTalkToUs }: Props) {
                       className="inline-flex items-center gap-sm px-xl py-md rounded-full font-bold text-white text-body-md"
                       style={{ background: `linear-gradient(135deg, ${isp.color}, ${isp.accent})` }}
                     >
-                      {(isp.id === 'telkom' || isp.id === 'homeconnect') ? 'Apply Now' : 'View Packages'}
-                      <span className="material-symbols-outlined text-[20px]">{(isp.id === 'telkom' || isp.id === 'homeconnect') ? 'open_in_new' : 'arrow_forward'}</span>
+                      {isp.id === 'telkom' || isp.id === 'homeconnect' ? 'Apply Now' : isp.id === 'supersonic' ? 'Enquire Now' : 'View Packages'}
+                      <span className="material-symbols-outlined text-[20px]">{isp.id === 'telkom' || isp.id === 'homeconnect' ? 'open_in_new' : isp.id === 'supersonic' ? 'chat' : 'arrow_forward'}</span>
                     </span>
                   </div>
                 </motion.button>
