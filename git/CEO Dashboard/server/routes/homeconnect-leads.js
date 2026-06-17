@@ -18,12 +18,16 @@ function writeLeads(leads) { fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, 
 let _t = null;
 async function transporter() {
   if (_t) return _t;
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  const smtpPass = (process.env.SMTP_PASS || '').replace(/\s+/g, '');
+  if (process.env.SMTP_HOST && process.env.SMTP_USER && smtpPass) {
+    if (smtpPass !== (process.env.SMTP_PASS || '')) {
+      console.log('[HOMECONNECT] Normalized SMTP_PASS whitespace for transport');
+    }
     _t = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || '587'),
       secure: false,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      auth: { user: process.env.SMTP_USER, pass: smtpPass },
     });
   } else {
     const test = await nodemailer.createTestAccount();

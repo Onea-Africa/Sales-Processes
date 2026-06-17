@@ -1,3 +1,5 @@
+import { trackOneaEvent } from '../lib/marketing';
+
 export default function WhatsAppButton() {
   const msg = encodeURIComponent("Hi Onea Africa, I'd like to enquire about your services");
   return (
@@ -6,7 +8,11 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+      onClick={() => trackOneaEvent('whatsapp_click', {
+        location: 'floating_whatsapp_button',
+        destination: '+27694644663',
+      })}
+      className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
       style={{ backgroundColor: '#25D366' }}
     >
       <svg width="28" height="28" viewBox="0 0 24 24" fill="white">

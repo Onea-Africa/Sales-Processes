@@ -7,6 +7,14 @@ import TiltCard from '../components/motion/TiltCard';
 
 interface Props { onTalkToUs: () => void; }
 
+type Credential = {
+  name: string;
+  image: string;
+  issuer?: string;
+  validUntil?: string;
+  verifyUrl?: string;
+};
+
 const team = [
   {
     name: 'Neo',
@@ -19,6 +27,32 @@ const team = [
       linkedin: 'https://www.linkedin.com/company/onea-africa',
       email: 'connect@onea.co.za',
     },
+    credentials: [
+      {
+        name: 'Google Ads AI-Powered Performance Certified',
+        image: '/team/credentials/google-ads-ai-powered-performance.png',
+        issuer: 'Skillshop',
+      },
+      {
+        name: 'Grow Offline Sales AI Certified',
+        image: '/team/credentials/google-grow-offline-sales-ai.png',
+        issuer: 'Skillshop',
+      },
+      {
+        name: 'Google Ads Search Certification',
+        image: '/team/credentials/google-ads-search-certification.png',
+        issuer: 'Skillshop',
+        validUntil: '2027-06-15',
+        verifyUrl: 'https://www.credential.net/202519d6-a191-4808-a553-33e5acc3eb93',
+      },
+      {
+        name: 'Google Ads Display Certification',
+        image: '/team/credentials/google-ads-display-certification.png',
+        issuer: 'Skillshop',
+        validUntil: '2027-06-15',
+        verifyUrl: 'https://www.credential.net/06dc5084-8ff7-49a0-bdd7-5e4a103cd5de',
+      },
+    ],
   },
   {
     name: 'Joyce',
@@ -44,7 +78,132 @@ const team = [
       email: 'connect@onea.co.za',
     },
   },
+  {
+    name: 'Team Member',
+    role: 'IT Intern',
+    bio: 'Supporting Onea Africa\'s connectivity, device setup and internal IT service work while gaining hands-on experience across client support and infrastructure delivery.',
+    photo: '/team/it-intern.png',
+    initials: 'IT',
+    accentColor: '#8CC444',
+    social: {
+      linkedin: 'https://www.linkedin.com/company/onea-africa',
+      email: 'connect@onea.co.za',
+    },
+  },
+  {
+    name: 'Team Member',
+    role: 'Graphic Design Intern',
+    bio: 'Assisting with visual design, campaign assets, brand layouts and creative production for Onea Africa and selected client projects.',
+    photo: '/team/graphic-design-intern.png',
+    initials: 'GD',
+    accentColor: '#F4D350',
+    social: {
+      linkedin: 'https://www.linkedin.com/company/onea-africa',
+      email: 'connect@onea.co.za',
+    },
+  },
+  {
+    name: 'Team Member',
+    role: 'PR, Marketing & Communications Intern',
+    bio: 'Supporting content planning, public relations, social media coordination and communications activity across the Onea Africa brand.',
+    photo: '/team/pr-marketing-communications-intern.png',
+    initials: 'PR',
+    accentColor: '#D6139F',
+    social: {
+      linkedin: 'https://www.linkedin.com/company/onea-africa',
+      email: 'connect@onea.co.za',
+    },
+  },
 ];
+
+function formatCredentialDate(value?: string) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function CredentialCarousel({ credentials }: { credentials: Credential[] }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeCredential = credentials[activeIndex] || credentials[0];
+
+  if (!activeCredential) return null;
+
+  const move = (direction: -1 | 1) => {
+    setActiveIndex(current => (current + direction + credentials.length) % credentials.length);
+  };
+
+  return (
+    <div className="mb-xl rounded-xl border border-border-subtle bg-soft-surface p-md">
+      <div className="mb-sm flex items-center justify-between gap-sm">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-on-surface-variant">Professional certifications</p>
+        <span className="rounded-full bg-white px-sm py-[2px] text-[11px] font-bold text-primary">
+          {activeIndex + 1}/{credentials.length}
+        </span>
+      </div>
+
+      <div className="rounded-lg border border-border-subtle bg-white p-md shadow-sm">
+        <div className="flex min-h-[148px] flex-col items-center justify-center">
+          <img
+            src={activeCredential.image}
+            alt={activeCredential.name}
+            title={activeCredential.name}
+            className="mx-auto h-24 w-full object-contain"
+            loading="eager"
+          />
+          <p className="mt-sm text-[13px] font-bold leading-snug text-text-primary">{activeCredential.name}</p>
+          {(activeCredential.issuer || activeCredential.validUntil) && (
+            <p className="mt-xs text-[11px] text-on-surface-variant">
+              {activeCredential.issuer || 'Credential'}
+              {activeCredential.validUntil ? ` - Valid until ${formatCredentialDate(activeCredential.validUntil)}` : ''}
+            </p>
+          )}
+          {activeCredential.verifyUrl && (
+            <a
+              href={activeCredential.verifyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-xs text-[11px] font-bold text-primary hover:underline"
+            >
+              Verify credential
+            </a>
+          )}
+        </div>
+
+        <div className="mt-md flex items-center justify-between gap-sm">
+          <button
+            type="button"
+            onClick={() => move(-1)}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-soft-surface text-text-primary hover:border-primary"
+            aria-label="Previous certification"
+          >
+            <span className="material-symbols-outlined text-[18px]">chevron_left</span>
+          </button>
+          <div className="flex items-center justify-center gap-xs">
+            {credentials.map((credential, index) => (
+              <button
+                key={credential.name}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`h-2 rounded-full transition-all ${index === activeIndex ? 'w-6 bg-primary' : 'w-2 bg-border-subtle'}`}
+                aria-label={`Show ${credential.name}`}
+                aria-current={index === activeIndex}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => move(1)}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-soft-surface text-text-primary hover:border-primary"
+            aria-label="Next certification"
+          >
+            <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function TeamCard({ member }: { member: typeof team[number] }) {
   const [imgError, setImgError] = useState(false);
@@ -81,6 +240,9 @@ function TeamCard({ member }: { member: typeof team[number] }) {
           <h2 className="font-headline-md text-text-primary mb-xs">{member.name}</h2>
           <p className="font-semibold font-label-md mb-lg" style={{ color: member.accentColor }}>{member.role}</p>
           <p className="text-on-surface-variant text-body-md leading-relaxed mb-xl flex-1">{member.bio}</p>
+          {'credentials' in member && member.credentials && (
+            <CredentialCarousel credentials={member.credentials} />
+          )}
           <div className="flex gap-sm justify-center">
             <motion.a
               href={member.social.linkedin}
@@ -133,7 +295,7 @@ export default function TeamPage({ onTalkToUs }: Props) {
         <div className="max-w-[1280px] mx-auto px-xl">
           <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
             {team.map(member => (
-              <StaggerItem key={member.name}>
+              <StaggerItem key={`${member.name}-${member.role}`}>
                 <TeamCard member={member} />
               </StaggerItem>
             ))}
@@ -148,7 +310,7 @@ export default function TeamPage({ onTalkToUs }: Props) {
             <span className="inline-block px-md py-xs bg-primary/10 text-primary rounded-full font-label-md text-label-md mb-lg">Apply Now</span>
             <h2 className="font-headline-md text-text-primary mb-md">Ready to Join the Team?</h2>
             <p className="text-on-surface-variant text-body-lg max-w-2xl mx-auto mb-xl">
-              Fill in the form and we'll be in touch. All applications go directly to our HR team at hr@onea.co.za.
+              Fill in the form and we'll be in touch. All applications go directly to our HR team.
             </p>
             <div className="flex flex-col sm:flex-row gap-md justify-center">
               <Link

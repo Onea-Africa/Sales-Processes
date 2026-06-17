@@ -1,10 +1,19 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { API_BASE as API } from '../lib/api';
+import { trackLeadConversion } from '../lib/marketing';
 
 const DRAFT_KEY = 'onea_talk_draft';
 
-interface Props { onClose: () => void; }
+export type TalkToUsPrefill = {
+  service?: string;
+  message?: string;
+};
+
+interface Props {
+  onClose: () => void;
+  prefill?: TalkToUsPrefill | null;
+}
 
 const SERVICES = [
   'Broadband / Home Internet',
@@ -13,22 +22,30 @@ const SERVICES = [
   'Network Infrastructure & Cabling',
   'Cloud Services',
   'Hardware & Software Supply',
+  'Apple Device Procurement',
   'Website Design & Development',
+  'Hosting & Infrastructure',
+  'System Integration',
   'Digital Marketing & Social Media',
   'Branding & Creative',
   'PR & Communications',
+  'Residential / Home WiFi',
+  'Enterprise / Business WiFi',
+  'Website & Platform Development',
+  'Communications & PR',
   'Media Buying',
   'General Enquiry',
 ];
 
-export default function TalkToUsModal({ onClose }: Props) {
+export default function TalkToUsModal({ onClose, prefill }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [invalidFields, setInvalidFields] = useState<Record<string, boolean>>({});
 
   // Wake up the Render backend while the user fills the form
   useEffect(() => {
-    fetch(`${API}/api/health`).catch(() => {});
+    fetch(`${API}/api/health`).catch(() => { });
   }, []);
 
   // Restore any saved draft into the form
@@ -40,29 +57,59 @@ export default function TalkToUsModal({ onClose }: Props) {
       const form = document.getElementById('talk-form') as HTMLFormElement | null;
       if (!form) return;
       Object.entries(draft).forEach(([k, v]) => {
+        if ((k === 'service' && prefill?.service) || (k === 'message' && prefill?.message)) return;
         const el = form.elements.namedItem(k) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
         if (el) el.value = v;
       });
     } catch { /* ignore */ }
-  }, []);
+  }, [prefill]);
+
+  const scrollToFirstInvalid = () => {
+    const form = document.getElementById('talk-form');
+    const invalid = form?.querySelector('input.error, select.error, textarea.error') as HTMLElement | null
+      || document.querySelector('.error') as HTMLElement | null;
+    if (invalid) {
+      invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      invalid.focus?.();
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setInvalidFields({});
 
     const fd = new FormData(e.currentTarget);
     const payload = {
-      name:    fd.get('name'),
-      email:   fd.get('email'),
-      phone:   fd.get('phone'),
-      company: fd.get('company'),
-      service: fd.get('service'),
-      message: fd.get('message'),
+      name: String(fd.get('name') ?? '').trim(),
+      email: String(fd.get('email') ?? '').trim(),
+      phone: String(fd.get('phone') ?? '').trim(),
+      company: String(fd.get('company') ?? '').trim(),
+      leadArea: String(fd.get('leadArea') ?? '').trim(),
+      service: String(fd.get('service') ?? '').trim(),
+      message: String(fd.get('message') ?? '').trim(),
+      website: String(fd.get('website') ?? '').trim(),
     };
 
+    const invalid: Record<string, boolean> = {};
+    if (!payload.name) invalid.name = true;
+    if (!payload.email || !payload.email.includes('@')) invalid.email = true;
+    if (!payload.phone) invalid.phone = true;
+    if (!payload.leadArea) invalid.leadArea = true;
+    if (!payload.service) invalid.service = true;
+    if (!payload.message) invalid.message = true;
+
+    if (Object.keys(invalid).length > 0) {
+      setInvalidFields(invalid);
+      setError('Please complete the highlighted fields before submitting.');
+      setLoading(false);
+      requestAnimationFrame(scrollToFirstInvalid);
+      return;
+    }
+
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 30000);
+    const timer = setTimeout(() => controller.abort(), 90000);
 
     try {
       const res = await fetch(`${API}/api/enquiries`, {
@@ -72,9 +119,17 @@ export default function TalkToUsModal({ onClose }: Props) {
         signal: controller.signal,
       });
       clearTimeout(timer);
-      const data = await res.json();
+      const text = await res.text();
+      const data = text ? JSON.parse(text) : {};
       if (!res.ok) throw new Error(data.error || 'Submission failed');
       localStorage.removeItem(DRAFT_KEY);
+      trackLeadConversion({
+        form_name: 'talk_to_us',
+        service_type: payload.service,
+        lead_area: payload.leadArea,
+        lead_source: 'website_contact_form',
+        submission_id: data.id || data.submissionId || '',
+      });
       setSubmitted(true);
     } catch (err: unknown) {
       clearTimeout(timer);
@@ -94,13 +149,16 @@ export default function TalkToUsModal({ onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 bg-on-surface/40 backdrop-blur-md z-[60] flex items-center justify-center p-md md:p-xl"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-on-surface/40 p-md backdrop-blur-md md:p-xl"
       onClick={(e) => e.target === e.currentTarget && onClose()}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Contact Onea Africa"
     >
       <motion.div
         className="bg-white rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] w-full max-w-4xl overflow-hidden flex flex-col md:flex-row max-h-[95vh] overflow-y-auto"
         initial={{ opacity: 0, y: 60, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0,  scale: 1 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 40, scale: 0.96 }}
         transition={{ type: 'spring', stiffness: 300, damping: 28 }}
       >
@@ -177,6 +235,7 @@ export default function TalkToUsModal({ onClose }: Props) {
               </header>
 
               <form id="talk-form" className="space-y-lg" onSubmit={handleSubmit}>
+                <input name="website" type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
                 {/* Row 1: Name + Email */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
@@ -187,10 +246,14 @@ export default function TalkToUsModal({ onClose }: Props) {
                     <input
                       name="name"
                       required
-                      className="w-full bg-soft-surface border border-border-subtle rounded-full px-lg py-md transition-all outline-none"
+                      className={`w-full bg-soft-surface border border-border-subtle rounded-full px-lg py-md transition-all outline-none ${invalidFields.name ? 'error' : ''}`}
                       style={{ '--tw-ring-color': '#8CC444' } as React.CSSProperties}
                       onFocus={e => { e.currentTarget.style.borderColor = '#8CC444'; e.currentTarget.style.boxShadow = '0 0 0 3px #8CC44430'; }}
                       onBlur={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.boxShadow = ''; }}
+                      onChange={() => {
+                        if (invalidFields.name) setInvalidFields(prev => ({ ...prev, name: false }));
+                        if (error) setError('');
+                      }}
                       placeholder="Your full name"
                       type="text"
                     />
@@ -202,9 +265,13 @@ export default function TalkToUsModal({ onClose }: Props) {
                     <input
                       name="email"
                       required
-                      className="w-full bg-soft-surface border border-border-subtle rounded-full px-lg py-md transition-all outline-none"
+                      className={`w-full bg-soft-surface border border-border-subtle rounded-full px-lg py-md transition-all outline-none ${invalidFields.email ? 'error' : ''}`}
                       onFocus={e => { e.currentTarget.style.borderColor = '#8CC444'; e.currentTarget.style.boxShadow = '0 0 0 3px #8CC44430'; }}
                       onBlur={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.boxShadow = ''; }}
+                      onChange={() => {
+                        if (invalidFields.email) setInvalidFields(prev => ({ ...prev, email: false }));
+                        if (error) setError('');
+                      }}
                       placeholder="you@company.com"
                       type="email"
                     />
@@ -231,13 +298,37 @@ export default function TalkToUsModal({ onClose }: Props) {
                     <input
                       name="phone"
                       required
-                      className="w-full bg-soft-surface border border-border-subtle rounded-full px-lg py-md transition-all outline-none"
+                      className={`w-full bg-soft-surface border border-border-subtle rounded-full px-lg py-md transition-all outline-none ${invalidFields.phone ? 'error' : ''}`}
                       onFocus={e => { e.currentTarget.style.borderColor = '#8CC444'; e.currentTarget.style.boxShadow = '0 0 0 3px #8CC44430'; }}
                       onBlur={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.boxShadow = ''; }}
+                      onChange={() => {
+                        if (invalidFields.phone) setInvalidFields(prev => ({ ...prev, phone: false }));
+                        if (error) setError('');
+                      }}
                       placeholder="+27 69 464 4663"
                       type="tel"
                     />
                   </div>
+                </div>
+
+                <div className="space-y-xs">
+                  <label className="font-label-md text-on-surface-variant ml-md block">
+                    Area / Township / Town <span style={{ color: '#D6139F' }}>*</span>
+                  </label>
+                  <input
+                    name="leadArea"
+                    required
+                    className={`w-full bg-soft-surface border border-border-subtle rounded-full px-lg py-md transition-all outline-none ${invalidFields.leadArea ? 'error' : ''}`}
+                    onFocus={e => { e.currentTarget.style.borderColor = '#8CC444'; e.currentTarget.style.boxShadow = '0 0 0 3px #8CC44430'; }}
+                    onBlur={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.boxShadow = ''; }}
+                    onChange={() => {
+                      if (invalidFields.leadArea) setInvalidFields(prev => ({ ...prev, leadArea: false }));
+                      if (error) setError('');
+                    }}
+                    placeholder="e.g. Soshanguve, Centurion or Midrand"
+                    type="text"
+                  />
+                  <p className="text-[11px] text-on-surface-variant ml-md">Used to route your enquiry to the right service area.</p>
                 </div>
 
                 {/* Service dropdown — full width */}
@@ -249,10 +340,14 @@ export default function TalkToUsModal({ onClose }: Props) {
                     <select
                       name="service"
                       required
-                      defaultValue=""
-                      className="w-full appearance-none bg-soft-surface border border-border-subtle rounded-full px-lg py-md pr-[48px] transition-all outline-none cursor-pointer font-body-md text-on-surface"
+                      defaultValue={prefill?.service || ''}
+                      className={`w-full appearance-none bg-soft-surface border border-border-subtle rounded-full px-lg py-md pr-[48px] transition-all outline-none cursor-pointer font-body-md text-on-surface ${invalidFields.service ? 'error' : ''}`}
                       onFocus={e => { e.currentTarget.style.borderColor = '#8CC444'; e.currentTarget.style.boxShadow = '0 0 0 3px #8CC44430'; }}
                       onBlur={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.boxShadow = ''; }}
+                      onChange={() => {
+                        if (invalidFields.service) setInvalidFields(prev => ({ ...prev, service: false }));
+                        if (error) setError('');
+                      }}
                     >
                       <option value="" disabled>Select a service...</option>
                       {SERVICES.map(s => (
@@ -270,9 +365,14 @@ export default function TalkToUsModal({ onClose }: Props) {
                   <label className="font-label-md text-on-surface-variant ml-md block">Message / Requirements</label>
                   <textarea
                     name="message"
-                    className="w-full bg-soft-surface border border-border-subtle rounded-lg px-lg py-md transition-all outline-none resize-none"
+                    defaultValue={prefill?.message || ''}
+                    className={`w-full bg-soft-surface border border-border-subtle rounded-lg px-lg py-md transition-all outline-none resize-none ${invalidFields.message ? 'error' : ''}`}
                     onFocus={e => { e.currentTarget.style.borderColor = '#8CC444'; e.currentTarget.style.boxShadow = '0 0 0 3px #8CC44430'; }}
                     onBlur={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.boxShadow = ''; }}
+                    onChange={() => {
+                      if (invalidFields.message) setInvalidFields(prev => ({ ...prev, message: false }));
+                      if (error) setError('');
+                    }}
                     placeholder="Tell us about your project or needs..."
                     rows={3}
                   />

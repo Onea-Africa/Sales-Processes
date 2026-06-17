@@ -49,6 +49,26 @@ async function generatePDF(app) {
     const W = doc.page.width, M = 50;
     let y = 0;
 
+    const safeText = (value, fallback = 'N/A') => {
+      if (value === undefined || value === null || value === '') {
+        return fallback;
+      }
+      return String(value);
+    };
+
+    const yesNo = (value) => {
+      if (value === 'yes') return 'Yes';
+      if (value === 'no') return 'No';
+      return 'N/A';
+    };
+
+    const money = (value) => {
+      if (value === undefined || value === null || value === '') {
+        return 'N/A';
+      }
+      return `R ${value}`;
+    };
+
     // Header bar
     doc.rect(0, 0, W, 88).fill(G);
     const logo = path.join(__dirname, '../../public/logo.png');
@@ -71,7 +91,7 @@ async function generatePDF(app) {
     const row = (label, value) => {
       if (y > doc.page.height - 60) { doc.addPage(); y = 40; }
       doc.fillColor(GREY).fontSize(9).font('Helvetica').text(label, M, y, { width:155 });
-      doc.fillColor(DARK).fontSize(9).font('Helvetica').text(String(value || '—'), M + 160, y, { width: W - M*2 - 160 });
+      doc.fillColor(DARK).fontSize(9).font('Helvetica').text(safeText(value, '—'), M + 160, y, { width: W - M*2 - 160 });
       y += 18;
     };
 
@@ -89,56 +109,56 @@ async function generatePDF(app) {
 
     // ── Section 1
     section('SECTION 1 — CUSTOMER DETAILS');
-    row('Existing Customer',  app.isExistingCustomer === 'yes' ? 'Yes' : 'No');
-    row('Full Names',         app.fullName);
-    row('ID / Passport No.',  app.idNumber);
-    row('Mobile Number',      app.mobile);
-    row('Alternative Number', app.altNumber || 'N/A');
-    row('Email Address',      app.email);
-    row('Physical Address',   app.physicalAddress);
-    row('Postal Address',     app.postalAddress || 'Same as physical');
-    row('Delivery Address',   app.deliveryAddress || 'Same as physical');
-    row('Coverage Checked',   app.coverageChecked === 'yes' ? 'Yes' : 'No');
+    row('Existing Customer',  yesNo(app.isExistingCustomer));
+    row('Full Names',         safeText(app.fullName));
+    row('ID / Passport No.',  safeText(app.idNumber));
+    row('Mobile Number',      safeText(app.mobile));
+    row('Alternative Number', safeText(app.altNumber, 'N/A'));
+    row('Email Address',      safeText(app.email));
+    row('Physical Address',   safeText(app.physicalAddress));
+    row('Postal Address',     safeText(app.postalAddress, 'Same as physical'));
+    row('Delivery Address',   safeText(app.deliveryAddress, 'Same as physical'));
+    row('Coverage Checked',   yesNo(app.coverageChecked));
     y += 6;
 
     // ── Section 2
     section('SECTION 2 — EMPLOYMENT DETAILS');
-    row('Employer / Company', app.employerName || 'N/A');
-    row('Employer Contact',   app.employerPhone || 'N/A');
-    row('Employer Address',   app.employerAddress || 'N/A');
-    row('Gross Monthly Income', app.grossIncome ? `R ${app.grossIncome}` : 'N/A');
-    row('Net Monthly Income',   app.netIncome   ? `R ${app.netIncome}`   : 'N/A');
-    row('Household Income',     app.householdIncome ? `R ${app.householdIncome}` : 'N/A');
+    row('Employer / Company', safeText(app.employerName));
+    row('Employer Contact',   safeText(app.employerPhone));
+    row('Employer Address',   safeText(app.employerAddress));
+    row('Gross Monthly Income', money(app.grossIncome));
+    row('Net Monthly Income',   money(app.netIncome));
+    row('Household Income',     money(app.householdIncome));
     y += 6;
 
     // ── Section 3
     section('SECTION 3 — PAYMENT CONSENT');
-    row('Debit Notice Acknowledged', app.ackDebit    ? 'Yes' : 'No');
-    row('Debit Order Consent',       app.debitConsent ? 'Yes' : 'No');
-    row('Processing Consent',        app.procConsent ? 'Yes' : 'No');
-    row('Signature Date',            app.sig1Date);
+    row('Debit Notice Acknowledged', yesNo(app.ackDebit));
+    row('Debit Order Consent',       yesNo(app.debitConsent));
+    row('Processing Consent',        yesNo(app.procConsent));
+    row('Signature Date',            safeText(app.sig1Date));
     y += 4;
     sig('Customer Signature — Confirms Sections 1 to 3', app.sig1);
 
     // ── Section 4
     section('SECTION 4 — SERVICE SELECTION');
-    row('Service Type',       app.serviceType === 'fibre' ? 'Fibre' : app.serviceType === 'lte' ? 'LTE' : 'Gated Community');
-    row('Selected Package',   app.selectedPackage);
-    row('Monthly Price',      `R ${app.packagePrice}/month`);
-    row('Activation Date',    app.activationDate);
-    row('Existing Line',      app.hasExistingLine === 'yes' ? 'Yes' : 'No');
-    row('Router Required',    app.requiresRouter  === 'yes' ? 'Yes' : 'No');
-    row('Signature Date',     app.sig2Date);
+    row('Service Type',       app.serviceType ? (app.serviceType === 'fibre' ? 'Fibre' : app.serviceType === 'lte' ? 'LTE' : safeText(app.serviceType, 'N/A')) : 'N/A');
+    row('Selected Package',   safeText(app.selectedPackage));
+    row('Monthly Price',      app.packagePrice ? `R ${app.packagePrice}/month` : 'N/A');
+    row('Activation Date',    safeText(app.activationDate));
+    row('Existing Line',      yesNo(app.hasExistingLine));
+    row('Router Required',    yesNo(app.requiresRouter));
+    row('Signature Date',     safeText(app.sig2Date));
     y += 4;
     sig('Customer Signature — Confirms Package Selection', app.sig2);
 
     // ── Section 5
     section('SECTION 5 — AGREEMENT & TERMS');
-    row('Terms & Conditions Accepted', app.agreeTerms        ? 'Yes' : 'No');
-    row('Debit Order Obligation',      app.agreeDebit        ? 'Yes' : 'No');
-    row('Cancellation Policy Accepted',app.agreeCancellation ? 'Yes' : 'No');
-    row('POPIA Consent',               app.agreePOPIA        ? 'Yes' : 'No');
-    row('Final Signature Date',        app.sig3Date);
+    row('Terms & Conditions Accepted', yesNo(app.agreeTerms));
+    row('Debit Order Obligation',      yesNo(app.agreeDebit));
+    row('Cancellation Policy Accepted', yesNo(app.agreeCancellation));
+    row('POPIA Consent',               yesNo(app.agreePOPIA));
+    row('Final Signature Date',        safeText(app.sig3Date));
     y += 4;
     sig('FINAL BINDING SIGNATURE — Confirms entire application', app.sig3);
 

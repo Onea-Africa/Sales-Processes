@@ -11,11 +11,25 @@ export default function CookieBanner() {
 
   const accept = () => {
     localStorage.setItem('onea_cookie_consent', 'accepted');
+    window.gtag?.('consent', 'update', {
+      analytics_storage: 'granted',
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+    });
+    window.dispatchEvent(new CustomEvent('onea-consent-update', { detail: 'accepted' }));
     setVisible(false);
   };
 
   const decline = () => {
     localStorage.setItem('onea_cookie_consent', 'declined');
+    window.gtag?.('consent', 'update', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+    window.dispatchEvent(new CustomEvent('onea-consent-update', { detail: 'declined' }));
     setVisible(false);
   };
 

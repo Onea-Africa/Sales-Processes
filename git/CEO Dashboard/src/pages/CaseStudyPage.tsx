@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { getCaseStudy, getAdjacentStudies } from '../data/caseStudies';
 import AnimatedSection from '../components/motion/AnimatedSection';
 import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
@@ -13,6 +14,11 @@ export default function CaseStudyPage({ onTalkToUs }: Props) {
   if (!study) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center text-center px-xl">
+        <Helmet>
+          <title>Case Study Not Found | Onea Africa</title>
+          <meta name="robots" content="noindex, follow" />
+          <link rel="canonical" href="https://onea.africa/case-studies" />
+        </Helmet>
         <div>
           <p className="text-on-surface-variant text-body-lg mb-lg">Case study not found.</p>
           <Link to="/case-studies" className="text-primary font-bold hover:underline">← Back to Case Studies</Link>

@@ -17,7 +17,7 @@ const FALLBACK: Logo[] = [
   { id: 'tc', initials: 'TC', name: 'Tsireledzo Care',     bg: '#D6139F', accent: '#F4D350' },
   { id: 'md', initials: 'MD', name: 'MulDiv Consulting',   bg: '#8CC444', accent: '#8CC444' },
   { id: 'ps', initials: 'PS', name: 'Purple Sands',        bg: '#6B3FA0', accent: '#F4D350' },
-  { id: 'rb', initials: 'RB', name: 'Rathusha BlueStar',   bg: '#1565C0', accent: '#8CC444', logoUrl: '/clients/rathusha-bluestar.jpg', siteUrl: 'https://www.facebook.com/RathushaBlueStar/' },
+  { id: 'rb', initials: 'RB', name: 'Rathusha BlueStar',   bg: '#1565C0', accent: '#8CC444', logoUrl: '/clients/rathusha-bluestar.webp', siteUrl: 'https://www.facebook.com/RathushaBlueStar/' },
 ];
 
 function LogoItem({ logo }: { logo: Logo }) {
@@ -31,7 +31,7 @@ function LogoItem({ logo }: { logo: Logo }) {
         }}
       >
         {logo.logoUrl
-          ? <img src={logo.logoUrl} alt={logo.name} className="w-full h-full object-cover rounded-full" />
+          ? <img src={logo.logoUrl} alt="" width="64" height="64" loading="lazy" decoding="async" className="w-full h-full object-cover rounded-full" />
           : logo.initials
         }
       </div>

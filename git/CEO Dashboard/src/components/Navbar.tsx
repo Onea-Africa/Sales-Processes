@@ -4,13 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface Props { onTalkToUs: () => void; }
 
+// Your original, perfectly spaced main layout links
 const navLinks = [
-  { label: 'Home',        to: '/' },
-  { label: 'Solutions',   to: '/connectivity' },
-  { label: 'Case Studies',to: '/case-studies' },
-  { label: 'Blog',        to: '/blog' },
-  { label: 'Pricing',     to: '/pricing' },
-  { label: 'Team',        to: '/team' },
+  { label: 'Home', to: '/' },
+  { label: 'Solutions', to: '/connectivity' }, // Direct link to your platform workspace
+  { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'Pricing', to: '/pricing' },
+  { label: 'Team', to: '/team' },
 ];
 
 export default function Navbar({ onTalkToUs }: Props) {
@@ -26,10 +27,10 @@ export default function Navbar({ onTalkToUs }: Props) {
     >
       <nav className="flex justify-between items-center w-full px-xl py-md max-w-[1280px] mx-auto">
         <Link to="/" onClick={() => setMenuOpen(false)}>
-          <img src="/logo.png" alt="Onea Africa" className="h-9 md:h-11 w-auto object-contain" style={{ maxWidth: '200px' }} />
+          <img src="/logo.webp" alt="Onea Africa" width="400" height="169" className="h-9 md:h-11 w-auto object-contain" style={{ maxWidth: '200px' }} />
         </Link>
 
-        {/* Desktop links */}
+        {/* Desktop links - beautifully spaced using md:flex */}
         <div className="hidden md:flex items-center gap-xl">
           {navLinks.map(link => {
             const active = location.pathname === link.to;

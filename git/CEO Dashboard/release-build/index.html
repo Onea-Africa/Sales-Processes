@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" as="image" href="/assets/hero-workspace-CD82bmj-.webp" type="image/webp" fetchpriority="high" />
+
+  <!-- Load analytics after the page is interactive to protect LCP and TBT. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    var storedConsent = localStorage.getItem('onea_cookie_consent');
+    var consentGranted = storedConsent === 'accepted';
+    gtag('consent', 'default', {
+      analytics_storage: consentGranted ? 'granted' : 'denied',
+      ad_storage: consentGranted ? 'granted' : 'denied',
+      ad_user_data: consentGranted ? 'granted' : 'denied',
+      ad_personalization: consentGranted ? 'granted' : 'denied',
+      wait_for_update: 500
+    });
+
+    (function () {
+      function appendScript(src) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = src;
+        document.head.appendChild(script);
+      }
+
+      function loadOptionalAnalytics() {
+        if (window.__oneaOptionalAnalyticsLoaded) return;
+        if (localStorage.getItem('onea_cookie_consent') !== 'accepted') return;
+        window.__oneaOptionalAnalyticsLoaded = true;
+        window.clarity = window.clarity || function () {
+          (window.clarity.q = window.clarity.q || []).push(arguments);
+        };
+        appendScript('https://www.clarity.ms/tag/wwcjs0gb9i?ref=bwt');
+
+        if (!window.fbq) {
+          var fbq = window.fbq = function () {
+            fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
+          };
+          window._fbq = fbq;
+          fbq.push = fbq;
+          fbq.loaded = true;
+          fbq.version = '2.0';
+          fbq.queue = [];
+          appendScript('https://connect.facebook.net/en_US/fbevents.js');
+        }
+        window.fbq('init', '710828314362914');
+        window.fbq('track', 'PageView');
+      }
+
+      function loadAnalytics() {
+        if (window.__oneaAnalyticsLoaded) return;
+        window.__oneaAnalyticsLoaded = true;
+
+        window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+        appendScript('https://www.googletagmanager.com/gtm.js?id=GTM-K2KS9WK4');
+        loadOptionalAnalytics();
+      }
+
+      window.addEventListener('onea-consent-update', function (event) {
+        if (event.detail === 'accepted') loadOptionalAnalytics();
+      });
+
+      function scheduleAnalytics() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
+        } else {
+          setTimeout(loadAnalytics, 2500);
+        }
+      }
+
+      if (document.readyState === 'complete') scheduleAnalytics();
+      else window.addEventListener('load', scheduleAnalytics, { once: true });
+    })();
+  </script>
+
+  <!-- Primary meta -->
+  <title>Onea Africa | Connect. Communicate. Converse.</title>
+  <meta name="description" content="Onea Africa empowers South African businesses with high-speed WiFi connectivity, IT infrastructure, digital marketing and public relations. B-BBEE Level 1 · Openserve & Telkom Partner · Pretoria, Gauteng." />
+  <meta name="keywords" content="WiFi connectivity South Africa, business internet Pretoria, digital marketing South Africa, IT services Gauteng, Openserve partner, Telkom partner, B-BBEE Level 1, Onea Africa" />
+  <script>
+    (function(){
+      var allowed = ['/', '/case-studies', '/blog', '/launch-platform', '/pricing', '/apple-device-procurement', '/telkom-application', '/connectivity', '/client-portal', '/team', '/careers', '/privacy', '/terms', '/solutions', '/solutions/openserve-business-fibre', '/solutions/lte-enterprise-packages', '/solutions/home-wifi-networking', '/solutions/managed-it-support', '/solutions/corporate-digital-marketing'];
+      var path = window.location.pathname.replace(/\/$/, '') || '/';
+      var canonicalPath = allowed.indexOf(path) >= 0 || path.indexOf('/blog/') === 0 || path.indexOf('/case-studies/') === 0 ? path : '/';
+      var link = document.createElement('link');
+      link.rel = 'canonical';
+      link.href = 'https://onea.africa' + (canonicalPath === '/' ? '/' : canonicalPath);
+      document.head.appendChild(link);
+      var indexable = allowed.indexOf(path) >= 0 || path.indexOf('/blog/') === 0 || path.indexOf('/case-studies/') === 0;
+      var robots = document.createElement('meta');
+      robots.name = 'robots';
+      robots.content = indexable && path.indexOf('/launch-platform') !== 0 ? 'index, follow' : 'noindex, nofollow';
+      document.head.appendChild(robots);
+    })();
+  </script>
+
+  <!-- Bing Webmaster verification -->
+  <meta name="msvalidate.01" content="CFB704F05E076E792378CBCB523BF414" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://onea.africa/" />
+  <meta property="og:title" content="Onea Africa | Connect. Communicate. Converse." />
+  <meta property="og:description" content="Empowering South African businesses through high-speed connectivity, strategic digital marketing, and impactful public relations." />
+  <meta property="og:image" content="https://onea.africa/og-image.png" />
+  <meta property="og:site_name" content="Onea Africa" />
+  <meta property="og:locale" content="en_ZA" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ONEA_AFRICA" />
+  <meta name="twitter:title" content="Onea Africa | Connect. Communicate. Converse." />
+  <meta name="twitter:description" content="Empowering South African businesses through high-speed connectivity, digital marketing and public relations." />
+  <meta name="twitter:image" content="https://onea.africa/og-image.png" />
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#8CC444" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  </noscript>
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Onea Africa",
+    "legalName": "Onea Africa (Pty) Ltd",
+    "url": "https://onea.africa",
+    "logo": "https://onea.africa/logo.png",
+    "foundingDate": "2016",
+    "vatID": "4550322707",
+    "description": "South African technology company providing WiFi connectivity, IT infrastructure, digital marketing and public relations services.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pretoria",
+      "addressRegion": "Gauteng",
+      "addressCountry": "ZA"
+    },
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+27-69-464-4663",
+      "contactType": "customer service",
+      "email": "connect@onea.co.za",
+      "availableLanguage": "English"
+    }],
+    "sameAs": [
+      "https://www.facebook.com/ONEAAI",
+      "https://twitter.com/ONEA_AFRICA",
+      "https://www.instagram.com/onea_af",
+      "https://www.linkedin.com/company/onea-africa"
+    ]
+  }
+  </script>
+
+  <!-- Tawk.to live chat (replace XXXXX/YYYYY with your Tawk.to IDs) -->
+  <!-- <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/XXXXX/YYYYY';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script> -->
+
+  <style>
+    .crawler-h1 {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { font-family: Georgia, serif; color: #000; }
+      a[href]:after { content: " (" attr(href) ")"; font-size: 11px; }
+    }
+  </style>
+  <!-- OneaMarketing unified analytics layer -->
+  <script>
+    (function(){
+      const referrals = ['onea.co.za','weareit.co.za'];
+      const supportedEvents = [
+        'service_pillar_view',
+        'lead_intent_initiated',
+        'form_step_navigation',
+        'referral_detected',
+        'whatsapp_click',
+        'newsletter_submitted',
+        'client_portal_view',
+        'support_intent_selected',
+        'support_submitted',
+        'package_selected',
+        'application_started',
+        'application_completed',
+        'signature_request_started',
+        'signature_request_sent',
+        'signature_request_viewed',
+        'generate_lead'
+      ];
+      window.dataLayer = window.dataLayer || [];
+
+      function parseReferral() {
+        try {
+          const params = new URLSearchParams(location.search);
+          const ref = params.get('ref') || params.get('utm_source') || params.get('utm_medium') || '';
+          const docRef = document.referrer || '';
+          return { refParam: ref, docRef };
+        } catch (e) { return { refParam: '', docRef: document.referrer || '' }; }
+      }
+
+      function normalizePayload(payload) {
+        const r = parseReferral();
+        const matched = referrals.find(domain => (r.refParam && r.refParam.includes(domain)) || (r.docRef && r.docRef.includes(domain))) || null;
+        return Object.assign({
+          page_path: location.pathname,
+          page_url: location.href,
+          referral_param: r.refParam,
+          document_referrer: r.docRef,
+          attribution_domain: matched
+        }, payload || {});
+      }
+
+      window.OneaMarketing = window.OneaMarketing || {
+        _queue: [],
+        _initialized: false,
+        supported: supportedEvents,
+        init: function(){
+          this._initialized = true;
+          window.dataLayer.push({ event: 'onea_marketing_initialized', supported_events: supportedEvents, page_path: location.pathname });
+          console.info('OneaMarketing initialized');
+        },
+        track: function(event, payload){
+          try {
+            const normalized = normalizePayload(payload);
+            const entry = { event, payload: normalized, ts: Date.now() };
+            this._queue.push(entry);
+            window.dataLayer.push(Object.assign({ event: event, onea_event: event }, normalized));
+            // lightweight console logging for dev/validation - replace with network call if needed
+            console.info('[OneaMarketing] track', entry);
+            return entry;
+          } catch (e) { return null; }
+        },
+        getAttribution: function(){
+          const r = parseReferral();
+          const matched = referrals.find(domain => (r.refParam && r.refParam.includes(domain)) || (r.docRef && r.docRef.includes(domain)));
+          return { referralParam: r.refParam, documentReferrer: r.docRef, matchedDomain: matched || null };
+        },
+        listen: function(eventName, handler){
+          document.addEventListener('OneaMarketing:'+eventName, function(e){ handler(e.detail); });
+        }
+      };
+
+      // auto-detect referral on load and log for attribution models
+      try {
+        const attrib = window.OneaMarketing.getAttribution();
+        if (attrib.matchedDomain) {
+          window.OneaMarketing.track('referral_detected', { matchedDomain: attrib.matchedDomain, referralParam: attrib.referralParam, documentReferrer: attrib.documentReferrer });
+        }
+      } catch (e) { /* noop */ }
+
+      // helper to dispatch named OneaMarketing events
+      window.dispatchOneaMarketingEvent = function(name, detail){
+        try {
+          const ev = new CustomEvent('OneaMarketing:'+name, { detail });
+          document.dispatchEvent(ev);
+        } catch (e) { /* noop */ }
+      };
+
+      // expose supported event names for clarity
+      window.OneaMarketing.supported = supportedEvents;
+      window.OneaMarketing.init();
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/index-BlIpXrEU.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BWeMzrCQ.css">
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2KS9WK4"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Meta Pixel Code (noscript) -->
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=710828314362914&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code (noscript) -->
+  <h1 class="crawler-h1">Onea Africa Connectivity, Digital Marketing and IT Solutions</h1>
+  <div id="root"></div>
+</body>
+</html>

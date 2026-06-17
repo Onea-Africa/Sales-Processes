@@ -1,0 +1,185 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-06-13 20:10:47.750",
+  "containerVersion": {
+    "path": "accounts/6357104413/containers/253399741/versions/5",
+    "accountId": "6357104413",
+    "containerId": "253399741",
+    "containerVersionId": "5",
+    "container": {
+      "path": "accounts/6357104413/containers/253399741",
+      "accountId": "6357104413",
+      "containerId": "253399741",
+      "name": "onea.africa",
+      "publicId": "GTM-K2KS9WK4",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "1779640512680",
+      "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6357104413/containers/253399741/workspaces?apiLink=container",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-K2KS9WK4"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "tagId": "12",
+        "name": "Google Tag G-2M1L1837RC",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "G-2M1L1837RC"
+          }
+        ],
+        "fingerprint": "1779820276979",
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "tagId": "13",
+        "name": "GA4 - generate_lead",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "generate_lead"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "G-2M1L1837RC"
+          }
+        ],
+        "fingerprint": "1779820368602",
+        "firingTriggerId": [
+          "9"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "triggerId": "9",
+        "name": "Custom Event - generate_lead",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "generate_lead"
+              }
+            ]
+          }
+        ],
+        "fingerprint": "1779819041800"
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "REFERRER",
+        "name": "Referrer"
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "EVENT",
+        "name": "Event"
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "FORM_ELEMENT",
+        "name": "Form Element"
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "ANALYTICS_CLIENT_ID",
+        "name": "Analytics Client ID"
+      },
+      {
+        "accountId": "6357104413",
+        "containerId": "253399741",
+        "type": "ANALYTICS_SESSION_ID",
+        "name": "Analytics Session ID"
+      }
+    ],
+    "fingerprint": "1781380824299",
+    "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6357104413/containers/253399741/versions/5?apiLink=version",
+    "customTemplate": [],
+    "name": "Onea clean GA4 lead tracking",
+    "description": "Single Google tag plus one generate_lead event. Clarity and Meta remain consent-controlled in the website."
+  }
+}

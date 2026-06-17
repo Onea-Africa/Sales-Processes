@@ -1,13 +1,40 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API_BASE as API } from '../lib/api';
+import { trackOneaEvent } from '../lib/marketing';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleNewsletter = (e: React.FormEvent) => {
+  const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) { setSubscribed(true); setEmail(''); }
+    if (!email || busy) return;
+    setBusy(true);
+    setError('');
+    try {
+      const res = await fetch(`${API}/api/newsletter.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'Website footer newsletter', website: '' }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.error || 'Unable to subscribe right now.');
+      }
+      trackOneaEvent('newsletter_submitted', {
+        source: 'footer_newsletter',
+        email_domain: email.split('@')[1] || '',
+      });
+      setSubscribed(true);
+      setEmail('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to subscribe right now.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -25,20 +52,22 @@ export default function Footer() {
               <span className="material-symbols-outlined text-[18px]">check_circle</span> You're subscribed!
             </div>
           ) : (
-            <form onSubmit={handleNewsletter} className="flex gap-sm w-full md:w-auto">
+            <form onSubmit={handleNewsletter} className="flex w-full min-w-0 flex-col gap-sm sm:flex-row md:w-auto">
+              <input name="website" type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 md:w-[260px] px-lg py-sm rounded-full bg-white/10 border border-white/20 text-on-primary placeholder:text-on-primary/40 focus:outline-none focus:ring-2 focus:ring-onea-green text-body-md"
+                className="min-w-0 flex-1 rounded-full border border-white/20 bg-white/10 px-lg py-sm text-body-md text-on-primary placeholder:text-on-primary/40 focus:outline-none focus:ring-2 focus:ring-onea-green md:w-[260px]"
               />
-              <button type="submit" className="px-xl py-sm bg-onea-green text-on-primary-fixed font-bold rounded-full hover:opacity-90 transition-all whitespace-nowrap">
-                Subscribe
+              <button type="submit" disabled={busy} className="w-full whitespace-nowrap rounded-full bg-onea-green px-xl py-sm font-bold text-on-primary-fixed transition-all hover:opacity-90 disabled:opacity-60 sm:w-auto">
+                {busy ? 'Saving...' : 'Subscribe'}
               </button>
             </form>
           )}
+          {error && <p className="w-full text-right text-sm text-red-100 md:w-auto">{error}</p>}
         </div>
       </div>
 
@@ -49,7 +78,7 @@ export default function Footer() {
           {/* Brand col */}
           <div className="md:col-span-1">
             <Link to="/" className="inline-block mb-lg">
-              <img src="/logo.png" alt="Onea Africa" className="h-8 md:h-10 w-auto object-contain" />
+              <img src="/logo.webp" alt="Onea Africa" width="400" height="169" loading="lazy" decoding="async" className="h-8 md:h-10 w-auto object-contain" />
             </Link>
             <p className="text-on-surface-variant text-body-sm mb-lg leading-relaxed">
               Empowering South African businesses through connectivity, digital marketing and public relations.
@@ -75,10 +104,12 @@ export default function Footer() {
           <div>
             <h4 className="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-lg">Solutions</h4>
             <ul className="space-y-md">
-              <li><Link to="/connectivity" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">WiFi &amp; Connectivity</Link></li>
-              <li><Link to="/connectivity" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">IT Infrastructure</Link></li>
-              <li><Link to="/case-studies" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Digital Marketing</Link></li>
-              <li><Link to="/case-studies" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Public Relations</Link></li>
+              <li><Link to="/solutions" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Solutions Hub</Link></li>
+              <li><Link to="/solutions/openserve-business-fibre" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Openserve Business Fibre</Link></li>
+              <li><Link to="/solutions/lte-enterprise-packages" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">LTE Packages</Link></li>
+              <li><Link to="/solutions/home-wifi-networking" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Home &amp; Business WiFi</Link></li>
+              <li><Link to="/solutions/managed-it-support" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Managed IT Support</Link></li>
+              <li><Link to="/solutions/corporate-digital-marketing" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Digital Marketing</Link></li>
             </ul>
           </div>
 
@@ -88,6 +119,8 @@ export default function Footer() {
             <ul className="space-y-md">
               <li><Link to="/case-studies" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Case Studies</Link></li>
               <li><Link to="/team" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Our Team</Link></li>
+              <li><Link to="/client-portal" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Client Portal</Link></li>
+              <li><Link to="/telkom-application" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Telkom Application</Link></li>
               <li><Link to="/blog" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Blog</Link></li>
               <li><Link to="/careers" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Careers</Link></li>
               <li><Link to="/privacy" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">Privacy Policy</Link></li>
@@ -127,9 +160,20 @@ export default function Footer() {
           <div className="text-[12px] text-on-surface-variant leading-relaxed">
             <span className="font-bold text-on-surface">Onea Africa (Pty) Ltd</span>
             {' '}· Reg No. 2016/461132/07 · VAT 4550322707 · CSD MAAA0662773
-            {' '}· B-BBEE Level 1 Contributor · Microsoft Partner ID 7111532
+            {' '}· B-BBEE Level 1 Contributor · Microsoft Partner ID 7111532 · Fortinet Partner POS ID FT-1618899
           </div>
-          <p className="text-[12px] text-on-surface-variant whitespace-nowrap">© 2026 Onea Africa. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-x-md gap-y-xs text-[12px] text-on-surface-variant">
+            <a
+              href="/legal/onea-africa-popia-privacy-policy-june-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              POPIA Privacy Policy
+            </a>
+            <span className="hidden md:inline">·</span>
+            <p className="whitespace-nowrap">© 2026 Onea Africa. All rights reserved.</p>
+          </div>
         </div>
       </div>
 

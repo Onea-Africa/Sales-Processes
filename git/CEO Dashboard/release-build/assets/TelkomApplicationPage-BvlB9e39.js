@@ -1,0 +1,1 @@
+import{p as t,j as a}from"./index-BlIpXrEU.js";import{T as e}from"./TelkomPortal-BhTXFOHI.js";import"./SignaturePad-2tHL7yVB.js";function n(){const o=t();return a.jsx(e,{onClose:()=>o("/pricing")})}export{n as default};

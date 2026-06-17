@@ -1,0 +1,45 @@
+<?php
+// Rename the copy to onea-config.php and upload it to the xneelo Home Directory,
+// one level above public_html. Never place the populated file inside public_html.
+
+return [
+    'APP_ENV' => 'production',
+    'APP_URL' => 'https://onea.africa',
+    'APP_KEY' => 'replace-with-at-least-32-random-bytes',
+
+    'MAIL_FROM' => 'website@onea.co.za',
+    'MAIL_ENVELOPE_FROM' => 'connect@onea.co.za',
+    'SALES_EMAIL' => 'sales@onea.co.za',
+
+    'GOOGLE_SHEETS_WEBHOOK_URL' => '',
+    'GOOGLE_SHEETS_WEBHOOK_SECRET' => '',
+    'WHATSAPP_WEBHOOK_URL' => '',
+    'WHATSAPP_WEBHOOK_SECRET' => '',
+    'HUBSPOT_PRIVATE_APP_TOKEN' => '',
+    'HUBSPOT_TICKET_PIPELINE_ID' => '',
+    'HUBSPOT_TICKET_STAGE_ID' => '',
+
+    'RECAPTCHA_SECRET_KEY' => '',
+    'RECAPTCHA_MIN_SCORE' => '0.5',
+
+    'ASBIS_USERNAME' => '',
+    'ASBIS_PASSWORD' => '',
+    'NOLOGY_USERNAME' => '',
+    'NOLOGY_SECRET' => '',
+    'PRICING_CRON_SECRET' => '',
+    'MICROSOFT_PRICE_FEED_URL' => '',
+    'MICROSOFT_PRICE_FEED_TOKEN' => '',
+    'FORTINET_PRICE_FEED_URL' => '',
+    'FORTINET_PRICE_FEED_TOKEN' => '',
+    'HOSTING_PRICE_FEED_URL' => '',
+    'HOSTING_PRICE_FEED_TOKEN' => '',
+
+    'SIGNATURE_REQUEST_TTL_HOURS' => '72',
+    'SESSION_TTL_HOURS' => '8',
+    'MAX_CV_BYTES' => '5242880',
+    'MAX_DOCUMENT_BYTES' => '10485760',
+    'MAX_SIGNATURE_BYTES' => '2097152',
+
+    'FILE_MALWARE_SCAN_REQUIRED' => '0',
+    'CLAMAV_SCAN_COMMAND' => '',
+];

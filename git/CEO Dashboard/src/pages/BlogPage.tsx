@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { blogPosts } from '../data/blogPosts';
+import { fetchPublicBlogPosts, mergeBlogPosts } from '../data/publishedContent';
+import { BlogPost } from '../data/blogPosts';
 import AnimatedSection from '../components/motion/AnimatedSection';
 import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
 
@@ -17,6 +18,20 @@ const catColor: Record<string, string> = {
 
 export default function BlogPage({ onTalkToUs }: Props) {
   const [active, setActive] = useState<string>('All');
+  const [publicPosts, setPublicPosts] = useState<BlogPost[]>([]);
+  const blogPosts = mergeBlogPosts(publicPosts);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchPublicBlogPosts().then(posts => {
+      if (mounted) setPublicPosts(posts);
+    }).catch(() => {
+      if (mounted) setPublicPosts([]);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const visible = active === 'All' ? blogPosts : blogPosts.filter(p => p.category === active);
 

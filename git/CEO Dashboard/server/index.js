@@ -44,6 +44,11 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date().t
 
 const PORT = process.env.PORT || 4000;
 
+console.log('[CONFIG] API PORT:', PORT);
+console.log('[CONFIG] SMTP configured:', !!process.env.SMTP_HOST, 'user:', !!process.env.SMTP_USER, 'pass:', !!process.env.SMTP_PASS);
+console.log('[CONFIG] Google Sheets configured:', !!process.env.GOOGLE_SHEETS_ID, 'service account:', !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL, 'key:', !!process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY);
+console.log('[CONFIG] Notification email:', process.env.NOTIFICATION_EMAIL || 'not-set');
+
 // MongoDB is optional — app works without it (email + sheets still fire)
 if (process.env.MONGODB_URI) {
   const mongoose = require('mongoose');

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from '../components/motion/AnimatedSection';
 import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
@@ -6,27 +6,43 @@ import CareersApplicationModal, { CareersModalMode } from '../components/Careers
 
 interface Props { onTalkToUs: () => void; }
 
-const openRoles = [
+type CareerRole = {
+  id: string;
+  title: string;
+  division: string;
+  location: string;
+  type: string;
+  desc: string;
+  applyEnabled: boolean;
+};
+
+const defaultOpenRoles: CareerRole[] = [
   {
+    id: 'field-connectivity-technician',
     title: 'Field Connectivity Technician',
     division: 'Connect',
     location: 'Pretoria, Gauteng',
     type: 'Full-time',
     desc: "Install, configure and maintain WiFi, fibre and CCTV systems for business clients. You'll work closely with the field operations team and represent Onea Africa on-site.",
+    applyEnabled: false,
   },
   {
+    id: 'digital-marketing-specialist',
     title: 'Digital Marketing Specialist',
     division: 'Communicate',
     location: 'Remote / Pretoria',
     type: 'Full-time',
     desc: 'Manage social media campaigns, content creation and paid digital advertising for a portfolio of SME clients. Data-driven thinker with a creative edge.',
+    applyEnabled: false,
   },
   {
+    id: 'junior-pr-comms-officer',
     title: 'Junior PR & Comms Officer',
     division: 'Converse',
     location: 'Pretoria, Gauteng',
     type: 'Full-time',
     desc: 'Support media relations, write press releases and assist with stakeholder communications. Ideal for a recent graduate with a passion for storytelling and brand building.',
+    applyEnabled: false,
   },
 ];
 
@@ -41,6 +57,34 @@ export default function CareersPage({ onTalkToUs: _onTalkToUs }: Props) {
   const [modalOpen,  setModalOpen]  = useState(false);
   const [modalMode,  setModalMode]  = useState<CareersModalMode>('speculative');
   const [modalTitle, setModalTitle] = useState<string | undefined>(undefined);
+  const [publishedRoles, setPublishedRoles] = useState<CareerRole[]>([]);
+
+  useEffect(() => {
+    fetch('/api/careers-public.php', { headers: { Accept: 'application/json' } })
+      .then(response => (response.ok ? response.json() : null))
+      .then(payload => {
+        if (!Array.isArray(payload?.positions)) return;
+        setPublishedRoles(payload.positions.map((position: Partial<CareerRole>) => ({
+          id: String(position.id || position.title || ''),
+          title: String(position.title || ''),
+          division: String(position.division || 'Connect'),
+          location: String(position.location || ''),
+          type: String(position.type || 'Full-time'),
+          desc: String(position.desc || ''),
+          applyEnabled: true,
+        })).filter((position: CareerRole) => position.id && position.title));
+      })
+      .catch(() => {
+        setPublishedRoles([]);
+      });
+  }, []);
+
+  const openRoles = useMemo(() => {
+    const merged = new Map<string, CareerRole>();
+    defaultOpenRoles.forEach(role => merged.set(role.id, role));
+    publishedRoles.forEach(role => merged.set(role.id, role));
+    return Array.from(merged.values());
+  }, [publishedRoles]);
 
   const openApply = (mode: CareersModalMode, jobTitle?: string) => {
     setModalMode(mode);
@@ -121,15 +165,25 @@ export default function CareersPage({ onTalkToUs: _onTalkToUs }: Props) {
                       <h3 className="font-headline-md text-[22px] text-text-primary mb-sm">{role.title}</h3>
                       <p className="text-on-surface-variant text-body-md max-w-2xl">{role.desc}</p>
                     </div>
-                    <motion.button
-                      onClick={() => openApply('apply', role.title)}
-                      className="bg-primary text-on-primary px-xl py-md rounded-full font-bold whitespace-nowrap flex-shrink-0"
-                      whileHover={{ scale: 1.04, opacity: 0.9 }}
-                      whileTap={{ scale: 0.97 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      Apply Now
-                    </motion.button>
+                    {role.applyEnabled ? (
+                      <motion.button
+                        onClick={() => openApply('apply', role.title)}
+                        className="bg-primary text-on-primary px-xl py-md rounded-full font-bold whitespace-nowrap flex-shrink-0"
+                        whileHover={{ scale: 1.04, opacity: 0.9 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        Apply Now
+                      </motion.button>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled
+                        className="cursor-not-allowed rounded-full border border-border-subtle bg-soft-surface px-xl py-md font-bold text-on-surface-variant whitespace-nowrap flex-shrink-0"
+                      >
+                        Applications opening soon
+                      </button>
+                    )}
                   </div>
                 </motion.div>
               </AnimatedSection>
@@ -140,9 +194,9 @@ export default function CareersPage({ onTalkToUs: _onTalkToUs }: Props) {
           <AnimatedSection className="mt-xxl">
             <div className="bg-soft-surface border border-border-subtle rounded-2xl p-xl md:p-xxl text-center">
               <span className="material-symbols-outlined text-primary text-[40px] mb-md block">edit_note</span>
-              <h3 className="font-headline-md text-[24px] text-text-primary mb-sm">Apply Now</h3>
+              <h3 className="font-headline-md text-[24px] text-text-primary mb-sm">General Careers Interest</h3>
               <p className="text-on-surface-variant text-body-lg mb-xl max-w-lg mx-auto">
-                Ready to join the team? Fill in the form and we'll be in touch. All applications go directly to our HR team.
+                Want to join Onea Africa even if a specific role is not open yet? Send your details and our team will keep them on file.
               </p>
               <div className="flex flex-col sm:flex-row gap-md justify-center">
                 <motion.button
@@ -154,7 +208,7 @@ export default function CareersPage({ onTalkToUs: _onTalkToUs }: Props) {
                   transition={{ duration: 0.18 }}
                 >
                   <span className="material-symbols-outlined text-[20px]">edit_note</span>
-                  Apply Now
+                  Send General CV
                 </motion.button>
                 <motion.button
                   onClick={() => rolesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}

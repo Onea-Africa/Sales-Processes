@@ -1,0 +1,1264 @@
+{
+  "version": "2026-06-15",
+  "currency": "ZAR",
+  "vatRate": 0.15,
+  "marginPolicies": {
+    "apple": {
+      "displayMarginPercent": 35,
+      "floorMarginPercent": 15
+    },
+    "hardware": {
+      "displayMarginPercent": 45,
+      "floorMarginPercent": 20
+    },
+    "networking": {
+      "displayMarginPercent": 50,
+      "floorMarginPercent": 22
+    },
+    "cctv": {
+      "displayMarginPercent": 50,
+      "floorMarginPercent": 22
+    },
+    "ups": {
+      "displayMarginPercent": 45,
+      "floorMarginPercent": 20
+    },
+    "pos": {
+      "displayMarginPercent": 45,
+      "floorMarginPercent": 20
+    },
+    "hosting": {
+      "displayMarginPercent": 20,
+      "floorMarginPercent": 20
+    },
+    "licensing": {
+      "displayMarginPercent": 30,
+      "floorMarginPercent": 12
+    }
+  },
+  "tiers": {
+    "connectivity.basic": {
+      "label": "Connectivity Basic",
+      "displayMonthly": 2499,
+      "floorMonthly": 1499,
+      "source": "Onea connectivity rate card",
+      "availability": "available"
+    },
+    "connectivity.business": {
+      "label": "Connectivity Business",
+      "displayMonthly": 6499,
+      "floorMonthly": 4499,
+      "source": "Onea connectivity rate card",
+      "availability": "available"
+    },
+    "it.support": {
+      "label": "IT Support",
+      "displayMonthly": 2999,
+      "floorMonthly": 1999,
+      "source": "Onea managed-services rate card",
+      "availability": "available"
+    },
+    "it.managed": {
+      "label": "Managed IT",
+      "displayMonthly": 6250,
+      "floorMonthly": 4500,
+      "source": "Onea managed-services rate card",
+      "availability": "available"
+    },
+    "marketing.starter": {
+      "label": "Digital Marketing Starter",
+      "displayMonthly": 7500,
+      "floorMonthly": 5000,
+      "source": "Onea digital marketing rate card",
+      "availability": "available"
+    },
+    "marketing.growth": {
+      "label": "Digital Marketing Growth",
+      "displayMonthly": 14500,
+      "floorMonthly": 9500,
+      "source": "Onea digital marketing rate card",
+      "availability": "available"
+    },
+    "marketing.full": {
+      "label": "Digital Marketing Full Agency",
+      "displayMonthly": 28500,
+      "floorMonthly": 21000,
+      "source": "Onea digital marketing rate card",
+      "availability": "available"
+    },
+    "pr.basic": {
+      "label": "PR Basic",
+      "displayMonthly": 7500,
+      "floorMonthly": 5000,
+      "source": "Onea communications rate card",
+      "availability": "available"
+    },
+    "pr.standard": {
+      "label": "PR Standard",
+      "displayMonthly": 16500,
+      "floorMonthly": 11000,
+      "source": "Onea communications rate card",
+      "availability": "available"
+    },
+    "pr.full": {
+      "label": "PR Full Communications",
+      "displayMonthly": 29000,
+      "floorMonthly": 20000,
+      "source": "Onea communications rate card",
+      "availability": "available"
+    }
+  },
+  "builders": {
+    "wifi-home": {
+      "source": "Onea installed WiFi market rate card",
+      "basis": "installed_service",
+      "estimateTolerancePercent": 10,
+      "deliveryRoles": [
+        "operations",
+        "networkEngineer",
+        "technician"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 2950,
+        "floorOnceOff": 2006,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "home-ap": {
+          "availability": "available",
+          "calculation": "dynamic"
+        },
+        "home-cabling": {
+          "availability": "available",
+          "calculation": "dynamic"
+        },
+        "home-outdoor": {
+          "availability": "available",
+          "calculation": "dynamic"
+        },
+        "home-hardware": {
+          "availability": "available",
+          "displayOnceOff": 3490,
+          "floorOnceOff": 2373
+        }
+      }
+    },
+    "wifi-business": {
+      "source": "Onea enterprise WiFi market rate card",
+      "basis": "installed_service",
+      "estimateTolerancePercent": 10,
+      "deliveryRoles": [
+        "clientStrategy",
+        "technologyArchitect",
+        "networkEngineer",
+        "technician"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 9500,
+        "floorOnceOff": 6460,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "biz-ap": {
+          "availability": "available",
+          "calculation": "dynamic"
+        },
+        "biz-switch": {
+          "availability": "available",
+          "displayOnceOff": 5490,
+          "floorOnceOff": 3733
+        },
+        "biz-rack": {
+          "availability": "available",
+          "displayOnceOff": 4490,
+          "floorOnceOff": 3053
+        },
+        "biz-outdoor": {
+          "availability": "available",
+          "calculation": "dynamic"
+        },
+        "biz-sla": {
+          "availability": "available",
+          "displayMonthly": 5500,
+          "floorMonthly": 3740
+        }
+      }
+    },
+    "managed-it": {
+      "source": "Onea managed-services rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "operations",
+        "technologyArchitect",
+        "cloudInfrastructure",
+        "erpSupport"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 4500,
+        "floorOnceOff": 2880,
+        "displayMonthly": 6250,
+        "floorMonthly": 4000
+      },
+      "options": {
+        "managed-extra-device": {
+          "availability": "available",
+          "displayMonthly": 250,
+          "floorMonthly": 160
+        },
+        "managed-onsite-day": {
+          "availability": "available",
+          "displayOnceOff": 5500,
+          "floorOnceOff": 3520
+        },
+        "managed-backup-device": {
+          "availability": "available",
+          "displayMonthly": 180,
+          "floorMonthly": 115
+        },
+        "managed-after-hours": {
+          "availability": "available",
+          "displayMonthly": 4500,
+          "floorMonthly": 2880
+        }
+      }
+    },
+    "website": {
+      "source": "Onea web and platform development rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "clientStrategy",
+        "seniorDeveloper",
+        "creative"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 6500,
+        "floorOnceOff": 4030,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "web-extra-page": {
+          "availability": "available",
+          "displayOnceOff": 1800,
+          "floorOnceOff": 1116
+        },
+        "web-copywriting": {
+          "availability": "available",
+          "displayOnceOff": 3500,
+          "floorOnceOff": 2170
+        },
+        "web-blog": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 2790
+        },
+        "web-gallery": {
+          "availability": "available",
+          "displayOnceOff": 3500,
+          "floorOnceOff": 2170
+        },
+        "web-booking": {
+          "availability": "available",
+          "displayOnceOff": 8500,
+          "floorOnceOff": 5270
+        },
+        "web-payment": {
+          "availability": "available",
+          "displayOnceOff": 12500,
+          "floorOnceOff": 7750
+        },
+        "web-ecommerce": {
+          "availability": "available",
+          "displayOnceOff": 45000,
+          "floorOnceOff": 27900
+        },
+        "web-backend": {
+          "availability": "available",
+          "displayOnceOff": 65000,
+          "floorOnceOff": 40300
+        },
+        "web-crm": {
+          "availability": "available",
+          "displayOnceOff": 15000,
+          "floorOnceOff": 9300
+        },
+        "web-tracking": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 2790
+        },
+        "web-accessibility": {
+          "availability": "available",
+          "displayOnceOff": 5500,
+          "floorOnceOff": 3410
+        },
+        "web-performance": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 2790
+        },
+        "web-maintenance-basic": {
+          "availability": "available",
+          "displayMonthly": 1500,
+          "floorMonthly": 930
+        },
+        "web-maintenance": {
+          "availability": "available",
+          "displayMonthly": 4500,
+          "floorMonthly": 2790
+        }
+      }
+    },
+    "hosting": {
+      "source": "xneelo public VAT-inclusive pricing plus fixed 20% Onea markup",
+      "basis": "managed_resale",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "operations",
+        "seniorDeveloper",
+        "officeAdmin"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 0,
+        "floorOnceOff": 0,
+        "displayMonthly": 103.3,
+        "floorMonthly": 86
+      },
+      "options": {
+        "hosting-email": {
+          "availability": "available",
+          "displayOnceOff": 1250,
+          "floorOnceOff": 1042
+        },
+        "hosting-migration": {
+          "availability": "available",
+          "displayOnceOff": 3500,
+          "floorOnceOff": 2917
+        },
+        "hosting-backup": {
+          "availability": "available",
+          "displayMonthly": 650,
+          "floorMonthly": 542
+        },
+        "hosting-security": {
+          "availability": "available",
+          "displayMonthly": 950,
+          "floorMonthly": 792
+        }
+      }
+    },
+    "systems": {
+      "source": "Onea systems integration rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "clientStrategy",
+        "technologyArchitect",
+        "seniorDeveloper",
+        "erpSupport"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 18000,
+        "floorOnceOff": 11160,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "sys-hubspot": {
+          "availability": "available",
+          "displayOnceOff": 45000,
+          "floorOnceOff": 27900
+        },
+        "sys-whatsapp": {
+          "availability": "available",
+          "displayOnceOff": 28000,
+          "floorOnceOff": 17360
+        },
+        "sys-dashboard": {
+          "availability": "available",
+          "displayOnceOff": 85000,
+          "floorOnceOff": 52700
+        },
+        "sys-api": {
+          "availability": "available",
+          "displayOnceOff": 65000,
+          "floorOnceOff": 40300
+        },
+        "sys-support": {
+          "availability": "available",
+          "displayMonthly": 9500,
+          "floorMonthly": 5890
+        }
+      }
+    },
+    "it-hardware": {
+      "source": "Onea procurement rate card plus current market hardware allowance",
+      "basis": "market_anchor",
+      "estimateTolerancePercent": 12,
+      "deliveryRoles": [
+        "operations",
+        "cloudInfrastructure",
+        "officeAdmin",
+        "accounts"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 2500,
+        "floorOnceOff": 1950,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "it-device-setup": {
+          "availability": "available",
+          "displayOnceOff": 1450,
+          "floorOnceOff": 1131
+        },
+        "it-warranty": {
+          "availability": "available",
+          "displayOnceOff": 750,
+          "floorOnceOff": 585
+        },
+        "it-bulk": {
+          "availability": "available",
+          "displayOnceOff": 5500,
+          "floorOnceOff": 4290
+        },
+        "it-onsite": {
+          "availability": "available",
+          "displayOnceOff": 5500,
+          "floorOnceOff": 4290
+        }
+      }
+    },
+    "cybersecurity-firewall": {
+      "source": "Onea cyber implementation rate card plus business firewall allowance",
+      "basis": "market_anchor",
+      "estimateTolerancePercent": 10,
+      "deliveryRoles": [
+        "technologyArchitect",
+        "cloudInfrastructure",
+        "networkEngineer"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 8500,
+        "floorOnceOff": 5950,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "cyber-firewall-device": {
+          "availability": "available",
+          "displayOnceOff": 14500,
+          "floorOnceOff": 10150
+        },
+        "cyber-endpoint": {
+          "availability": "available",
+          "displayOnceOff": 850,
+          "floorOnceOff": 595
+        },
+        "cyber-vpn": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 3150
+        },
+        "cyber-monitoring": {
+          "availability": "available",
+          "displayMonthly": 5500,
+          "floorMonthly": 3850
+        }
+      }
+    },
+    "apple-devices": {
+      "source": "Onea Apple procurement and deployment service rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "operations",
+        "cloudInfrastructure",
+        "officeAdmin"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 2500,
+        "floorOnceOff": 1750,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "apple-setup": {
+          "availability": "available",
+          "displayOnceOff": 1650,
+          "floorOnceOff": 1155
+        },
+        "apple-icare": {
+          "availability": "available",
+          "displayOnceOff": 850,
+          "floorOnceOff": 595
+        },
+        "apple-migration": {
+          "availability": "available",
+          "displayOnceOff": 2800,
+          "floorOnceOff": 1960
+        },
+        "apple-mdm": {
+          "availability": "available",
+          "displayOnceOff": 7500,
+          "floorOnceOff": 5250
+        }
+      }
+    },
+    "voip-uc": {
+      "source": "Onea UC provisioning rate card plus current business hardware allowance",
+      "basis": "market_anchor",
+      "estimateTolerancePercent": 10,
+      "deliveryRoles": [
+        "technologyArchitect",
+        "networkEngineer",
+        "technician"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 6500,
+        "floorOnceOff": 4680,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "voip-phone": {
+          "availability": "available",
+          "displayOnceOff": 950,
+          "floorOnceOff": 684
+        },
+        "voip-3cx": {
+          "availability": "available",
+          "displayOnceOff": 14500,
+          "floorOnceOff": 10440,
+          "displayMonthly": 1850,
+          "floorMonthly": 1332
+        },
+        "voip-meeting": {
+          "availability": "available",
+          "displayOnceOff": 12500,
+          "floorOnceOff": 9000
+        },
+        "voip-support": {
+          "availability": "available",
+          "displayMonthly": 3500,
+          "floorMonthly": 2520
+        }
+      }
+    },
+    "cctv-access": {
+      "source": "Onea installed CCTV and access-control market rate card",
+      "basis": "installed_service",
+      "estimateTolerancePercent": 10,
+      "deliveryRoles": [
+        "operations",
+        "networkEngineer",
+        "technician"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 7500,
+        "floorOnceOff": 5400,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "cctv-camera": {
+          "availability": "available",
+          "displayOnceOff": 2950,
+          "floorOnceOff": 2124
+        },
+        "cctv-nvr": {
+          "availability": "available",
+          "displayOnceOff": 8500,
+          "floorOnceOff": 6120
+        },
+        "cctv-access-door": {
+          "availability": "available",
+          "displayOnceOff": 12500,
+          "floorOnceOff": 9000
+        },
+        "cctv-monitoring": {
+          "availability": "available",
+          "displayMonthly": 3500,
+          "floorMonthly": 2520
+        }
+      }
+    },
+    "structured-cabling": {
+      "source": "Onea installed Cat6 and cabinet market rate card",
+      "basis": "installed_service",
+      "estimateTolerancePercent": 8,
+      "deliveryRoles": [
+        "operations",
+        "networkEngineer",
+        "technician"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 1850,
+        "floorOnceOff": 1295,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "cabling-point": {
+          "availability": "available",
+          "displayOnceOff": 1850,
+          "floorOnceOff": 1295
+        },
+        "cabling-cabinet": {
+          "availability": "available",
+          "displayOnceOff": 4490,
+          "floorOnceOff": 3143
+        },
+        "cabling-patch": {
+          "availability": "available",
+          "displayOnceOff": 2950,
+          "floorOnceOff": 2065
+        },
+        "cabling-switch": {
+          "availability": "available",
+          "displayOnceOff": 5490,
+          "floorOnceOff": 3843
+        }
+      }
+    },
+    "cloud-licensing": {
+      "source": "Microsoft public business pricing anchor plus Onea cloud administration",
+      "basis": "market_anchor",
+      "estimateTolerancePercent": 8,
+      "deliveryRoles": [
+        "cloudInfrastructure",
+        "officeAdmin",
+        "accounts"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 1850,
+        "floorOnceOff": 1443,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "cloud-m365": {
+          "availability": "available",
+          "displayMonthly": 349,
+          "floorMonthly": 272
+        },
+        "cloud-tenant": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 5070
+        },
+        "cloud-email-migration": {
+          "availability": "available",
+          "displayOnceOff": 950,
+          "floorOnceOff": 741
+        },
+        "cloud-security": {
+          "availability": "available",
+          "displayOnceOff": 8500,
+          "floorOnceOff": 6630
+        }
+      }
+    },
+    "energy-ups": {
+      "source": "Onea UPS procurement and installation market rate card",
+      "basis": "market_anchor",
+      "estimateTolerancePercent": 12,
+      "deliveryRoles": [
+        "operations",
+        "networkEngineer",
+        "technician"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 2500,
+        "floorOnceOff": 1875,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "ups-rack": {
+          "availability": "available",
+          "displayOnceOff": 7500,
+          "floorOnceOff": 5625
+        },
+        "ups-tower": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 3375
+        },
+        "ups-install": {
+          "availability": "available",
+          "displayOnceOff": 3500,
+          "floorOnceOff": 2625
+        },
+        "ups-health": {
+          "availability": "available",
+          "displayMonthly": 1250,
+          "floorMonthly": 938
+        }
+      }
+    },
+    "pos-hardware": {
+      "source": "Onea POS procurement and setup market rate card",
+      "basis": "market_anchor",
+      "estimateTolerancePercent": 12,
+      "deliveryRoles": [
+        "operations",
+        "erpSupport",
+        "technician"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 2500,
+        "floorOnceOff": 1875,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "pos-terminal": {
+          "availability": "available",
+          "displayOnceOff": 7500,
+          "floorOnceOff": 5625
+        },
+        "pos-scanner": {
+          "availability": "available",
+          "displayOnceOff": 1850,
+          "floorOnceOff": 1388
+        },
+        "pos-printer": {
+          "availability": "available",
+          "displayOnceOff": 2950,
+          "floorOnceOff": 2213
+        },
+        "pos-setup": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 3375
+        }
+      }
+    },
+    "creative-brand": {
+      "source": "Onea creative and brand services rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "clientStrategy",
+        "creative",
+        "communications"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 12500,
+        "floorOnceOff": 8125,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "creative-logo": {
+          "availability": "available",
+          "displayOnceOff": 8500,
+          "floorOnceOff": 5525
+        },
+        "creative-identity": {
+          "availability": "available",
+          "displayOnceOff": 25000,
+          "floorOnceOff": 16250
+        },
+        "creative-campaign": {
+          "availability": "available",
+          "displayOnceOff": 18000,
+          "floorOnceOff": 11700
+        },
+        "creative-copy": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 4225
+        },
+        "creative-retainer": {
+          "availability": "available",
+          "displayMonthly": 12000,
+          "floorMonthly": 7800
+        }
+      }
+    },
+    "media-production": {
+      "source": "Onea production rate card benchmarked against Pretoria and Johannesburg packages",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 8,
+      "deliveryRoles": [
+        "clientStrategy",
+        "creative",
+        "operations"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 8700,
+        "floorOnceOff": 5916,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "media-photo-half": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 4420
+        },
+        "media-photo-full": {
+          "availability": "available",
+          "displayOnceOff": 10500,
+          "floorOnceOff": 7140
+        },
+        "media-video-essential": {
+          "availability": "available",
+          "displayOnceOff": 13500,
+          "floorOnceOff": 9180
+        },
+        "media-video-premium": {
+          "availability": "available",
+          "displayOnceOff": 22800,
+          "floorOnceOff": 15504
+        },
+        "media-drone": {
+          "availability": "available",
+          "displayOnceOff": 3500,
+          "floorOnceOff": 2380
+        },
+        "media-edit": {
+          "availability": "available",
+          "displayOnceOff": 2500,
+          "floorOnceOff": 1700
+        }
+      }
+    },
+    "media-buying": {
+      "source": "Onea media planning and campaign management rate card; placement spend excluded",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "clientStrategy",
+        "communications",
+        "accounts"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 6500,
+        "floorOnceOff": 4225,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "buying-radio": {
+          "availability": "available",
+          "displayOnceOff": 12500,
+          "floorOnceOff": 8125
+        },
+        "buying-outdoor": {
+          "availability": "available",
+          "displayOnceOff": 15000,
+          "floorOnceOff": 9750
+        },
+        "buying-digital": {
+          "availability": "available",
+          "displayOnceOff": 7500,
+          "floorOnceOff": 4875
+        },
+        "buying-print": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 4225
+        },
+        "buying-report": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 2925
+        },
+        "buying-management-small": {
+          "availability": "available",
+          "displayMonthly": 7500,
+          "floorMonthly": 4875
+        },
+        "buying-management-growth": {
+          "availability": "available",
+          "displayMonthly": 15000,
+          "floorMonthly": 9750
+        },
+        "buying-management-scale": {
+          "availability": "available",
+          "displayMonthly": 25000,
+          "floorMonthly": 16250
+        }
+      }
+    },
+    "cloud-erp": {
+      "source": "Onea cloud, ERP and data consulting rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 8,
+      "deliveryRoles": [
+        "technologyArchitect",
+        "cloudInfrastructure",
+        "erpSupport",
+        "seniorDeveloper"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 18000,
+        "floorOnceOff": 11160,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "erp-discovery": {
+          "availability": "available",
+          "displayOnceOff": 25000,
+          "floorOnceOff": 15500
+        },
+        "erp-implementation": {
+          "availability": "available",
+          "displayOnceOff": 150000,
+          "floorOnceOff": 93000
+        },
+        "erp-cloud": {
+          "availability": "available",
+          "displayOnceOff": 65000,
+          "floorOnceOff": 40300
+        },
+        "erp-migration": {
+          "availability": "available",
+          "displayOnceOff": 85000,
+          "floorOnceOff": 52700
+        },
+        "erp-admin": {
+          "availability": "available",
+          "displayMonthly": 18000,
+          "floorMonthly": 11160
+        }
+      }
+    },
+    "fibre-activation": {
+      "source": "Onea Openserve reseller activation and account-management rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "operations",
+        "officeAdmin",
+        "accounts"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 1250,
+        "floorOnceOff": 750,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "fibre-business": {
+          "availability": "available",
+          "displayOnceOff": 2500,
+          "floorOnceOff": 1500
+        },
+        "fibre-multisite": {
+          "availability": "available",
+          "displayOnceOff": 3500,
+          "floorOnceOff": 2100
+        },
+        "fibre-router": {
+          "availability": "available",
+          "displayOnceOff": 2500,
+          "floorOnceOff": 1500
+        },
+        "fibre-escalation": {
+          "availability": "available",
+          "displayMonthly": 750,
+          "floorMonthly": 450
+        },
+        "fibre-managed": {
+          "availability": "available",
+          "displayMonthly": 1499,
+          "floorMonthly": 899
+        }
+      }
+    },
+    "procurement-tenders": {
+      "source": "Onea Level 1 B-BBEE procurement and tender administration rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "executiveStrategy",
+        "operations",
+        "officeAdmin",
+        "accounts"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 4500,
+        "floorOnceOff": 2925,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "procurement-sourcing": {
+          "availability": "available",
+          "displayOnceOff": 3500,
+          "floorOnceOff": 2275
+        },
+        "procurement-tender": {
+          "availability": "available",
+          "displayOnceOff": 12500,
+          "floorOnceOff": 8125
+        },
+        "procurement-compliance": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 4225
+        },
+        "procurement-delivery": {
+          "availability": "available",
+          "displayOnceOff": 4500,
+          "floorOnceOff": 2925
+        },
+        "procurement-account": {
+          "availability": "available",
+          "displayMonthly": 8500,
+          "floorMonthly": 5525
+        }
+      }
+    },
+    "google-ads": {
+      "source": "Onea certified Google Ads management rate card benchmarked against South African and global agency pricing",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "clientStrategy",
+        "communications",
+        "seniorDeveloper",
+        "accounts"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 6500,
+        "floorOnceOff": 4225,
+        "displayMonthly": 4500,
+        "floorMonthly": 2925
+      },
+      "options": {
+        "gads-pmax": {
+          "availability": "available",
+          "displayMonthly": 2500,
+          "floorMonthly": 1625
+        },
+        "gads-shopping": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 4225,
+          "displayMonthly": 3500,
+          "floorMonthly": 2275
+        },
+        "gads-offline": {
+          "availability": "available",
+          "displayOnceOff": 8500,
+          "floorOnceOff": 5525,
+          "displayMonthly": 1500,
+          "floorMonthly": 975
+        },
+        "gads-landing": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 4225
+        },
+        "gads-creative": {
+          "availability": "available",
+          "displayMonthly": 3500,
+          "floorMonthly": 2275
+        }
+      }
+    },
+    "marketing": {
+      "source": "Onea full-service digital marketing rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "clientStrategy",
+        "creative",
+        "communications",
+        "seniorDeveloper"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 9500,
+        "floorOnceOff": 6175,
+        "displayMonthly": 0,
+        "floorMonthly": 0
+      },
+      "options": {
+        "mkt-seo": {
+          "availability": "available",
+          "displayOnceOff": 15000,
+          "floorOnceOff": 9750,
+          "displayMonthly": 9500,
+          "floorMonthly": 6175
+        },
+        "mkt-content": {
+          "availability": "available",
+          "displayMonthly": 12000,
+          "floorMonthly": 7800
+        },
+        "mkt-automation": {
+          "availability": "available",
+          "displayOnceOff": 25000,
+          "floorOnceOff": 16250
+        }
+      }
+    },
+    "communications": {
+      "source": "Onea communications and PR rate card",
+      "basis": "service_rate_card",
+      "estimateTolerancePercent": 5,
+      "deliveryRoles": [
+        "clientStrategy",
+        "communications",
+        "creative"
+      ],
+      "base": {
+        "availability": "available",
+        "displayOnceOff": 8500,
+        "floorOnceOff": 5780,
+        "displayMonthly": 7500,
+        "floorMonthly": 5100
+      },
+      "options": {
+        "pr-release": {
+          "availability": "available",
+          "displayOnceOff": 6500,
+          "floorOnceOff": 4420
+        },
+        "pr-distribution": {
+          "availability": "available",
+          "displayOnceOff": 15000,
+          "floorOnceOff": 10200
+        },
+        "pr-campaign": {
+          "availability": "available",
+          "displayOnceOff": 45000,
+          "floorOnceOff": 30600
+        },
+        "pr-standard": {
+          "availability": "available",
+          "displayMonthly": 9000,
+          "floorMonthly": 6120
+        },
+        "pr-full": {
+          "availability": "available",
+          "displayMonthly": 21500,
+          "floorMonthly": 14620
+        }
+      }
+    }
+  },
+  "marketResearch": {
+    "reviewedAt": "2026-06-15",
+    "strategy": "Maximum realistic market anchor with an internal negotiation floor",
+    "sources": [
+      "Onea Africa Company Profile 2026 2.0",
+      "Onea Pricing Strategy Addendum - Maximum-Anchor Pricing",
+      "xneelo South Africa public hosting pricing",
+      "Microsoft South Africa Microsoft 365 business pricing",
+      "South African agency, web, video, CCTV and managed-service public pricing benchmarks"
+    ]
+  },
+  "internalDeliveryModel": {
+    "purpose": "Protected delivery-rate floors used to test whether a service price can support the Onea team required to deliver it. These are not employee salary figures.",
+    "roles": {
+      "executiveStrategy": {
+        "label": "Executive strategy and commercial oversight",
+        "displayHourly": 2500,
+        "floorHourly": 1400
+      },
+      "operations": {
+        "label": "Operations and project management",
+        "displayHourly": 1450,
+        "floorHourly": 850
+      },
+      "clientStrategy": {
+        "label": "Client and campaign strategy",
+        "displayHourly": 1650,
+        "floorHourly": 950
+      },
+      "technologyArchitect": {
+        "label": "Technology architecture and CTO oversight",
+        "displayHourly": 2500,
+        "floorHourly": 1450
+      },
+      "seniorDeveloper": {
+        "label": "Senior development and integration",
+        "displayHourly": 1850,
+        "floorHourly": 1100
+      },
+      "cloudInfrastructure": {
+        "label": "Cloud and IT infrastructure",
+        "displayHourly": 1750,
+        "floorHourly": 1000
+      },
+      "networkEngineer": {
+        "label": "Senior network engineering",
+        "displayHourly": 1850,
+        "floorHourly": 1050
+      },
+      "technician": {
+        "label": "Technical installation",
+        "displayHourly": 750,
+        "floorHourly": 500
+      },
+      "erpSupport": {
+        "label": "ERP, systems and repairs specialist",
+        "displayHourly": 1650,
+        "floorHourly": 950
+      },
+      "communications": {
+        "label": "Communications, PR and editorial",
+        "displayHourly": 1450,
+        "floorHourly": 800
+      },
+      "creative": {
+        "label": "Creative direction and design",
+        "displayHourly": 1350,
+        "floorHourly": 750
+      },
+      "officeAdmin": {
+        "label": "Office and procurement administration",
+        "displayHourly": 750,
+        "floorHourly": 450
+      },
+      "accounts": {
+        "label": "Accounts and commercial administration",
+        "displayHourly": 850,
+        "floorHourly": 500
+      }
+    },
+    "commercialRules": {
+      "rushMultiplier": 1.3,
+      "afterHoursMultiplier": 1.5,
+      "publicSectorAdministrationMultiplier": 1.1,
+      "defaultServiceDepositPercent": 60,
+      "defaultHardwareDepositPercent": 80,
+      "quoteValidityDays": 7
+    }
+  }
+}

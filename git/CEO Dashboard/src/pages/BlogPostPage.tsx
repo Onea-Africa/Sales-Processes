@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { blogPosts } from '../data/blogPosts';
+import { Helmet } from 'react-helmet-async';
+import { fetchPublicBlogPosts, mergeBlogPosts } from '../data/publishedContent';
+import { BlogPost } from '../data/blogPosts';
 
 interface Props { onTalkToUs: () => void; }
 
@@ -11,11 +14,41 @@ const catColor: Record<string, string> = {
 
 export default function BlogPostPage({ onTalkToUs }: Props) {
   const { id } = useParams<{ id: string }>();
+  const [publicPosts, setPublicPosts] = useState<BlogPost[]>([]);
+  const [loadingPublicPosts, setLoadingPublicPosts] = useState(true);
+  const blogPosts = mergeBlogPosts(publicPosts);
   const post = blogPosts.find(p => p.id === id);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchPublicBlogPosts().then(posts => {
+      if (mounted) setPublicPosts(posts);
+    }).catch(() => {
+      if (mounted) setPublicPosts([]);
+    }).finally(() => {
+      if (mounted) setLoadingPublicPosts(false);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  if (!post && loadingPublicPosts) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center text-center px-xl">
+        <p className="text-on-surface-variant text-body-lg">Loading article...</p>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center text-center px-xl">
+        <Helmet>
+          <title>Article Not Found | Onea Africa</title>
+          <meta name="robots" content="noindex, follow" />
+          <link rel="canonical" href="https://onea.africa/blog" />
+        </Helmet>
         <div>
           <p className="text-on-surface-variant text-body-lg mb-lg">Post not found.</p>
           <Link to="/blog" className="text-primary font-bold hover:underline">← Back to Blog</Link>

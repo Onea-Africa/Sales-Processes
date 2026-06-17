@@ -1,17 +1,34 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useTypewriter } from '../hooks/useTypewriter';
 import AnimatedSection from '../components/motion/AnimatedSection';
 import { StaggerGrid, StaggerItem } from '../components/motion/StaggerGrid';
 import AnimatedCounter from '../components/motion/AnimatedCounter';
 import TrustedCarousel from '../components/TrustedCarousel';
+import { fetchPublicTestimonials, mergeTestimonials, Testimonial } from '../data/testimonials';
+import heroWorkspaceUrl from '../assets/hero-workspace.webp';
 
 interface Props { onTalkToUs: () => void; }
 
-const HEADLINE = 'Connect.\nCommunicate.\nConverse.';
+const HEADLINE = 'Business Connectivity,\nIT & Digital Growth\nSolutions';
 
 export default function HomePage({ onTalkToUs }: Props) {
-  const { displayed, done } = useTypewriter(HEADLINE, 36, 600);
+  const [publicTestimonials, setPublicTestimonials] = useState<Testimonial[]>([]);
+  const testimonials = mergeTestimonials(publicTestimonials).slice(0, 3);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchPublicTestimonials()
+      .then(items => {
+        if (mounted) setPublicTestimonials(items);
+      })
+      .catch(() => {
+        if (mounted) setPublicTestimonials([]);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <main className="bg-background text-on-background font-body-md">
@@ -33,29 +50,27 @@ export default function HomePage({ onTalkToUs }: Props) {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <span className="material-symbols-outlined text-[18px]">hub</span>
-              <span className="font-label-md text-label-md uppercase tracking-widest">South African Technology Partner</span>
+              <span className="font-label-md text-label-md uppercase tracking-widest">National Technology Partner</span>
             </motion.div>
 
-            {/* Typewriter headline */}
             <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-text-primary leading-tight whitespace-pre-line">
-              {displayed}
-              {!done && <span className="typewriter-cursor" />}
+              {HEADLINE}
             </h1>
 
             <motion.p
               className="font-body-lg text-body-lg text-on-surface-variant max-w-xl"
               initial={{ opacity: 0 }}
-              animate={done ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
             >
-              Empowering South African businesses through high-speed infrastructure, strategic digital marketing, and impactful public relations. We are your end-to-end growth engine.
+              Onea Africa helps homes, SMEs, schools, guesthouses, offices and retail teams get connected, supported and visible online. Start with fibre, WiFi, IT support or digital growth, then request a quote when you are ready.
             </motion.p>
 
             <motion.div
               className="flex flex-wrap gap-md pt-md"
               initial={{ opacity: 0, y: 20 }}
-              animate={done ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.2 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.25 }}
             >
               <motion.button
                 className="bg-onea-green text-text-primary h-[56px] px-xl rounded-lg font-bold text-body-lg shadow-lg"
@@ -64,7 +79,7 @@ export default function HomePage({ onTalkToUs }: Props) {
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2 }}
               >
-                Partner With Us
+                Request a Quote
               </motion.button>
               <motion.div
                 whileHover={{ scale: 1.03 }}
@@ -74,7 +89,7 @@ export default function HomePage({ onTalkToUs }: Props) {
                   to="/connectivity"
                   className="bg-soft-surface text-on-surface h-[56px] px-xl rounded-lg font-bold text-body-lg border border-border-subtle hover:bg-white transition-all flex items-center"
                 >
-                  Explore Solutions
+                  Explore Services
                 </Link>
               </motion.div>
             </motion.div>
@@ -90,8 +105,12 @@ export default function HomePage({ onTalkToUs }: Props) {
             <div className="aspect-square rounded-lg overflow-hidden soft-shadow bg-soft-surface relative z-10">
               <motion.img
                 className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmFE8Ygpe_cFTLlbMRuGrMJ0vqMHkp0rMPNWrNilZzMJmqQPAkAabJCK4i7xA9KbgPJCrzDhzJh6IzEolVWHCdOCaZTLDRyIk-wsSx3BWqb1AgcS0t5-5qJ7ocLIC2CxJqqyj59ZTbjJ4VWFU-VO5nK7gWrtRsm6qaOSeaU1jBjrk98YaSDTLVcHvZP8OMO00mKwDEyPe3ge5pW84DfcCupig5qlLcHOii_X_84jE1TH4xludVK4RpQgfoe_Lc57E8CIkKIbmoHnI"
+                src={heroWorkspaceUrl}
                 alt="Professional workspace"
+                width="512"
+                height="512"
+                fetchPriority="high"
+                decoding="async"
                 initial={{ scale: 1.08 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
@@ -112,8 +131,8 @@ export default function HomePage({ onTalkToUs }: Props) {
               { icon: 'partner_exchange', color: '#8CC444', label: 'Openserve Partner' },
               { icon: 'signal_cellular_alt', color: '#8CC444', label: 'Telkom Partner' },
               { icon: 'computer',         color: '#0078D4', label: 'Microsoft Partner' },
+              { icon: 'security',         color: '#D6139F', label: 'Fortinet Partner' },
               { icon: 'public',           color: '#8CC444', label: 'National Coverage' },
-              { icon: 'groups',           color: '#D6139F', label: 'Community Focused' },
             ].map(({ icon, color, label }) => (
               <StaggerItem key={label}>
                 <div className="flex flex-col items-center gap-sm">
@@ -136,17 +155,20 @@ export default function HomePage({ onTalkToUs }: Props) {
         </div>
       </section>
 
-      {/* ── Platform Access Strip ── */}
+      {/* ── Conversion Path Strip ── */}
       <AnimatedSection>
         <section className="py-lg bg-surface-container-low border-b border-border-subtle">
           <div className="max-w-[1280px] mx-auto px-md flex flex-wrap justify-center gap-xl items-center">
-            <span className="font-label-md text-on-surface-variant uppercase tracking-widest">Platform Access:</span>
-            <a href="https://onea.africa/dashboard" target="_blank" rel="noopener noreferrer" className="flex items-center gap-xs font-semibold text-primary hover:underline">
-              <span className="material-symbols-outlined text-[20px]">dashboard</span> Onea Dashboard
-            </a>
-            <a href="https://onea.africa/field" target="_blank" rel="noopener noreferrer" className="flex items-center gap-xs font-semibold text-primary hover:underline">
-              <span className="material-symbols-outlined text-[20px]">support_agent</span> Field Agent Portal
-            </a>
+            <span className="font-label-md text-on-surface-variant uppercase tracking-widest">Start Here:</span>
+            <Link to="/pricing" className="flex items-center gap-xs font-semibold text-primary hover:underline">
+              <span className="material-symbols-outlined text-[20px]">calculate</span> Build an Estimate
+            </Link>
+            <Link to="/telkom-application" className="flex items-center gap-xs font-semibold text-primary hover:underline">
+              <span className="material-symbols-outlined text-[20px]">edit_document</span> Apply for Fibre
+            </Link>
+            <Link to="/case-studies" className="flex items-center gap-xs font-semibold text-primary hover:underline">
+              <span className="material-symbols-outlined text-[20px]">workspace_premium</span> See Client Results
+            </Link>
           </div>
         </section>
       </AnimatedSection>
@@ -155,8 +177,8 @@ export default function HomePage({ onTalkToUs }: Props) {
       <section className="py-xxl px-md bg-white">
         <div className="max-w-[1280px] mx-auto">
           <AnimatedSection className="text-center mb-xxl max-w-2xl mx-auto">
-            <h2 className="font-headline-lg text-headline-lg text-text-primary mb-md">Our Three Pillars of Excellence</h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">We provide the infrastructure to connect, the strategies to communicate, and the stories to converse with your audience.</p>
+            <h2 className="font-headline-lg text-headline-lg text-text-primary mb-md">Services Built Around Real Business Needs</h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant">Choose a practical service path: better internet and WiFi, managed technology support, or marketing that turns attention into enquiries.</p>
           </AnimatedSection>
           <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-xl">
 
@@ -166,8 +188,8 @@ export default function HomePage({ onTalkToUs }: Props) {
                   <span className="material-symbols-outlined text-primary text-[32px]">settings_ethernet</span>
                 </div>
                 <span className="inline-block px-md py-xs bg-onea-green/10 border border-onea-green text-primary rounded-full font-label-md text-label-md mb-sm">Connect</span>
-                <h3 className="font-headline-md text-headline-md text-text-primary mb-md">WiFi &amp; IT Solutions</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-xl">High-speed fibre connectivity and robust IT infrastructure tailored for South African enterprises. Reliable, scalable, and secure.</p>
+                <h3 className="font-headline-md text-headline-md text-text-primary mb-md">Fibre, WiFi &amp; IT Support</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-xl">Openserve-aligned fibre guidance, WiFi coverage planning, cabling and managed support for homes, offices, schools and growing teams.</p>
                 <ul className="space-y-sm mb-xl">
                   {['Strong WiFi Coverage', 'Managed IT Services', 'Cloud Infrastructure'].map(item => (
                     <li key={item} className="flex items-center gap-sm font-label-md text-label-md">
@@ -176,7 +198,7 @@ export default function HomePage({ onTalkToUs }: Props) {
                   ))}
                 </ul>
                 <Link to="/connectivity" className="inline-flex items-center gap-sm text-primary font-bold group-hover:gap-md transition-all">
-                  Learn More <span className="material-symbols-outlined">arrow_forward</span>
+                  View Connectivity <span className="material-symbols-outlined">arrow_forward</span>
                 </Link>
               </div>
             </StaggerItem>
@@ -188,16 +210,16 @@ export default function HomePage({ onTalkToUs }: Props) {
                 </div>
                 <span className="inline-block px-md py-xs bg-onea-yellow/10 border border-onea-yellow text-on-secondary-container rounded-full font-label-md text-label-md mb-sm">Communicate</span>
                 <h3 className="font-headline-md text-headline-md text-text-primary mb-md">Digital Marketing</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-xl">Elevate your brand presence through data-driven digital strategies and creative execution that resonates with the local market.</p>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-xl">Search, social content and sales-focused landing pages that guide visitors towards an enquiry, booking or purchase, with tracking that shows which campaigns produce results.</p>
                 <ul className="space-y-sm mb-xl">
-                  {['Performance Marketing', 'Social Media Strategy', 'Content Creation'].map(item => (
+                  {['Sales-Focused Landing Pages', 'Google & Social Campaigns', 'Lead & Conversion Tracking'].map(item => (
                     <li key={item} className="flex items-center gap-sm font-label-md text-label-md">
                       <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span> {item}
                     </li>
                   ))}
                 </ul>
-                <Link to="/case-studies" className="inline-flex items-center gap-sm text-secondary font-bold group-hover:gap-md transition-all">
-                  Learn More <span className="material-symbols-outlined">arrow_forward</span>
+                <Link to="/solutions/corporate-digital-marketing" className="inline-flex items-center gap-sm text-secondary font-bold group-hover:gap-md transition-all">
+                  Explore Digital Marketing <span className="material-symbols-outlined">arrow_forward</span>
                 </Link>
               </div>
             </StaggerItem>
@@ -208,8 +230,8 @@ export default function HomePage({ onTalkToUs }: Props) {
                   <span className="material-symbols-outlined text-tertiary text-[32px]">forum</span>
                 </div>
                 <span className="inline-block px-md py-xs bg-onea-violet/10 border border-onea-violet text-on-tertiary-container rounded-full font-label-md text-label-md mb-sm">Converse</span>
-                <h3 className="font-headline-md text-headline-md text-text-primary mb-md">Public Relations</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-xl">Building authentic relationships through impactful storytelling and strategic media engagement across South Africa.</p>
+                <h3 className="font-headline-md text-headline-md text-text-primary mb-md">Communications &amp; PR</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-xl">Clear business communication, reputation support and public-facing content for teams that need to build trust before the sale.</p>
                 <ul className="space-y-sm mb-xl">
                   {['Media Relations', 'Crisis Management', 'Brand Positioning'].map(item => (
                     <li key={item} className="flex items-center gap-sm font-label-md text-label-md">
@@ -218,7 +240,7 @@ export default function HomePage({ onTalkToUs }: Props) {
                   ))}
                 </ul>
                 <button className="inline-flex items-center gap-sm text-tertiary font-bold group-hover:gap-md transition-all" onClick={onTalkToUs}>
-                  Learn More <span className="material-symbols-outlined">arrow_forward</span>
+                  Talk To Us <span className="material-symbols-outlined">arrow_forward</span>
                 </button>
               </div>
             </StaggerItem>
@@ -262,7 +284,7 @@ export default function HomePage({ onTalkToUs }: Props) {
                   <span className="material-symbols-outlined text-[16px]">signal_cellular_alt</span> Telkom
                 </span>
               </div>
-              <p className="font-body-lg text-body-lg opacity-90 mb-xl">Through strategic partnerships with Openserve and Telkom, we bring world-class connectivity to the doorstep of South African businesses, ensuring you stay ahead in the digital economy.</p>
+              <p className="font-body-lg text-body-lg opacity-90 mb-xl">Through Openserve and Telkom-aligned application paths, Onea Africa helps customers compare packages, prepare the right details and move from interest to application without confusion.</p>
               <Link to="/pricing">
                 <motion.span
                   className="inline-block bg-onea-yellow text-on-secondary-fixed px-xl h-[56px] leading-[56px] rounded-lg font-bold"
@@ -276,8 +298,12 @@ export default function HomePage({ onTalkToUs }: Props) {
             <AnimatedSection direction="right" className="hidden md:block">
               <img
                 className="rounded-lg shadow-2xl w-full"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh30jzt2HDnrxFwintIZ9aVFckUXs2DHij4H1cy6ZaWaHSfwcDTQn3tP2iS0airZ2mesjLSnEHvvOsIUfF-gNMdT4o9naLBiXRepN_0cGIlylC0QeOiAsXsNhLUvthcTi-R436e7xY5e9A8xykb81PIbHrS_JFmDeSb4n9JZ1wyMczmsOXU1RsSaTPOjvS7c27__geqm6wSB4jRgxNeyRDpNgUHQZi0dWzQPoCIHu-HuUaTi2Nb3aTjKovA9dFWWfOiLgPly2QnKc"
+                src="/partnership-fibre.webp"
                 alt="Fibre optic cables"
+                width="512"
+                height="512"
+                loading="lazy"
+                decoding="async"
               />
             </AnimatedSection>
           </div>
@@ -294,17 +320,7 @@ export default function HomePage({ onTalkToUs }: Props) {
             <p className="text-on-surface-variant text-body-lg max-w-xl mx-auto">Real feedback from businesses we've helped connect, communicate and grow.</p>
           </AnimatedSection>
           <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-xl">
-            {[
-              { name: 'Shepherd Removals',  initials: 'SR', gradFrom: '#EA2300', gradTo: '#38D4FB', logoUrl: '/clients/shepherd.png',
-                quote: 'Onea Africa transformed our brand from the ground up — website, identity and digital presence. We look professional, we rank online, and our enquiries have doubled.',
-                role: 'Director, Shepherd Removals & Deliveries' },
-              { name: 'Lekhuleni Telecoms', initials: 'LT', gradFrom: '#8CC444', gradTo: '#8CC444', logoUrl: '/clients/lekhuleni.png',
-                quote: 'Their managed hosting and connectivity solutions have been rock-solid. Zero downtime in 18 months. The team is responsive and genuinely understands telecoms.',
-                role: 'CEO, Lekhuleni Telecoms & Projects' },
-              { name: 'Rachips',            initials: 'RC', gradFrom: '#8CC444', gradTo: '#F4D350', logoUrl: '/clients/rachips.png',
-                quote: 'Onea built our social media presence from scratch. In 6 months we went from 200 followers to over 4,000 and started getting DM orders every week.',
-                role: 'Founder, Rachips' },
-            ].map(t => (
+            {testimonials.map(t => (
               <StaggerItem key={t.name}>
                 <motion.div
                   className="bg-white rounded-lg p-xl border border-border-subtle card-shadow h-full"
@@ -318,7 +334,7 @@ export default function HomePage({ onTalkToUs }: Props) {
                   <div className="flex items-center gap-md">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-white border border-border-subtle flex items-center justify-center flex-shrink-0">
                       {t.logoUrl
-                        ? <img src={t.logoUrl} alt={t.name} className="w-full h-full object-cover" />
+                        ? <img src={t.logoUrl} alt="" width="48" height="48" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                         : <div className="w-full h-full flex items-center justify-center text-white font-bold text-[14px]" style={{ background: `linear-gradient(135deg, ${t.gradFrom}, ${t.gradTo})` }}>{t.initials}</div>
                       }
                     </div>
@@ -344,7 +360,7 @@ export default function HomePage({ onTalkToUs }: Props) {
           <AnimatedSection direction="right">
             <div className="space-y-md">
               {[
-                { q: 'What areas does Onea Africa service?', a: 'We are based in Gauteng and primarily serve the greater Pretoria and Johannesburg region, with connectivity solutions available nationally through our Openserve and Telkom partnerships. Contact us to check availability in your area.' },
+                { q: 'What areas does Onea Africa service?', a: 'Onea Africa serves clients nationally across South Africa. We are based in Gauteng, but our fibre, LTE, WiFi, IT and digital support paths are built for customers in multiple provinces. Contact us to confirm availability for your address or site.' },
                 { q: 'Do you offer once-off services or only retainers?', a: 'Both. We offer once-off projects (website builds, brand identity, IT setup) as well as ongoing managed services (WiFi maintenance, digital marketing retainers, PR campaigns).' },
                 { q: 'How long does a WiFi installation take?', a: 'Most WiFi installations are done the same day or within 24 hours. Larger sites may take up to a day longer. Fibre installations typically take 1 to 3 business days from order confirmation.' },
                 { q: 'Can I bundle connectivity, marketing and PR?', a: 'Yes — and we encourage it. Clients who bundle services across our three pillars get a tailored package with a single point of contact and a unified growth strategy.' },
@@ -366,3 +382,4 @@ export default function HomePage({ onTalkToUs }: Props) {
     </main>
   );
 }
+

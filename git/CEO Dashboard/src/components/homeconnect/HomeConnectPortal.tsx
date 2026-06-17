@@ -2,21 +2,22 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { API_BASE as API } from '../../lib/api';
+import { trackLeadConversion } from '../../lib/marketing';
 const COLOR = '#11BFE0';
 const ACCENT = '#0D9CB8';
 
 const PACKAGES = [
-  { name: 'Home Connect 20/10 Mbps',   price: '328' },
-  { name: 'Home Connect 30/30 Mbps',   price: '508' },
-  { name: 'Home Connect 40/20 Mbps',   price: '518' },
-  { name: 'Home Connect 50 Mbps',      price: '708' },
-  { name: 'Home Connect 50/50 Mbps',   price: '788' },
-  { name: 'Home Connect 100 Mbps',     price: '908' },
+  { name: 'Home Connect 20/10 Mbps', price: '328' },
+  { name: 'Home Connect 30/30 Mbps', price: '508' },
+  { name: 'Home Connect 40/20 Mbps', price: '518' },
+  { name: 'Home Connect 50 Mbps', price: '708' },
+  { name: 'Home Connect 50/50 Mbps', price: '788' },
+  { name: 'Home Connect 100 Mbps', price: '908' },
   { name: 'Home Connect 100/100 Mbps', price: '1 008' },
-  { name: 'Home Connect 200 Mbps',     price: '1 158' },
+  { name: 'Home Connect 200 Mbps', price: '1 158' },
   { name: 'Home Connect 200/200 Mbps', price: '1 228' },
-  { name: 'Home Connect 300 Mbps',     price: '1 358' },
-  { name: 'Home Connect 500 Mbps',     price: '1 438' },
+  { name: 'Home Connect 300 Mbps', price: '1 358' },
+  { name: 'Home Connect 500 Mbps', price: '1 438' },
 ];
 
 const TITLES = ['Mr', 'Mrs', 'Ms', 'Dr', 'Prof'];
@@ -24,12 +25,14 @@ const TITLES = ['Mr', 'Mrs', 'Ms', 'Dr', 'Prof'];
 interface Lead {
   title: string; firstName: string; lastName: string;
   idNumber: string; cellphone: string; whatsapp: string; email: string;
+  leadArea: string;
   selectedPackage: string; packagePrice: string;
 }
 
 const blank: Lead = {
   title: '', firstName: '', lastName: '', idNumber: '',
   cellphone: '', whatsapp: '', email: '',
+  leadArea: '',
   selectedPackage: '', packagePrice: '',
 };
 
@@ -43,13 +46,13 @@ function Lbl({ children, required }: { children: React.ReactNode; required?: boo
   );
 }
 
-function Field({ label, required, ...props }: { label: string; required?: boolean } & React.InputHTMLAttributes<HTMLInputElement>) {
+function Field({ label, required, invalid, ...props }: { label: string; required?: boolean; invalid?: boolean } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div>
       <Lbl required={required}>{label}</Lbl>
       <input
         {...props}
-        className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent transition-all bg-white"
+        className={`w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent transition-all bg-white ${invalid ? 'error' : ''}`}
         style={{ '--tw-ring-color': COLOR } as React.CSSProperties}
       />
     </div>
@@ -96,7 +99,7 @@ function StepPackage({ selected, onSelect }: { selected: string; onSelect: (name
 
 // ── Step 2 — Lead Form ────────────────────────────────────────────────────────
 
-function StepForm({ data, onChange }: { data: Lead; onChange: (k: keyof Lead, v: string) => void }) {
+function StepForm({ data, onChange, invalid }: { data: Lead; onChange: (k: keyof Lead, v: string) => void; invalid: Record<string, boolean>; }) {
   return (
     <div className="space-y-5">
       {/* Selected package summary */}
@@ -111,7 +114,7 @@ function StepForm({ data, onChange }: { data: Lead; onChange: (k: keyof Lead, v:
       {/* Title */}
       <div>
         <Lbl required>Title</Lbl>
-        <div className="flex gap-2 flex-wrap">
+        <div className={`flex gap-2 flex-wrap ${invalid.title ? 'error rounded-2xl p-2' : ''}`}>
           {TITLES.map(t => (
             <button
               key={t}
@@ -131,24 +134,26 @@ function StepForm({ data, onChange }: { data: Lead; onChange: (k: keyof Lead, v:
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="First Name" required value={data.firstName} onChange={e => onChange('firstName', e.target.value)} placeholder="e.g. John" />
-        <Field label="Last Name" required value={data.lastName} onChange={e => onChange('lastName', e.target.value)} placeholder="e.g. Doe" />
+        <Field label="First Name" required invalid={invalid.firstName} value={data.firstName} onChange={e => onChange('firstName', e.target.value)} placeholder="e.g. John" />
+        <Field label="Last Name" required invalid={invalid.lastName} value={data.lastName} onChange={e => onChange('lastName', e.target.value)} placeholder="e.g. Doe" />
       </div>
 
-      <Field label="ID / Passport Number" required value={data.idNumber} onChange={e => onChange('idNumber', e.target.value)} placeholder="13-digit ID or passport number" />
+      <Field label="ID / Passport Number" required invalid={invalid.idNumber} value={data.idNumber} onChange={e => onChange('idNumber', e.target.value)} placeholder="13-digit ID or passport number" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="Cellphone Number" required type="tel" value={data.cellphone} onChange={e => onChange('cellphone', e.target.value)} placeholder="+27 xx xxx xxxx" />
+        <Field label="Cellphone Number" required invalid={invalid.cellphone} type="tel" value={data.cellphone} onChange={e => onChange('cellphone', e.target.value)} placeholder="+27 xx xxx xxxx" />
         <Field label="WhatsApp Number" type="tel" value={data.whatsapp} onChange={e => onChange('whatsapp', e.target.value)} placeholder="If different from cellphone" />
       </div>
 
       <div>
-        <Field label="Email Address" required type="email" value={data.email} onChange={e => onChange('email', e.target.value)} placeholder="you@example.com" />
+        <Field label="Email Address" required invalid={invalid.email} type="email" value={data.email} onChange={e => onChange('email', e.target.value)} placeholder="you@example.com" />
         <p className="text-xs text-gray-400 mt-1.5 flex items-center gap-1">
           <span className="material-symbols-outlined text-[14px]">info</span>
           Your email address will be used as your login username.
         </p>
       </div>
+
+      <Field label="Area / Township / Town" required invalid={invalid.leadArea} value={data.leadArea} onChange={e => onChange('leadArea', e.target.value)} placeholder="e.g. Mamelodi, Pretoria East or Midrand" />
     </div>
   );
 }
@@ -168,6 +173,7 @@ function buildMailto(d: Lead) {
     `Cellphone: ${d.cellphone}`,
     `WhatsApp: ${d.whatsapp || 'N/A'}`,
     `Email: ${d.email}`,
+    `Area / Township / Town: ${d.leadArea}`,
     ``,
     `Please process this Home Connect application.`,
   ].join('\n');
@@ -175,21 +181,22 @@ function buildMailto(d: Lead) {
 }
 
 export default function HomeConnectPortal({ onClose }: { onClose: () => void }) {
-  const [step, setStep]       = useState<1 | 2 | 'success'>(1);
-  const [data, setData]       = useState<Lead>(() => {
+  const [step, setStep] = useState<1 | 2 | 'success'>(1);
+  const [data, setData] = useState<Lead>(() => {
     try {
       const saved = localStorage.getItem(DRAFT_KEY);
       return saved ? { ...blank, ...JSON.parse(saved) } : blank;
     } catch { return blank; }
   });
-  const [submitting, setSub]  = useState(false);
-  const [error, setError]     = useState('');
+  const [submitting, setSub] = useState(false);
+  const [error, setError] = useState('');
+  const [invalidFields, setInvalidFields] = useState<Record<string, boolean>>({});
   const [drafted, setDrafted] = useState(false);
-  const [refId, setRefId]     = useState('');
+  const [refId, setRefId] = useState('');
   const hasDraft = !!localStorage.getItem(DRAFT_KEY);
 
   // Warm up the backend on mount
-  useEffect(() => { fetch(`${API}/api/health`).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/health`).catch(() => { }); }, []);
 
   // Lock body scroll
   useEffect(() => {
@@ -197,13 +204,47 @@ export default function HomeConnectPortal({ onClose }: { onClose: () => void }) 
     return () => { document.body.style.overflow = ''; };
   }, []);
 
-  const set = (k: keyof Lead, v: string) => setData(d => ({ ...d, [k]: v }));
+  const set = (k: keyof Lead, v: string) => {
+    setData(d => ({ ...d, [k]: v }));
+    if (invalidFields[k]) {
+      setInvalidFields(prev => ({ ...prev, [k]: false }));
+    }
+    if (error) setError('');
+  };
+
+  const scrollToFirstInvalid = () => {
+    const invalid = document.querySelector('input.error, select.error, textarea.error') as HTMLElement | null;
+    if (invalid) {
+      invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      invalid.focus?.();
+    }
+  };
+
+  const validateStep2 = () => {
+    const invalid: Record<string, boolean> = {};
+    if (!data.title) invalid.title = true;
+    if (!data.firstName) invalid.firstName = true;
+    if (!data.lastName) invalid.lastName = true;
+    if (!data.idNumber) invalid.idNumber = true;
+    if (!data.cellphone) invalid.cellphone = true;
+    if (!data.email || !data.email.includes('@')) invalid.email = true;
+    if (!data.leadArea) invalid.leadArea = true;
+    return invalid;
+  };
 
   const canNext1 = !!data.selectedPackage;
   const canNext2 = !!data.title && !!data.firstName && !!data.lastName &&
-                   !!data.idNumber && !!data.cellphone && !!data.email;
+    !!data.idNumber && !!data.cellphone && !!data.email && !!data.leadArea;
 
   const submit = async () => {
+    const invalid = validateStep2();
+    if (Object.keys(invalid).length > 0) {
+      setInvalidFields(invalid);
+      setError('Please complete the highlighted fields before submitting.');
+      requestAnimationFrame(scrollToFirstInvalid);
+      return;
+    }
+
     setError('');
     setDrafted(false);
     setSub(true);
@@ -221,6 +262,14 @@ export default function HomeConnectPortal({ onClose }: { onClose: () => void }) 
       const json = await res.json();
       localStorage.removeItem(DRAFT_KEY);
       setRefId(json.id);
+      trackLeadConversion({
+        form_name: 'homeconnect_application',
+        service_type: 'home_connectivity',
+        package_name: data.selectedPackage,
+        lead_area: data.leadArea,
+        lead_source: 'homeconnect_portal',
+        submission_id: json.id || '',
+      });
       setStep('success');
     } catch (e: unknown) {
       clearTimeout(timer);
@@ -352,7 +401,7 @@ export default function HomeConnectPortal({ onClose }: { onClose: () => void }) 
               ) : (
                 <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.22 }}>
                   <h3 className="font-bold text-gray-900 text-base mb-1">Your Details</h3>
-                  <StepForm data={data} onChange={set} />
+                  <StepForm data={data} onChange={set} invalid={invalidFields} />
                 </motion.div>
               )}
             </AnimatePresence>
