@@ -89,9 +89,15 @@ RewriteRule ^privacy/?$ privacy/index.html [QSA,L]
 RewriteRule ^terms/?$ terms/index.html [QSA,L]
 RewriteRule ^solutions/(openserve-business-fibre|lte-enterprise-packages|home-wifi-networking|managed-it-support|corporate-digital-marketing)/?$ solutions/$1/index.html [QSA,L]
 
-# Pre-rendered dynamic public routes
+# Pre-rendered dynamic public routes. New CMS content falls back to the SPA
+# until its static page is included in a later build.
+RewriteCond %{REQUEST_FILENAME}/index.html -f
 RewriteRule ^blog/([^/]+)/?$ blog/$1/index.html [QSA,L]
+RewriteRule ^blog/[^/]+/?$ index.html [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME}/index.html -f
 RewriteRule ^case-studies/([^/]+)/?$ case-studies/$1/index.html [QSA,L]
+RewriteRule ^case-studies/[^/]+/?$ index.html [QSA,L]
 
 # Authenticated and operational SPA routes
 RewriteRule ^telkom-sign/[^/]+/?$ index.html [QSA,L]
