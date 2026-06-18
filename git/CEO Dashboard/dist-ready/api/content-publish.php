@@ -101,6 +101,19 @@ if (!is_array($posts)) {
 $posts[$id] = $post;
 save_json_file($path, $posts);
 
+$contentItemsPath = __DIR__ . '/data/content-center-items.json';
+$contentItems = load_json_file($contentItemsPath);
+if (!is_array($contentItems)) {
+    $contentItems = [];
+}
+if (isset($contentItems[$id]) && is_array($contentItems[$id])) {
+    $contentItems[$id]['status'] = 'published';
+    $contentItems[$id]['updatedAt'] = date('Y-m-d');
+    $contentItems[$id]['updatedBy'] = $session['displayName'] ?? $session['username'] ?? 'Launch Platform';
+    $contentItems[$id]['publishedAt'] = $post['publishedAt'];
+    save_json_file($contentItemsPath, $contentItems);
+}
+
 respond([
     'success' => true,
     'post' => $post,
