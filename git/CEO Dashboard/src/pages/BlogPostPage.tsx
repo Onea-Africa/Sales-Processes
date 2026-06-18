@@ -16,15 +16,22 @@ export default function BlogPostPage({ onTalkToUs }: Props) {
   const { id } = useParams<{ id: string }>();
   const [publicPosts, setPublicPosts] = useState<BlogPost[]>([]);
   const [loadingPublicPosts, setLoadingPublicPosts] = useState(true);
+  const [publicPostsFailed, setPublicPostsFailed] = useState(false);
   const blogPosts = mergeBlogPosts(publicPosts);
   const post = blogPosts.find(p => p.id === id);
 
   useEffect(() => {
     let mounted = true;
     fetchPublicBlogPosts().then(posts => {
-      if (mounted) setPublicPosts(posts);
+      if (mounted) {
+        setPublicPosts(posts);
+        setPublicPostsFailed(posts.length === 0);
+      }
     }).catch(() => {
-      if (mounted) setPublicPosts([]);
+      if (mounted) {
+        setPublicPosts([]);
+        setPublicPostsFailed(true);
+      }
     }).finally(() => {
       if (mounted) setLoadingPublicPosts(false);
     });
@@ -50,7 +57,9 @@ export default function BlogPostPage({ onTalkToUs }: Props) {
           <link rel="canonical" href="https://onea.africa/blog" />
         </Helmet>
         <div>
-          <p className="text-on-surface-variant text-body-lg mb-lg">Post not found.</p>
+          <p className="text-on-surface-variant text-body-lg mb-lg">
+            {publicPostsFailed ? 'The article could not be loaded. Please refresh and try again.' : 'Post not found.'}
+          </p>
           <Link to="/blog" className="text-primary font-bold hover:underline">← Back to Blog</Link>
         </div>
       </div>
