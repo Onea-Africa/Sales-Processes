@@ -76,10 +76,7 @@ function readToken() {
 }
 
 function normalizeStoredItems(items: ContentCenterItem[]) {
-  return items.map(item => ({
-    ...item,
-    status: item.status === 'published' ? 'approved' : item.status,
-  })) as ContentCenterItem[];
+  return items;
 }
 
 function mergeWithSeedItems(items: ContentCenterItem[]) {
@@ -146,7 +143,15 @@ export default function ContentCenterPage() {
   const [selectedId, setSelectedId] = useState('');
   const [draft, setDraft] = useState<ContentCenterItem>(emptyItem());
   const [notice, setNotice] = useState('');
+  const [noticeTone, setNoticeTone] = useState<'info' | 'success' | 'error'>('info');
+  const [busyAction, setBusyAction] = useState('');
+  const [lastCompletedAction, setLastCompletedAction] = useState('');
   const [loadingItems, setLoadingItems] = useState(false);
+
+  const showNotice = (message: string, tone: 'info' | 'success' | 'error' = 'info') => {
+    setNotice(message);
+    setNoticeTone(tone);
+  };
 
   useEffect(() => {
     setSession(readSession());
@@ -187,7 +192,7 @@ export default function ContentCenterPage() {
         setDraft(normalized[0] || fallbackItems[0] || emptyItem());
       })
       .catch(() => {
-        setNotice('Using local Content Center drafts. Server content store could not be reached.');
+        showNotice('Using local Content Center drafts. Server content store could not be reached.', 'error');
       })
       .finally(() => setLoadingItems(false));
   }, []);
@@ -251,6 +256,7 @@ export default function ContentCenterPage() {
     setSelectedId(item.id);
     setDraft(item);
     setNotice('');
+    setLastCompletedAction('');
   }
 
   function startNew(type: ContentType = 'Blog') {
@@ -264,7 +270,8 @@ export default function ContentCenterPage() {
     }
     setSelectedId('');
     setDraft(next);
-    setNotice('New draft ready.');
+    setLastCompletedAction('clear');
+    showNotice('New draft ready. The previous content was not deleted.', 'success');
   }
 
   function updateDraft(field: keyof ContentCenterItem, value: string) {
@@ -298,14 +305,16 @@ export default function ContentCenterPage() {
   async function saveDraft(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!canEdit) {
-      setNotice('This role can review content but cannot edit drafts.');
+      showNotice('This role can review content but cannot edit drafts.', 'error');
       return;
     }
     const title = draft.title.trim();
     if (!title) {
-      setNotice('Add a title before saving.');
+      showNotice('Add a title before saving.', 'error');
       return;
     }
+    setBusyAction('save');
+    showNotice('Saving content to the shared Content Center...', 'info');
     const id = draft.id || slugify(title) || `content-${Date.now()}`;
     const saved: ContentCenterItem = {
       ...draft,
@@ -322,7 +331,8 @@ export default function ContentCenterPage() {
       });
       setSelectedId(serverSaved.id);
       setDraft(serverSaved);
-      setNotice('Content saved inside Launch Platform and shared with the team.');
+      setLastCompletedAction('save');
+      showNotice('Saved successfully. This content is now shared with the team.', 'success');
     } catch (error) {
       setItems(current => {
         const exists = current.some(item => item.id === id);
@@ -331,53 +341,76 @@ export default function ContentCenterPage() {
       });
       setSelectedId(id);
       setDraft(saved);
-      setNotice(error instanceof Error ? `${error.message} Saved locally for now.` : 'Saved locally for now.');
+      showNotice(error instanceof Error ? `${error.message} Saved locally only; it is not shared yet.` : 'Saved locally only; it is not shared yet.', 'error');
+    } finally {
+      setBusyAction('');
     }
   }
 
   async function changeStatus(status: ContentStatus) {
-    if (!selectedId) return;
+    if (!selectedId) {
+      showNotice('Save the content before changing its workflow status.', 'error');
+      return;
+    }
     if (status === 'approved' && !canApprove) {
-      setNotice('Only admin or uploader roles can approve content.');
+      showNotice('Only admin or uploader roles can approve content.', 'error');
       return;
     }
     if (status === 'published') {
-      setNotice('Use Publish to website so approved content is written to the public feed.');
+      showNotice('Use Publish to website so approved content is written to the public feed.', 'info');
       return;
     }
+    setBusyAction(status);
+    showNotice(`Changing status to ${CONTENT_STATUS_LABELS[status]}...`, 'info');
     const updated = { ...draft, status, updatedAt: new Date().toISOString().slice(0, 10) };
     try {
       const serverSaved = await saveContentItem(updated);
       setDraft(serverSaved);
       setItems(current => current.map(item => (item.id === selectedId ? serverSaved : item)));
-      setNotice(status === 'approved' ? 'Approved. PR/Comms or admin can now publish it to the website.' : `Moved to ${CONTENT_STATUS_LABELS[serverSaved.status].toLowerCase()}.`);
+      setLastCompletedAction(status);
+      showNotice(
+        status === 'approved'
+          ? 'Approved successfully. Publish to website is now available.'
+          : `Status confirmed: ${CONTENT_STATUS_LABELS[serverSaved.status]}.`,
+        'success',
+      );
     } catch (error) {
-      setDraft(updated);
-      setItems(current => current.map(item => (item.id === selectedId ? updated : item)));
-      setNotice(error instanceof Error ? `${error.message} Status changed locally only.` : 'Status changed locally only.');
+      showNotice(error instanceof Error ? `${error.message} Status was not changed on the server.` : 'Status was not changed on the server.', 'error');
+    } finally {
+      setBusyAction('');
     }
   }
 
   async function publishToWebsite() {
     if (!selectedId) {
-      setNotice('Save the content before publishing.');
+      showNotice('Save the content before publishing.', 'error');
       return;
     }
     if (!canPublish) {
-      setNotice('Your role cannot publish content.');
+      showNotice('Your role cannot publish content.', 'error');
       return;
     }
     if (draft.type !== 'Blog' && draft.type !== 'Testimonial' && draft.type !== 'Job Advert') {
-      setNotice('Only blog, testimonial and job advert content can be published to the website.');
+      showNotice('Only blog, testimonial and job advert content can be published to the website.', 'error');
       return;
     }
     if (draft.status !== 'approved' && draft.status !== 'published') {
-      setNotice('Admin or uploader must approve this content before it can be published.');
+      showNotice(`Current status is ${CONTENT_STATUS_LABELS[draft.status]}. Approve it before publishing.`, 'error');
+      return;
+    }
+    if (!draft.title.trim() || !draft.excerpt.trim() || !draft.body.trim()) {
+      showNotice('Publishing requires a title, excerpt and main content. Complete and save those fields first.', 'error');
+      return;
+    }
+    const token = readToken();
+    if (!token) {
+      showNotice('Your session token is missing. Sign in again before publishing.', 'error');
       return;
     }
 
+    setBusyAction('publish');
+    showNotice('Publishing to the public website feed...', 'info');
     try {
-      const token = readToken();
       const endpoint =
         draft.type === 'Testimonial'
           ? '/api/testimonials-publish.php'
@@ -397,18 +430,21 @@ export default function ContentCenterPage() {
         throw new Error(payload?.error || 'Could not publish this content.');
       }
       const updated = { ...draft, status: 'published' as ContentStatus, updatedAt: new Date().toISOString().slice(0, 10) };
-      await saveContentItem(updated);
       setDraft(updated);
       setItems(current => current.map(item => (item.id === selectedId ? updated : item)));
-      setNotice(
+      setLastCompletedAction('publish');
+      showNotice(
         draft.type === 'Testimonial'
           ? 'Published to the home page testimonial feed.'
           : draft.type === 'Job Advert'
             ? 'Published to the public careers feed. Visitors can now apply on /careers.'
-            : 'Published to the public blog feed. Visitors can now see it on /blog.'
+            : `Published successfully. Public link: https://onea.africa/blog/${draft.slug || draft.id}`,
+        'success',
       );
     } catch (error) {
-      setNotice(error instanceof Error ? error.message : 'Could not publish this content.');
+      showNotice(error instanceof Error ? error.message : 'Could not publish this content.', 'error');
+    } finally {
+      setBusyAction('');
     }
   }
 
@@ -416,9 +452,10 @@ export default function ContentCenterPage() {
     const text = formatExport(draft);
     try {
       await navigator.clipboard.writeText(text);
-      setNotice(draft.type === 'Blog' ? 'Public blog export copied.' : 'Content brief copied.');
+      setLastCompletedAction('copy');
+      showNotice(draft.type === 'Blog' ? 'Public blog export copied.' : 'Content brief copied.', 'success');
     } catch {
-      setNotice('Could not copy. Select the export text manually.');
+      showNotice('Could not copy. Select the export text manually.', 'error');
     }
   }
 
@@ -442,7 +479,21 @@ export default function ContentCenterPage() {
           </div>
         </div>
 
-        {notice && <div className="rounded-3xl border border-[#e5f3d5] bg-white p-4 text-sm font-semibold text-[#416900]">{notice}</div>}
+        {notice && (
+          <div
+            role="status"
+            className={`rounded-3xl border p-4 text-sm font-semibold ${
+              noticeTone === 'success'
+                ? 'border-[#8CC444] bg-[#f3fae9] text-[#315600]'
+                : noticeTone === 'error'
+                  ? 'border-[#E57373] bg-[#fff1f0] text-[#9b1c1c]'
+                  : 'border-[#F4D350] bg-[#fffbea] text-[#6A5500]'
+            }`}
+          >
+            {noticeTone === 'success' ? 'Confirmed: ' : noticeTone === 'error' ? 'Action needed: ' : ''}
+            {notice}
+          </div>
+        )}
         {loadingItems && <div className="rounded-3xl border border-[#d9dbcd] bg-white p-4 text-sm font-semibold text-[#424938]">Loading shared Content Center items...</div>}
 
         <div className="grid gap-4 md:grid-cols-5">
@@ -555,13 +606,51 @@ export default function ContentCenterPage() {
                 <div>
                   <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#8CC444]">Editor</p>
                   <h2 className="mt-1 text-2xl font-bold">{draft.title || 'Untitled draft'}</h2>
+                  <span className={`mt-3 inline-flex rounded-full border px-3 py-1 text-xs font-bold ${statusClasses[draft.status]}`}>
+                    Current status: {CONTENT_STATUS_LABELS[draft.status]}
+                  </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" onClick={() => changeStatus('draft')} disabled={!selectedId || !canEdit} className="rounded-full border border-[#d9dbcd] px-4 py-2 text-xs font-bold text-[#102000] disabled:opacity-50">Draft</button>
-                  <button type="button" onClick={() => changeStatus('review')} disabled={!selectedId || !canEdit} className="rounded-full bg-[#F4D350] px-4 py-2 text-xs font-bold text-[#102000] disabled:opacity-50">Send to review</button>
-                  <button type="button" onClick={() => changeStatus('approved')} disabled={!selectedId || !canApprove} className="rounded-full bg-[#8CC444] px-4 py-2 text-xs font-bold text-[#102000] disabled:opacity-50">Approve</button>
-                  <button type="button" onClick={publishToWebsite} disabled={!selectedId || !canPublish || !['Blog', 'Testimonial', 'Job Advert'].includes(draft.type) || (draft.status !== 'approved' && draft.status !== 'published')} className="rounded-full bg-[#102000] px-4 py-2 text-xs font-bold text-white disabled:opacity-50">Publish to website</button>
-                  <button type="button" onClick={copyExport} disabled={!draft.title} className="rounded-full bg-[#D6139F] px-4 py-2 text-xs font-bold text-white disabled:opacity-50">Copy export</button>
+                  <button
+                    type="button"
+                    onClick={() => changeStatus('draft')}
+                    disabled={!canEdit || Boolean(busyAction)}
+                    className={`rounded-full border px-4 py-2 text-xs font-bold disabled:opacity-50 ${draft.status === 'draft' ? 'border-[#5f6656] bg-[#5f6656] text-white' : 'border-[#d9dbcd] text-[#102000]'}`}
+                  >
+                    {busyAction === 'draft' ? 'Changing...' : draft.status === 'draft' ? 'Draft confirmed' : 'Draft'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => changeStatus('review')}
+                    disabled={!canEdit || Boolean(busyAction)}
+                    className={`rounded-full border px-4 py-2 text-xs font-bold disabled:opacity-50 ${draft.status === 'review' ? 'border-[#c29d00] bg-[#F4D350] text-[#102000]' : 'border-[#F4D350] bg-[#fffbea] text-[#6A5500]'}`}
+                  >
+                    {busyAction === 'review' ? 'Sending...' : draft.status === 'review' ? 'In review' : 'Send to review'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => changeStatus('approved')}
+                    disabled={!canApprove || Boolean(busyAction)}
+                    className={`rounded-full border px-4 py-2 text-xs font-bold disabled:opacity-50 ${draft.status === 'approved' ? 'border-[#5d9222] bg-[#8CC444] text-[#102000]' : 'border-[#8CC444] bg-[#f3fae9] text-[#416900]'}`}
+                  >
+                    {busyAction === 'approved' ? 'Approving...' : draft.status === 'approved' ? 'Approved' : 'Approve'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={publishToWebsite}
+                    disabled={Boolean(busyAction)}
+                    className={`rounded-full border px-4 py-2 text-xs font-bold disabled:opacity-50 ${draft.status === 'published' ? 'border-[#D6139F] bg-[#D6139F] text-white' : 'border-[#102000] bg-[#102000] text-white'}`}
+                  >
+                    {busyAction === 'publish' ? 'Publishing...' : draft.status === 'published' ? 'Published' : 'Publish to website'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={copyExport}
+                    disabled={!draft.title || Boolean(busyAction)}
+                    className={`rounded-full bg-[#D6139F] px-4 py-2 text-xs font-bold text-white disabled:opacity-50 ${lastCompletedAction === 'copy' ? 'ring-2 ring-[#D6139F] ring-offset-2' : ''}`}
+                  >
+                    {lastCompletedAction === 'copy' ? 'Export copied' : 'Copy export'}
+                  </button>
                 </div>
               </div>
 
@@ -578,7 +667,7 @@ export default function ContentCenterPage() {
                     value={draft.status}
                     onChange={(event) => {
                       if (event.target.value === 'published') {
-                        setNotice('Use Publish to website so approved content is written to the public feed.');
+                        showNotice('Use Publish to website so approved content is written to the public feed.', 'info');
                         return;
                       }
                       updateDraft('status', event.target.value);
@@ -652,11 +741,11 @@ export default function ContentCenterPage() {
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <button type="submit" disabled={!canEdit} className="rounded-full bg-[#8CC444] px-6 py-3 text-sm font-bold text-[#102000] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
-                  Save content
+                <button type="submit" disabled={!canEdit || Boolean(busyAction)} className={`rounded-full bg-[#8CC444] px-6 py-3 text-sm font-bold text-[#102000] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 ${lastCompletedAction === 'save' ? 'ring-2 ring-[#5d9222] ring-offset-2' : ''}`}>
+                  {busyAction === 'save' ? 'Saving...' : lastCompletedAction === 'save' ? 'Saved successfully' : 'Save content'}
                 </button>
-                <button type="button" onClick={() => startNew()} disabled={!canEdit} className="rounded-full border border-[#d9dbcd] px-6 py-3 text-sm font-bold text-[#102000] hover:border-[#8CC444] disabled:opacity-50">
-                  Clear for new draft
+                <button type="button" onClick={() => startNew()} disabled={!canEdit || Boolean(busyAction)} className={`rounded-full border px-6 py-3 text-sm font-bold text-[#102000] hover:border-[#8CC444] disabled:opacity-50 ${lastCompletedAction === 'clear' ? 'border-[#8CC444] bg-[#f3fae9]' : 'border-[#d9dbcd]'}`}>
+                  {lastCompletedAction === 'clear' ? 'New draft ready' : 'Clear for new draft'}
                 </button>
               </div>
             </form>

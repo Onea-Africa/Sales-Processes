@@ -106,11 +106,12 @@ $contentItems = load_json_file($contentItemsPath);
 if (!is_array($contentItems)) {
     $contentItems = [];
 }
-if (isset($contentItems[$id]) && is_array($contentItems[$id])) {
-    $contentItems[$id]['status'] = 'published';
-    $contentItems[$id]['updatedAt'] = date('Y-m-d');
-    $contentItems[$id]['updatedBy'] = $session['displayName'] ?? $session['username'] ?? 'Launch Platform';
-    $contentItems[$id]['publishedAt'] = $post['publishedAt'];
+$contentItemId = public_blog_slug($item['id'] ?? $id);
+if (isset($contentItems[$contentItemId]) && is_array($contentItems[$contentItemId])) {
+    $contentItems[$contentItemId]['status'] = 'published';
+    $contentItems[$contentItemId]['updatedAt'] = date('Y-m-d');
+    $contentItems[$contentItemId]['updatedBy'] = $session['displayName'] ?? $session['username'] ?? 'Launch Platform';
+    $contentItems[$contentItemId]['publishedAt'] = $post['publishedAt'];
     save_json_file($contentItemsPath, $contentItems);
 }
 
