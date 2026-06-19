@@ -39,7 +39,7 @@ if ($title === '' || $bodyText === '' || $excerpt === '') {
     respond(['error' => 'Title, excerpt and body are required before publishing.'], 400);
 }
 
-$internalPattern = '/supplier cost|dealer cost|account number|margin|internal pricing|secret|password|stock feed|nology|scoop|miro|asbis|core group/i';
+$internalPattern = '/supplier cost|dealer cost|account number|internal pricing|stock feed|nology|scoop|miro|asbis|core group|(?:api|private)\s*key|password\s*[:=]|secret\s*[:=]/i';
 $combined = implode("\n", [
     $title,
     $excerpt,
