@@ -39,7 +39,6 @@ if ($title === '' || $bodyText === '' || $excerpt === '') {
     respond(['error' => 'Title, excerpt and body are required before publishing.'], 400);
 }
 
-$internalPattern = '/supplier cost|dealer cost|account number|internal pricing|stock feed|nology|scoop|miro|asbis|core group|(?:api|private)\s*key|password\s*[:=]|secret\s*[:=]/i';
 $combined = implode("\n", [
     $title,
     $excerpt,
@@ -48,8 +47,16 @@ $combined = implode("\n", [
     (string) ($item['keywords'] ?? ''),
 ]);
 
-if (preg_match($internalPattern, $combined)) {
-    respond(['error' => 'Public safety check blocked publishing. Remove supplier/internal pricing references first.'], 400);
+$blockedPatterns = [
+    'supplier commercial data' => '/supplier cost|dealer cost|internal pricing|stock feed/i',
+    'private supplier name' => '/\b(?:nology|scoop|miro|asbis|core group)\b/i',
+    'credential-like value' => '/\b(?:password|secret|api\s*key|private\s*key)\s*[:=]\s*[A-Za-z0-9_\/+.-]{8,}/i',
+];
+
+foreach ($blockedPatterns as $reason => $pattern) {
+    if (preg_match($pattern, $combined)) {
+        respond(['error' => "Public safety check blocked publishing because it detected {$reason}. Remove the private value or move it to Internal notes."], 400);
+    }
 }
 
 function public_blog_category($category) {
